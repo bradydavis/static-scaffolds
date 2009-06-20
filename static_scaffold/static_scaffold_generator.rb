@@ -1,6 +1,6 @@
 class StaticScaffoldGenerator < Rails::Generator::NamedBase
   default_options :skip_timestamps => false, :skip_migration => false, :force_plural => false
-
+  
   attr_reader   :controller_name,
                 :controller_class_path,
                 :controller_file_path,
@@ -12,6 +12,12 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
                 :controller_plural_name
   alias_method  :controller_file_name,  :controller_underscore_name
   alias_method  :controller_table_name, :controller_plural_name
+
+  # The Scaffold Generator is configured with a ruby class
+  spec_files = Dir.glob(File.join(RAILS_ROOT,"static_scaffold","*.rb"))
+  for f in spec_files
+      load f
+  end
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -41,44 +47,49 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
 
       # Controller, helper, views, test and stylesheets directories.
       m.directory(File.join('app/models', class_path))
-      m.directory(File.join('app/controllers', controller_class_path))
-      m.directory(File.join('app/helpers', controller_class_path))
-      m.directory(File.join('app/views', controller_class_path, controller_file_name))
-      m.directory(File.join('app/views/layouts', controller_class_path))
-      m.directory(File.join('test/functional', controller_class_path))
-      m.directory(File.join('test/unit', class_path))
-      m.directory(File.join('test/unit/helpers', class_path))
-      m.directory(File.join('public/stylesheets', class_path))
+      # m.directory(File.join('app/controllers', controller_class_path))
+      # m.directory(File.join('app/helpers', controller_class_path))
+      # m.directory(File.join('app/views', controller_class_path, controller_file_name))
+      # m.directory(File.join('app/views/layouts', controller_class_path))
+      # m.directory(File.join('test/functional', controller_class_path))
+      # m.directory(File.join('test/unit', class_path))
+      # m.directory(File.join('test/unit/helpers', class_path))
+      # m.directory(File.join('public/stylesheets', class_path))
 
-      for action in scaffold_views
-        m.template(
-          "view_#{action}.html.erb",
-          File.join('app/views', controller_class_path, controller_file_name, "#{action}.html.erb")
-        )
-      end
+      # Model
+      m.template(
+            "model.rb",
+            File.join('app/models',"#{@controller_singular_name}.rb"))
+
+      #for action in scaffold_views
+      #  m.template(
+      #    "view_#{action}.html.erb",
+      #    File.join('app/views', controller_class_path, controller_file_name, "#{action}.html.erb")
+      #  )
+      #end
 
       # Layout and stylesheet.
-      m.template('layout.html.erb', File.join('app/views/layouts', controller_class_path, "#{controller_file_name}.html.erb"))
-      m.template('style.css', 'public/stylesheets/scaffold.css')
+      #m.template('layout.html.erb', File.join('app/views/layouts', controller_class_path, "#{controller_file_name}.html.erb"))
+      #m.template('style.css', 'public/stylesheets/scaffold.css')
 
-      m.template(
-        'controller.rb', File.join('app/controllers', controller_class_path, "#{controller_file_name}_controller.rb")
-      )
+      #m.template(
+      #  'controller.rb', File.join('app/controllers', controller_class_path, "#{controller_file_name}_controller.rb")
+      #)
 
-      m.template('functional_test.rb', File.join('test/functional', controller_class_path, "#{controller_file_name}_controller_test.rb"))
-      m.template('helper.rb',          File.join('app/helpers',     controller_class_path, "#{controller_file_name}_helper.rb"))
-      m.template('helper_test.rb',     File.join('test/unit/helpers',    controller_class_path, "#{controller_file_name}_helper_test.rb"))
+      #m.template('functional_test.rb', File.join('test/functional', controller_class_path, "#{controller_file_name}_controller_test.rb"))
+      #m.template('helper.rb',          File.join('app/helpers',     controller_class_path, "#{controller_file_name}_helper.rb"))
+      #m.template('helper_test.rb',     File.join('test/unit/helpers',    controller_class_path, "#{controller_file_name}_helper_test.rb"))
 
-      m.route_resources controller_file_name
+      #m.route_resources controller_file_name
 
-      m.dependency 'model', [name] + @args, :collision => :skip
+      #m.dependency 'model', [name] + @args, :collision => :skip
     end
   end
 
   protected
     # Override with your own usage banner.
     def banner
-      "Usage: #{$0} scaffold ModelName [field:type, field:type]"
+      "Usage: #{$0} static_scaffold ModelName"
     end
 
     def add_options!(opt)
@@ -98,5 +109,12 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
 
     def model_name
       class_name.demodulize
+    end
+    
+    # generator specs
+    def gen_spec(mname=nil)
+        mname = model_name if not mname
+        gen_specs_mname = "#{mname}GenSpecs"
+        Object::const_get(gen_specs_mname).new()
     end
 end
