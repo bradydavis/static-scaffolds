@@ -90,5 +90,16 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
             return @controller_plural_name
         end
     end
+    
+    def belongs_to_columns
+        # return columns ending in '_id'
+        columns.select {|c| c.name.slice(-3,3)=="_id"}
+    end
+    
+    # a helper method
+    
+    def max_length(objects, method)
+        (objects.map {|item| item.send(method.to_s).inspect.length} << method.to_s.length).max
+    end
 
 end
