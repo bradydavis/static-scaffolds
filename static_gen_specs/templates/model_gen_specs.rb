@@ -20,7 +20,10 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%justifier.add_parameter {|o| ":units=>#{units(o.name).inspect}, "} -%>
 <%justifier.add_parameter {|o| ":rows=>#{estimate_rows(o.name).inspect}, "} -%>
 <%justifier.add_parameter {|o| ":cols=>#{estimate_cols(o.name).inspect}, "} -%>
-<%justifier.add_parameter {|o| ":required=>#{(not o.null).inspect}"} -%>
+<%justifier.add_parameter {|o| ":required=>#{(not o.null).inspect}, "} -%>
+<%justifier.add_parameter {|o| ":align=>#{guess_alignment(o.name).inspect}, "} -%>
+<%justifier.add_parameter {|o| ":decimals=>#{guess_decimals.inspect}"} -%>
+
 <%for o in columns -%>
      <%=justifier.render(o)%>},
 <%end -%>

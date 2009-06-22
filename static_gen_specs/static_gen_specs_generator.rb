@@ -167,6 +167,52 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         end
     end
     
+    def guess_alignment(cname)
+        c=column(cname)
+        case c.type
+        when :integer
+            "right"
+        when :float
+            "right"
+        when :decimal
+            "right"
+        else
+            "left"
+        end
+    end
+    
+    def guess_decimals(cname)
+        c=column(cname)
+        case c.type
+        when :integer
+            0
+        when :float
+            3
+        when :decimal
+            3
+        else
+            nil
+        end
+    end
+    
+    # the idea here is to guess at whate columns should be included in the list/table view
+    # the anticipation is that some columns will be hidden by default
+    
+    def guess_in_list(cname)
+        c=column(cname)
+        if c.type==:text
+            return false
+        end
+        hidden_fields = "password guid".split
+        for h in hidden_fields
+            if cname.match(h)
+                return false
+            end
+        end
+
+        return true
+    end
+    
     # units helpers - the idea is to encourage folks to append their units to the end of their db column names
     
     def units_hash
