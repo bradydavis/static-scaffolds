@@ -40,9 +40,13 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
   end
 
   def parent
-    # Specify 1 or no models as the parent.  Scaffolded code will only create this model in the context of its parent
-    # parent="ModelName"
-    # return GenSpecFactory.constantize(parent)
+<%justifier = CodeJustifier.new(belongs_to_columns) -%>
+<%justifier.add_parameter {|o| ":name=>#{o.name.slice(0,o.name.length-3).inspect}, "} -%>
+<%justifier.add_parameter {|o| ":model=>#{o.name.slice(0,o.name.length-3).camelize.inspect}, "} -%>
+<%justifier.add_parameter {|o| ":key=>#{o.name.inspect}, "} -%>
+<%for o in belongs_to_columns -%>
+  #  {<%=justifier.render(o)%>}
+<%end -%>
   end
 
   def has_many
@@ -58,12 +62,15 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
   end
   
   def children
-    # Specify a subset of the has_many models that are children.
-    selected_children = [
-          "",
-          ""
-          ]
-    return gen_specs_for(selected_children)
+    [
+<%justifier = CodeJustifier.new(has_many_columns) -%>
+<%justifier.add_parameter {|o| ":name=>#{o[:table].pluralize.inspect}, "} -%>
+<%justifier.add_parameter {|o| ":model=>#{o[:table].singularize.camelize.inspect}, "} -%>
+<%justifier.add_parameter {|o| ":key=>#{o[:column].inspect}, "} -%>
+<%for o in has_many_columns -%>
+   # {<%=justifier.render(o)%>},
+<%end -%>
+    ]
   end
   
   def included_models
