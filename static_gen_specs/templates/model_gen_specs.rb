@@ -22,8 +22,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%justifier.add_parameter {|o| ":cols=>#{estimate_cols(o.name).inspect}, "} -%>
 <%justifier.add_parameter {|o| ":required=>#{(not o.null).inspect}, "} -%>
 <%justifier.add_parameter {|o| ":align=>#{guess_alignment(o.name).inspect}, "} -%>
-<%justifier.add_parameter {|o| ":decimals=>#{guess_decimals.inspect}"} -%>
-
+<%justifier.add_parameter {|o| ":decimals=>#{guess_decimals(o.name).inspect}"} -%>
 <%for o in columns -%>
      <%=justifier.render(o)%>},
 <%end -%>

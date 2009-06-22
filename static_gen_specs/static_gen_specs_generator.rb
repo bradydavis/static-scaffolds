@@ -171,7 +171,11 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         c=column(cname)
         case c.type
         when :integer
-            "right"
+            if belongs_to_columns.map {|bt| bt.name}.select {|name| name==cname}.first
+                "left"
+            else
+                "right"
+            end
         when :float
             "right"
         when :decimal
@@ -185,7 +189,11 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         c=column(cname)
         case c.type
         when :integer
-            0
+            if belongs_to_columns.map {|bt| bt.name}.select {|name| name==cname}.first
+                nil
+            else
+                0
+            end
         when :float
             3
         when :decimal
