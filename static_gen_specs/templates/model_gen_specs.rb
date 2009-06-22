@@ -73,27 +73,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     ]
   end
   
-  def included_models
-    # Specify models to preload
-  end
-  
-  def listed_columns
-    # Typically its a good idea to display only a subset of columns in a list.  Comment out the ones to remove from list views.
-  end
-  
-  def form_groups
-    # For usability sake, it may be a good idea to group fields into chunks.
-    group1 = 
-  end
 
-  def children
-    # Specify the children in this list
-    selected_children = [
-          "",
-          ""
-          ]
-    return gen_specs_for(selected_children)
-  end
   
   # These methods are inherited from generator_specs.rb
   
