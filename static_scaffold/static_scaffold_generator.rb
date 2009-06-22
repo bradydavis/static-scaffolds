@@ -117,4 +117,29 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
         gen_specs_mname = "#{mname}GenSpecs"
         Object::const_get(gen_specs_mname).new()
     end
+    
+    class CodeJustifier   
+        # This class is designed to generate readable code, but is a hypocrate
+
+        attr_accessor :objects, :parameters
+
+        def initialize(objects)
+            self.objects = objects
+            self.parameters = []
+        end
+
+        def add_parameter(&p)
+            self.parameters << p
+        end
+
+        def render(object,delimiter)
+            self.parameters.map {|p| p.call(o).ljust(max_length(p))+1}.join(delimeter)
+        end
+
+        def max_length(parameter)
+            self.objects.map {|o| parameter.call(o).to_s.length }.max
+        end
+    end
 end
+
+

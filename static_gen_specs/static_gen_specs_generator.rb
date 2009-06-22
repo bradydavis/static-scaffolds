@@ -92,8 +92,25 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
     end
     
     def belongs_to_columns
-        # return columns ending in '_id'
+        # return columns indending in '_id'
         columns.select {|c| c.name.slice(-3,3)=="_id"}
+    end
+    
+    def has_many_columns
+        # search other tables for foreign keys, match based on naming convention
+        # for example: friend_user_id would be assumed to be a foreign key to a User
+        results = []
+        tables = ActiveRecord::Base.connection.tables
+        ref_id = "#{model_name.underscore.singularize.downcase}_id"
+        print "ref_id=#{ref_id}"
+        for t in tables
+            for c in ActiveRecord::Base.connection.columns(t)
+                if c.name.slice(0-ref_id.length,ref_id.length)==ref_id
+                    results << {:table=>t, :column=>c.name}
+                end
+            end
+        end
+        return results
     end
     
     # a helper method
@@ -101,5 +118,81 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
     def max_length(objects, method)
         (objects.map {|item| item.send(method.to_s).inspect.length} << method.to_s.length).max
     end
+    
+    def column(col_name)
+        columns.select {|c| c.name==col_name }
+    end
+        
+    def estimate_rows(col_name)
+        1
+    end
+    
+    def estimate_cols(cname)
+        30
+    end
+    
+    # units helpers - the idea is to encourage folks to append their units to the end of their db column names
+    
+    def units_hash
+        {
+            "_hrs" => "hours",
+            "_hours"=>"hours",
+            "_min"=>"minutes",
+            "_minutes"=>"minutes",
+            "_ppm"=>"ppm",
+            "_ppb"=>"ppb",
+            "_mgm3"=>"mg/m3",
+            "_f"=>"&deg;f",
+            "_c"=>"&deg;c",
+            "_rh"=>"% rh",
+        }
+    end
+    
+    def units(cname)
+        u=units_hash[units_key(cname)]
+        if u
+            u
+        else
+            nil
+        end
+    end
+    
+    def label(cname)
+        ukey = units_key(cname)
+        if ukey
+            cname.slice(0,cname.length-ukey.length).titleize
+        else
+            cname.titleize
+        end
+    end
+    
+    def units_key(cname)
+        units_hash.keys.select {|k| cname.slice((0-k.length),k.length)==k }.first
+    end
+    
+    
+    
+end
 
+class CodeJustifier   
+    # This class is designed to generate readable code, but is a hypocrate
+
+    attr_accessor :objects, :parameters
+
+    def initialize(objects)
+        self.objects = objects
+        self.parameters = []
+    end
+
+    def add_parameter(&p)
+        self.parameters << p
+    end
+
+    def render(object)
+        self.parameters.map {|p| p.call(object).ljust(max_length(p))}.join("")
+    end
+
+    def max_length(parameter)
+        self.objects.map {|o| parameter.call(o).to_s.length }.max
+    end
 end
