@@ -17,6 +17,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%justifier = CodeJustifier.new(columns) -%>
 <%justifier.add_parameter {|o| ":#{o.name} => "} -%>
 <%justifier.add_parameter {|o| "{:label=>#{label(o.name).inspect}, "} -%>
+<%justifier.add_parameter {|o| ":type=>#{guess_type(o.name).inspect}, "} -%>
 <%justifier.add_parameter {|o| ":units=>#{units(o.name).inspect}, "} -%>
 <%justifier.add_parameter {|o| ":rows=>#{estimate_rows(o.name).inspect}, "} -%>
 <%justifier.add_parameter {|o| ":cols=>#{estimate_cols(o.name).inspect}, "} -%>

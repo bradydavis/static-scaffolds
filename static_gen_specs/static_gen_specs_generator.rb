@@ -167,15 +167,22 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         end
     end
     
+    def guess_type(cname)
+        if belongs_to_columns.map {|bt| bt.name}.select {|name| name==cname}.first
+            return :foreign_key
+        end
+        if cname=="id"
+            return :primary_key
+        end
+        
+        return column(cname).type
+    end
+    
     def guess_alignment(cname)
         c=column(cname)
-        case c.type
+        case guess_type(cname)
         when :integer
-            if belongs_to_columns.map {|bt| bt.name}.select {|name| name==cname}.first
-                "left"
-            else
-                "right"
-            end
+            "right"
         when :float
             "right"
         when :decimal
@@ -187,13 +194,9 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
     
     def guess_decimals(cname)
         c=column(cname)
-        case c.type
+        case guess_type(cname)
         when :integer
-            if belongs_to_columns.map {|bt| bt.name}.select {|name| name==cname}.first
-                nil
-            else
                 0
-            end
         when :float
             3
         when :decimal
