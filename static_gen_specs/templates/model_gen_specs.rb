@@ -9,7 +9,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     plural_label = <%=model_name.pluralize.humanize.inspect%>
     singular_label = <%=model_name.humanize.inspect%>
     plural_title = <%=model_name.pluralize.titleize.inspect%>
-   singular_title = <%=model_name.titleize.inspect%>
+    singular_title = <%=model_name.titleize.inspect%>
   end
 
   def columns

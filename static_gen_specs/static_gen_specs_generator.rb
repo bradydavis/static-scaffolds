@@ -120,15 +120,51 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
     end
     
     def column(col_name)
-        columns.select {|c| c.name==col_name }
+        columns.select {|c| c.name==col_name }.first
     end
         
-    def estimate_rows(col_name)
-        1
+    def estimate_cols(cname)
+        c=column(cname)
+        case c.type
+        when :text then 30
+        when :integer then
+            if belongs_to_columns.map {|bt| bt.name}.select {|name| name==cname}.first
+                30
+            else
+                5
+            end
+        when :datetime then 18
+        when :float then 8
+        when :string then estimate_string(cname)
+        else 30
+        end
     end
     
-    def estimate_cols(cname)
-        30
+    def estimate_rows(cname)
+        c=column(cname)
+        case c.type
+        when :text then 3
+        else 1
+        end
+    end
+    
+    def estimate_string(cname)
+        # Look for commonly named fields and guess length otherwise make an educated guess based on db limits
+        c=column(cname)
+        common_lengths = { "phone"=>15,"fax"=>15, "zip"=>12, "first_name"=> 15, "last_name"=>15 }
+        key=common_lengths.keys.select {|key| cname[key]}.first
+        if key
+            common_lengths[key]
+        else
+            case c.limit
+            when 0..15
+                c.limit
+            when 15..30
+                20
+            else
+                30
+            end
+        end
     end
     
     # units helpers - the idea is to encourage folks to append their units to the end of their db column names
@@ -145,6 +181,7 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
             "_f"=>"&deg;f",
             "_c"=>"&deg;c",
             "_rh"=>"% rh",
+            "_utf"=>""
         }
     end
     
