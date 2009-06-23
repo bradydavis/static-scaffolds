@@ -11,6 +11,11 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     plural_title = <%=model_name.pluralize.titleize.inspect%>
     singular_title = <%=model_name.titleize.inspect%>
   end
+  
+  def security
+    authentication = :None     # :AuthLogic
+    authorization = :None      # :ACL9
+  end
 
   def columns
     {
