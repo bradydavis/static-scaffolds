@@ -25,7 +25,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     @order_preference = "ASC"
     
     # File Columns
-    @public_root_path = 'File.join(<%=RAILS_ROOT%>,"public")'
+    @public_root_path = 'File.join(<%=RAILS_ROOT.inspect%>,"public")'
     @private_root_path = 'File.join("filestore","private_files","<%=File.basename(RAILS_ROOT)%>")' 
   end
   
