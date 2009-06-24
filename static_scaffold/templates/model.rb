@@ -24,7 +24,11 @@ class <%= class_name %> < ActiveRecord::Base
   def self.table_name() 
     "<%=gen_spec.table_name%>" 
   end
-
+  
+  def icon
+      "<%=gen_spec.singular_name%>.gif"
+  end
+  
   def order_preference
     "<%=gen_spec.order_preference_columns.join(", ")%> <%=gen_spec.order_preference%>" 
   end
