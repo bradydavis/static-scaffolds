@@ -1,8 +1,14 @@
 class <%= class_name %> < ActiveRecord::Base
 
 <%if gen_spec.belongs_to -%>
-<%for bt in gen_spec.belongs_to.sort {|bt|bt["name"]} -%>
+<%for bt in gen_spec.belongs_to.sort {|a,b|a["name"]<=>b["name"]} -%>
   belongs_to <%=bt[:name].inspect%>, :class_name=><%=bt[:model].inspect%>, :foreign_key=><%=bt[:key].inspect%>
+<%end -%>
+
+<%end -%>
+<%if gen_spec.belongs_to -%>
+<%for hm in gen_spec.has_many.sort {|a,b|a["name"]<=>b["name"]} -%>
+  has_many <%=hm[:name].inspect%>, :class_name=><%=bt[:model].inspect%>, :foreign_key=><%=bt[:key].inspect%>
 <%end -%>
 
 <%end -%>
