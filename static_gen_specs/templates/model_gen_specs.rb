@@ -72,7 +72,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     ]
   end
   
-  def descendants
+  def desendants
     [
 <%justifier = CodeJustifier.new(has_many_columns) -%>
 <%justifier.add_parameter {|o| ":name=>#{o[:table].pluralize.inspect}, "} -%>
