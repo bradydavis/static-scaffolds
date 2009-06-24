@@ -1,8 +1,8 @@
 # Load all generator specs
-spec_files = Dir.glob(File.join(RAILS_ROOT,"static_scaffold","*.rb"))
-for f in spec_files
-    load f
-end
+#spec_files = Dir.glob(File.join(RAILS_ROOT,"static_scaffold","*.rb"))
+#for f in spec_files
+#    require f
+#end
 
 class GenSpecFactory
 
@@ -38,6 +38,14 @@ class GeneratorSpecs < GenSpecFactory
          # <%=model_name.underscore.inspect%>
          model_name.underscore
     end
+    
+    def singular_name
+        model_name.underscore
+    end
+    
+    def plural_name
+        model_name.underscore.pluralize
+    end
 
     def controller_class_name
         # <%="#{model_name.pluralize}Controller".inspect%>
@@ -58,5 +66,3 @@ class GeneratorSpecs < GenSpecFactory
 end
 
 
-    
-end
