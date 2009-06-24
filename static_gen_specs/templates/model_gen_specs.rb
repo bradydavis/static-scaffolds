@@ -50,7 +50,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     ]
   end
 
-  def parent
+  def assendant
 <%justifier = CodeJustifier.new(belongs_to_columns) -%>
 <%justifier.add_parameter {|o| ":name=>#{o.name.slice(0,o.name.length-3).inspect}, "} -%>
 <%justifier.add_parameter {|o| ":model=>#{o.name.slice(0,o.name.length-3).camelize.inspect}, "} -%>
@@ -72,7 +72,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     ]
   end
   
-  def children
+  def descendants
     [
 <%justifier = CodeJustifier.new(has_many_columns) -%>
 <%justifier.add_parameter {|o| ":name=>#{o[:table].pluralize.inspect}, "} -%>
