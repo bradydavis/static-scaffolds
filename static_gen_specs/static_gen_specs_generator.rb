@@ -102,7 +102,6 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         results = []
         tables = ActiveRecord::Base.connection.tables
         ref_id = "#{model_name.underscore.singularize.downcase}_id"
-        print "ref_id=#{ref_id}"
         for t in tables
             for c in ActiveRecord::Base.connection.columns(t)
                 if c.name.slice(0-ref_id.length,ref_id.length)==ref_id
@@ -206,6 +205,22 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         end
     end
     
+    def find_column_names_matching(name_list)
+        results = []
+        column_names = columns.map {|c| c.name}
+        for item in name_list
+            results = results+column_names.select {|cname| cname.match(item)}
+        end
+        return results
+    end
+    
+    def guess_photo_columns
+        find_column_names_matching("photo thumbnail".split)       
+    end
+    
+    def guess_file_columns
+        find_column_names_matching("file fname attachment document fpath".split)
+    end
     
     def guess_ordered_columns
         # return names and dates otherwise id

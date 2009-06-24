@@ -4,7 +4,8 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
   attr_accessor :model_name, :class_name, :table_name, :primary_key,
           :plural_label, :singular_label, :plural_title, :singular_title,
           :authentication_method, :authorization_method,
-          :order_preference_columns, :order_preference
+          :order_preference_columns, :order_preference,
+          :public_root_path, :private_root_path
           
   def initialize()
     @model_name = <%=model_name.inspect%>
@@ -21,7 +22,11 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     
     # Order
     @order_preference_columns = <%=guess_ordered_columns.inspect%>
-    @order_preference = "ASC" 
+    @order_preference = "ASC"
+    
+    # File Columns
+    @public_root_path = 'File.join(<%=RAILS_ROOT%>,"public")'
+    @private_root_path = 'File.join("filestore","private_files","<%=File.basename(RAILS_ROOT)%>")' 
   end
   
 
@@ -38,6 +43,31 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%justifier.add_parameter {|o| ":align=>#{guess_alignment(o.name).inspect}, "} -%>
 <%justifier.add_parameter {|o| ":decimals=>#{guess_decimals(o.name).inspect}"} -%>
 <%for o in columns -%>
+     <%=justifier.render(o)%>},
+<%end -%>
+    }
+  end
+  
+  def file_columns
+    # EXAMPLE 1:  :avitar => {:type => :photo, :public => :true},  # don't set the root of public
+    # EXAMPLE 2:  :resume => {:type => :file, :public => :false}   # set root of private
+    {
+<%justifier = CodeJustifier.new(guess_file_columns) -%>
+<%justifier.add_parameter {|o| ":#{o} => {"} -%>
+<%justifier.add_parameter {|o| ":type => :file, "} -%>
+<%justifier.add_parameter {|o| ":public => false, "} -%>
+<%justifier.add_parameter {|o| ":root_path => nil, "} -%>
+
+<%for o in guess_file_columns -%>
+     <%=justifier.render(o)%>},
+<%end -%>
+<%justifier = CodeJustifier.new(guess_photo_columns) -%>
+<%justifier.add_parameter {|o| ":#{o} => {"} -%>
+<%justifier.add_parameter {|o| ":type => :photo, "} -%>
+<%justifier.add_parameter {|o| ":public => false, "} -%>
+<%justifier.add_parameter {|o| ":root_path => nil"} -%>
+
+<%for o in guess_photo_columns -%>
      <%=justifier.render(o)%>},
 <%end -%>
     }
