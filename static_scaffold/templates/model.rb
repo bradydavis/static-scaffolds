@@ -13,7 +13,7 @@ def self.table_name() "<%=gen_spec.table_name%>" end
             return true
         else
 <%if gen_spec.ascendant -%>
-            return (permitted_include?(user) and ascendant.permits(user))
+            return (permitted_include?(user) and ascendant.permits?(user))
 <%else -%>
             return permitted_include?(user)
 <%end -%>
