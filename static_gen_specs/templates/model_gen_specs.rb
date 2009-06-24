@@ -1,7 +1,7 @@
 class <%=class_name%>GenSpecs < GeneratorSpecs
   attr_accessor :model_name, :class_name, :table_name, :primary_key,
           :plural_label, :singular_label, :plural_title, :singular_title,
-          :authentication, :authorization
+          :authentication_method, :authorization_method
           
   def initialize()
     model_name = <%=model_name.inspect%>
@@ -13,10 +13,10 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     singular_title = <%=model_name.titleize.inspect%>
 
     # Security 
-    authentication = :AuthLogic                # :none
-    authorization = :static_authorization      # :ACL9, :none
+    authentication_method = :AuthLogic                # :none
+    authorization_method  = :static_authorization     # :ACL9, :none
   end
-
+  
 
   def columns
     {
