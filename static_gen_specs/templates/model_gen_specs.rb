@@ -3,7 +3,8 @@ require File.join(RAILS_ROOT,"static_scaffold","generator_specs.rb")
 class <%=class_name%>GenSpecs < GeneratorSpecs
   attr_accessor :model_name, :class_name, :table_name, :primary_key,
           :plural_label, :singular_label, :plural_title, :singular_title,
-          :authentication_method, :authorization_method
+          :authentication_method, :authorization_method,
+          :order_preference_columns, :order_preference
           
   def initialize()
     @model_name = <%=model_name.inspect%>
@@ -17,6 +18,10 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     # Security 
     @authentication_method = :AuthLogic                # :none
     @authorization_method  = :static_authorization     # :ACL9, :none
+    
+    # Order
+    @order_preference_columns = <%=guess_ordered_columns.inspect%>
+    @order_preference = "ASC" 
   end
   
 

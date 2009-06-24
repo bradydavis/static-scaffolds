@@ -206,6 +206,19 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         end
     end
     
+    
+    def guess_ordered_columns
+        # return names and dates otherwise id
+        names = columns.map {|c| c.name}.select {|name| name.match("name")}
+        dates = columns.select {|c| c.type==:datetime}.map {|c| c.name }
+        combined = names+dates
+        if combined
+            return combined
+        else
+            return "#{table_name}.id"
+        end
+    end
+    
     # the idea here is to guess at whate columns should be included in the list/table view
     # the anticipation is that some columns will be hidden by default
     

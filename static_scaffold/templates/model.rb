@@ -16,6 +16,10 @@ class <%= class_name %> < ActiveRecord::Base
     "<%=gen_spec.table_name%>" 
   end
 
+  def order_preference
+    "<%=gen_spec.order_preference_columns.join(", ")%> <%=gen_spec.order_preference%>" 
+  end
+
 <%if gen_spec.ascendant -%>
   def ascendant
     <%=gen_spec.ascendant[:name]%>  
