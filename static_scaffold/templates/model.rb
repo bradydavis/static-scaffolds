@@ -8,18 +8,24 @@ def self.table_name() "<%=gen_spec.table_name%>" end
 <%end -%>
 
 <%if gen_spec.authorization_method.to_s == 'static_authorization' -%>
-    def authorize_scope(user)
+    def permits?(user)
+        if user.has_global_permit_for(<%=gen_spec.plural_name%>.inspect)
+            return true
+        else
 <%if gen_spec.ascendant -%>
-        user.authorize_global_access(<%=gen_spec.singular_name.inspect%>) or (<%=gen_spec.singular_name%>_authorize_scope(user) and ascendant.authorize_scope(user))
+            return (self.permitted_include?(user) and ascendant.permits(user))
 <%else -%>
-        user.authorize_global_access(<%=gen_spec.singular_name.inspect%>) or <%=gen_spec.singular_name%>_authorize_scope(user)
+            return self.permitted_include(user)
 <%end -%>
     end
 
-    def <%=gen_spec.singular_name%>_authorize_scope(user)
-        # Impliment custom scoping rules here
+    def permitted_include?(user)
+        # Asside from ascendant constraints, is this user permitted to access this <%=gen_spec.singular_name%>
         return true
     end
 
 <%end -%>
 end
+
+
+@reading.family_authorizes
