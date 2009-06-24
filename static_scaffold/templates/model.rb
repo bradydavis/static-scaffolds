@@ -29,6 +29,15 @@ class <%= class_name %> < ActiveRecord::Base
       "<%=gen_spec.singular_name%>.gif"
   end
   
+  def short_name
+      name = <%=(["%s"]*gen_spec.short_name_columns.join(" ")).inspect%>%[<%=gen_spec.short_name_columns.join(", ")%>]
+      if name==""
+          return "Untitled"
+      else
+          return name
+      end
+  end
+  
   def order_preference
     "<%=gen_spec.order_preference_columns.join(", ")%> <%=gen_spec.order_preference%>" 
   end
