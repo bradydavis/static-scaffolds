@@ -12,7 +12,7 @@ class <%= class_name %> < ActiveRecord::Base
 
 <%if gen_spec.ascendant -%>
   def ascendant
-    <%=gen_spec.singular_name%>  
+    <%=gen_spec.ascendant[:name]%>  
   end
 
 <%end -%>
