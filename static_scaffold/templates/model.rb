@@ -6,7 +6,7 @@ class <%= class_name %> < ActiveRecord::Base
 <%end -%>
 
 <%end -%>
-<%if gen_spec.belongs_to -%>
+<%if gen_spec.has_many -%>
 <%for hm in gen_spec.has_many.sort {|a,b|a["name"]<=>b["name"]} -%>
   has_many <%=hm[:name].inspect%>, :class_name=><%=hm[:model].inspect%>, :foreign_key=><%=hm[:key].inspect%>
 <%end -%>
