@@ -9,14 +9,15 @@ def self.table_name() "<%=gen_spec.table_name%>" end
 
 <%if gen_spec.authorization_method.to_s == 'static_authorization' -%>
     def permits?(user)
-        if user.has_global_permit_for(<%=gen_spec.plural_name%>.inspect)
+        if user.has_global_permit_for(<%=gen_spec.plural_name.inspect%>)
             return true
         else
 <%if gen_spec.ascendant -%>
             return (self.permitted_include?(user) and ascendant.permits(user))
 <%else -%>
-            return self.permitted_include(user)
+            return self.permitted_include?(user)
 <%end -%>
+        end
     end
 
     def permitted_include?(user)
@@ -27,5 +28,3 @@ def self.table_name() "<%=gen_spec.table_name%>" end
 <%end -%>
 end
 
-
-@reading.family_authorizes
