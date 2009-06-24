@@ -29,6 +29,9 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     @private_root_path = 'File.join("filestore","private_files","<%=File.basename(RAILS_ROOT)%>")' 
   end
   
+  def short_name_columns
+    <%=guess_short_name.inspect%>
+  end
 
   def columns
     {

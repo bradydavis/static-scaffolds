@@ -222,6 +222,15 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         find_column_names_matching("file fname attachment document fpath".split)
     end
     
+    def guess_short_name
+        guess = find_column_names_matching("name")
+        if guess.length==0
+            ["id"]
+        else
+            guess
+        end
+    end
+    
     def guess_ordered_columns
         # return names and dates otherwise id
         names = columns.map {|c| c.name}.select {|name| name.match("name")}
