@@ -30,7 +30,7 @@ class <%= class_name %> < ActiveRecord::Base
   end
   
   def short_name
-      name = <%=(["%s"]*gen_spec.short_name_columns.join(" ")).inspect%>%[<%=gen_spec.short_name_columns.join(", ")%>]
+      name = <%=((["%s"]*gen_spec.short_name_columns.length).join(" ")).inspect%>%[<%=gen_spec.short_name_columns.map{|c| "@#{c}"}.join(", ")%>]
       if name==""
           return "Untitled"
       else
