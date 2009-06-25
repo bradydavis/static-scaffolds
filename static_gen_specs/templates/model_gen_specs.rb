@@ -38,7 +38,6 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
   end
   
   def list_view_columns
-      # list views often don't show every column (otherwise the table would exceed your horizontal space) configure them here
     [
 <%for c in column_names -%>
 <%if guess_list_columns.include?(c) -%>
