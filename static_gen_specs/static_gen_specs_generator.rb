@@ -177,6 +177,12 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         if cname=="id"
             return :primary_key
         end
+        if is_file_column?(cname)
+            return :file
+        end
+        if is_photo_column?(cname)
+            return :photo
+        end
         return column(cname).type
     end
     
@@ -216,12 +222,12 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         return results
     end
     
-    def guess_photo_columns
-        find_column_names_matching("photo thumbnail".split)       
+    def is_photo_column?(cname)
+        find_column_names_matching("photo thumbnail".split).include?(cname)       
     end
     
-    def guess_file_columns
-        find_column_names_matching("file fname attachment document fpath".split)
+    def is_file_column?(cname)
+        find_column_names_matching("file fname attachment document fpath".split).include?(cname)
     end
     
     def guess_short_name
