@@ -47,26 +47,26 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
 
       # Controller, helper, views, test and stylesheets directories.
       m.directory(File.join('app/models', class_path))
-      # m.directory(File.join('app/controllers', controller_class_path))
-      # m.directory(File.join('app/helpers', controller_class_path))
-      # m.directory(File.join('app/views', controller_class_path, controller_file_name))
-      # m.directory(File.join('app/views/layouts', controller_class_path))
-      # m.directory(File.join('test/functional', controller_class_path))
-      # m.directory(File.join('test/unit', class_path))
-      # m.directory(File.join('test/unit/helpers', class_path))
-      # m.directory(File.join('public/stylesheets', class_path))
+      m.directory(File.join('app/controllers', controller_class_path))
+      m.directory(File.join('app/helpers', controller_class_path))
+      m.directory(File.join('app/views', controller_class_path, controller_file_name))
+      m.directory(File.join('app/views/layouts', controller_class_path))
+      m.directory(File.join('test/functional', controller_class_path))
+      m.directory(File.join('test/unit', class_path))
+      m.directory(File.join('test/unit/helpers', class_path))
+      m.directory(File.join('public/stylesheets', class_path))
 
       # Model
       m.template(
             "model.rb",
-            File.join('app/models',"#{@controller_singular_name}.rb"))
+            File.join('app/models',"#{@controller_singular_name.downcase}.rb"))
 
-      #for action in scaffold_views
-      #  m.template(
-      #    "view_#{action}.html.erb",
-      #    File.join('app/views', controller_class_path, controller_file_name, "#{action}.html.erb")
-      #  )
-      #end
+      for action in scaffold_views
+        m.template(
+          "view_#{action}.html.erb",
+          File.join('app/views', controller_class_path, controller_file_name, "#{action}.html.erb")
+        )
+      end
 
       # Layout and stylesheet.
       #m.template('layout.html.erb', File.join('app/views/layouts', controller_class_path, "#{controller_file_name}.html.erb"))

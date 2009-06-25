@@ -1,5 +1,5 @@
 <%% title "Edit <%= gen_spec.singular_title %>: "+@<%=gen_spec.singular_name%>.short_name %>
-<h1>Editing <%= gen_spec.singular_name %>: <%%=<%=gen_spec.singular_name%>.short_name%></h1>
+<h1>Editing <%= gen_spec.singular_name %>: <%%=@<%=gen_spec.singular_name%>.short_name%></h1>
 
 <%% form_for(@<%= singular_name %>) do |f| %>
   <%%= f.error_messages %>
