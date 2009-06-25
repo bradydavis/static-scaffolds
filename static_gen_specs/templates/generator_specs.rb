@@ -38,14 +38,6 @@ class GeneratorSpecs < GenSpecFactory
          # <%=model_name.underscore.inspect%>
          model_name.underscore
     end
-    
-    def singular_name
-        model_name.underscore
-    end
-    
-    def plural_name
-        model_name.underscore.pluralize
-    end
 
     def controller_class_name
         # <%="#{model_name.pluralize}Controller".inspect%>

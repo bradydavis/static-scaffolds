@@ -5,7 +5,7 @@ class <%= class_name %> < ActiveRecord::Base
 
 <%if gen_spec.file_columns.length>0 -%>
 <%for column,options in gen_spec.file_columns -%>
-  file_column :<%=column.inspect%>, :store_dir=><%="#{column}_store_dir".inspect%>, :root_path=><%if options["public"]%>PUBLIC_ROOT_PATH><%else%>PRIVATE_ROOT_PATH<%end%>
+  file_column <%=column.inspect%>, :store_dir=><%="#{column}_store_dir".inspect%>, :root_path=><%if options["access"]%>PUBLIC_ROOT_PATH><%else%>PRIVATE_ROOT_PATH<%end%>
 <%end -%>
 
 <%end -%>

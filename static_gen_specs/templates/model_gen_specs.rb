@@ -1,7 +1,7 @@
 require File.join(RAILS_ROOT,"static_scaffold","generator_specs.rb")
 
 class <%=class_name%>GenSpecs < GeneratorSpecs
-  attr_accessor :model_name, :class_name, :table_name, :primary_key,
+  attr_accessor :model_name, :class_name, :table_name, :primary_key, :singular_name, :plural_name,
           :plural_label, :singular_label, :plural_title, :singular_title,
           :authentication_method, :authorization_method,
           :order_preference_columns, :order_preference,
@@ -11,6 +11,8 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     @model_name = <%=model_name.inspect%>
     @table_name = <%=table_name.inspect%>
     @primary_key = "id"
+    @plural_name = <%=model_name.underscore.downcase.pluralize.inspect%>
+    @singular_name = <%=model_name.underscore.downcase.singularize.inspect%>
     @plural_label = <%=model_name.pluralize.humanize.inspect%>
     @singular_label = <%=model_name.humanize.inspect%>
     @plural_title = <%=model_name.pluralize.titleize.inspect%>
@@ -37,7 +39,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     <%=guess_short_name.inspect%>
   end
   
-  def list_view_columns
+  def table_view_columns
     [
 <%for c in column_names -%>
 <%if guess_list_columns.include?(c) -%>
@@ -50,7 +52,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
   end
   
 
-  def columns
+  def column_specs
     {
 <%justifier = CodeJustifier.new(columns) -%>
 <%justifier.add_parameter {|o| ":#{o.name} => "} -%>
@@ -67,6 +69,10 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
       <%=justifier.render(o)%>},
 <%end -%>
     }
+  end
+  
+  def file_columns
+      column_specs.select {|k,v| v[:type]==:file or v[:type]==:photo}
   end
 
   def belongs_to

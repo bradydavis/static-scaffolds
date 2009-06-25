@@ -3,19 +3,20 @@
 
 <table>
   <tr>
-<% for attribute in attributes -%>
-    <th><%= attribute.column.human_name %></th>
+	<th>&nbsp;</th>
+<% for cname in gen_spec.table_view_columns -%>
+<% specs = gen_spec.column_specs[cname] -%>
+    <th><%= specs[:label]%><%= " (#{specs[:units]})" if specs[:units]%></th>
 <% end -%>
   </tr>
 
-<%% @<%= plural_name %>.each do |<%= singular_name %>| %>
+<%% @<%= gen_spec.plural_name %>.each do |<%= gen_spec.singular_name %>| %>
   <tr>
-<% for attribute in attributes -%>
-    <td><%%=h <%= singular_name %>.<%= attribute.name %> %></td>
+  <td><%%= link_to <%=gen_spec.singular_name%>.short_name, <%= gen_spec.singular_name %> %> </td>
+<% for cname in gen_spec.table_view_columns -%>
+<% specs = gen_spec.column_specs[cname] -%>
+    <td align="<%=specs["align"]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
 <% end -%>
-    <td><%%= link_to 'Show', <%= singular_name %> %></td>
-    <td><%%= link_to 'Edit', edit_<%= singular_name %>_path(<%= singular_name %>) %></td>
-    <td><%%= link_to 'Destroy', <%= singular_name %>, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <%% end %>
 </table>
