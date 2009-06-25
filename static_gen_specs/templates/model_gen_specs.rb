@@ -33,8 +33,23 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
   end
   
   def short_name_columns
+     # Specify the columns that constitute the "name" for example ["first_name", "last_name"]
     <%=guess_short_name.inspect%>
   end
+  
+  def list_view_columns
+      # list views often don't show every column (otherwise the table would exceed your horizontal space) configure them here
+    [
+<%for c in column_names -%>
+<%if guess_list_columns.include?(c) -%>
+      <%=c.to_sym.inspect%>,
+<%else -%>
+    # <%=c.to_sym.inspect%>,
+<%end -%>
+<%end -%>
+    ]
+  end
+  
 
   def columns
     {
@@ -49,7 +64,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%justifier.add_parameter {|o| ":align=>#{guess_alignment(o.name).inspect}, "} -%>
 <%justifier.add_parameter {|o| ":decimals=>#{guess_decimals(o.name).inspect}"} -%>
 <%for o in columns -%>
-     <%=justifier.render(o)%>},
+      <%=justifier.render(o)%>},
 <%end -%>
     }
   end
@@ -63,7 +78,6 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%justifier.add_parameter {|o| ":type => :file, "} -%>
 <%justifier.add_parameter {|o| ":public => false, "} -%>
 <%justifier.add_parameter {|o| ":root_path => nil, "} -%>
-
 <%for o in guess_file_columns -%>
      <%=justifier.render(o)%>},
 <%end -%>
@@ -72,7 +86,6 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%justifier.add_parameter {|o| ":type => :photo, "} -%>
 <%justifier.add_parameter {|o| ":public => false, "} -%>
 <%justifier.add_parameter {|o| ":root_path => nil"} -%>
-
 <%for o in guess_photo_columns -%>
      <%=justifier.render(o)%>},
 <%end -%>

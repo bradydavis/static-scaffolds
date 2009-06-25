@@ -121,6 +121,10 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
     def column(col_name)
         columns.select {|c| c.name==col_name }.first
     end
+    
+    def column_names
+        cnames = columns.map {|c| c.name}
+    end    
         
     def estimate_cols(cname)
         c=column(cname)
@@ -173,7 +177,6 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         if cname=="id"
             return :primary_key
         end
-        
         return column(cname).type
     end
     
@@ -207,7 +210,6 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
     
     def find_column_names_matching(name_list)
         results = []
-        column_names = columns.map {|c| c.name}
         for item in name_list
             results = results+column_names.select {|cname| cname.match(item)}
         end
@@ -241,6 +243,12 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         else
             return "#{table_name}.id"
         end
+    end
+    
+    def guess_list_columns
+        text_fields = columns.select {|c|c.type==:text}.map{|c|c.name}
+        meta_fields = ["id","created_at", "updated_at", "version", "guid"]
+        return column_names - text_fields - meta_fields
     end
     
     # the idea here is to guess at whate columns should be included in the list/table view
