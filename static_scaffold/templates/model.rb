@@ -58,6 +58,29 @@ class <%= class_name %> < ActiveRecord::Base
   def <%=column%>_store_dir
       File.join(refactored_store_dir, <%=column.to_s.pluralize.inspect%>)
   end
+
+  def <%=column%>_icon
+<%if options["type"]==:photo%>
+    return "photo.gif"
+<%else -%>
+    return "attachment.gif"
+<%end -%>
+  end
+  
+  def <%=column%>_basename
+    File.basename(@<%=column%>)
+  end
+  
+  def <%=column%>_shortname
+    b=<%=column%>_basename
+    if b and b.length>13
+      "#{b.slice(0,8)}~#{b.slice(-4,4)}"
+    else
+      b
+    end  
+  end
+  
+  
 <%end -%>
 
 <%end -%>
