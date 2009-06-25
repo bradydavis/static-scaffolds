@@ -5,7 +5,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
           :plural_label, :singular_label, :plural_title, :singular_title,
           :authentication_method, :authorization_method,
           :order_preference_columns, :order_preference,
-          :public_root_path, :private_root_path
+          :public_root_path, :private_root_path, :will_paginate
           
   def initialize()
     @model_name = <%=model_name.inspect%>
@@ -27,6 +27,9 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     # File Columns
     @public_root_path = 'File.join(<%=RAILS_ROOT.inspect%>,"public")'
     @private_root_path = 'File.join("filestore","private_files","<%=File.basename(RAILS_ROOT)%>")' 
+    
+    # Pagination
+    @will_paginate = true # false
   end
   
   def short_name_columns
