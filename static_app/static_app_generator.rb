@@ -10,9 +10,10 @@ class StaticAppGenerator < Rails::Generator::Base
       m.directory 'public/stylesheets'
       m.directory 'app/helpers'
       m.template "layout.html.erb", "app/views/layouts/application.html.erb"
-      m.file "stylesheet.css", "public/stylesheets/stylesheet.css"
+      m.file "static_style.css", "public/stylesheets/static_style.css"
       m.file "sorttable.js", "public/javascripts/sorttable.js"
-      m.file "helper.rb", "app/helpers/layout_helper.rb"
+      m.file "application_helper.rb", "app/helpers/application_helper.rb"      
+      m.file "layout_helper.rb", "app/helpers/layout_helper.rb"
     end
   end
    

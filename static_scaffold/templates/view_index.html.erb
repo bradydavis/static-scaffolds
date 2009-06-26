@@ -1,7 +1,7 @@
 <%% title "Listing <%= gen_spec.plural_title %>" %>
 <h1>Listing <%= gen_spec.plural_title %></h1>
 
-<table class="sortable">
+<%%=data_table_start <%="#{gen_spec.plural_name}_#{next_count}".inspect%>%>
   <tr>
 	<th>&nbsp;</th>
 <% for cname in gen_spec.table_view_columns -%>
@@ -19,7 +19,7 @@
 <% end -%>
   </tr>
 <%% end %>
-</table>
+<%%=data_table_end <%="#{gen_spec.plural_name}_#{count}".inspect%>%>
 
 <br />
 

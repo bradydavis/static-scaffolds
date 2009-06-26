@@ -12,6 +12,7 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
                 :controller_plural_name
   alias_method  :controller_file_name,  :controller_underscore_name
   alias_method  :controller_table_name, :controller_plural_name
+  attr_accessor :count
 
   # The Scaffold Generator is configured with a ruby class
   spec_files = Dir.glob(File.join(RAILS_ROOT,"static_scaffold","*.rb"))
@@ -26,7 +27,7 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
       logger.warning "Plural version of the model detected, using singularized version.  Override with --force-plural."
       @name = @name.singularize
     end
-
+    @count=0
     @controller_name = @name.pluralize
 
     base_name, @controller_class_path, @controller_file_path, @controller_class_nesting, @controller_class_nesting_depth = extract_modules(@controller_name)
@@ -37,6 +38,11 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
     else
       @controller_class_name = "#{@controller_class_nesting}::#{@controller_class_name_without_nesting}"
     end
+  end
+
+  def next_count
+      @count=@count+1
+      return @count
   end
 
   def manifest
@@ -70,7 +76,6 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
 
       # Layout and stylesheet.
       m.template('layout.html.erb', File.join('app/views/layouts', controller_class_path, "#{controller_file_name}.html.erb"))
-      m.template('style.css', 'public/stylesheets/scaffold.css')
 
       m.template(
         'controller.rb', File.join('app/controllers', controller_class_path, "#{controller_file_name}_controller.rb")
