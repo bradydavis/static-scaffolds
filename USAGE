@@ -1,0 +1,17 @@
+NAME
+     static scaffolds - generate attractive interfaces that are easy to edit
+
+SYNOPSIS
+     static_app
+	 static_gen_specs
+	 static_scaffold
+     
+DESCRIPTION
+     Generate static_app once at the beginning of a project.  Generate static_gen_specs for each model.  The generated gen_specs
+     will contain best guesses, but you can edit them before your proceed to generating the scaffold.  Last generate the static_scaffold.
+
+            
+EXAMPLE
+      ./script/generate static_app
+      ./script/generate static_gen_specs MyModel
+      ./script/generate generator_scaffold MyModel
