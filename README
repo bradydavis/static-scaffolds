@@ -5,7 +5,7 @@ Generate attractive interfaces that are easy to edit.
 defaults.  
 
 ## Installation
-
+	gem sources -a http://gems.github.com 
 	gem install jrhicks-static-scaffolds
 
 ## Usage (Roadmap)

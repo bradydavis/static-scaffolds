@@ -9,7 +9,7 @@ end
 
 namespace :gem do
 
-  PACKAGE_NAME = "static_scaffolds"
+  PACKAGE_NAME = "static-scaffolds"
   GEM_VERSION = "0.1"
   SUMMARY = "Generate attractive interfaces that are easy to edit."
   DESCRIPTION = SUMMARY
