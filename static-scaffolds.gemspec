@@ -2,14 +2,14 @@
 
 Gem::Specification.new do |s|
   s.name = %q{static-scaffolds}
-  s.version = "0.1"
+  s.version = "0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeffrey Hicks"]
   s.date = %q{2009-06-28}
   s.description = %q{Generate attractive interfaces that are easy to edit.}
   s.email = %q{jrhicks@gmail.com}
-  s.files = ["README", "USAGE", "static_app/static_app_generator.rb", "static_app/templates/application_helper.rb", "static_app/templates/layout.html.erb", "static_app/templates/layout_helper.rb", "static_app/templates/sorttable.js", "static_app/templates/static_style.css", "static_gen_specs/static_gen_specs_generator.rb", "static_gen_specs/templates/generator_specs.rb", "static_gen_specs/templates/model_gen_specs.rb", "static_scaffold/static_scaffold_generator.rb"]
+  s.files = ["README", "USAGE", "static_app/static_app_generator.rb", "static_app/templates/application_helper.rb", "static_app/templates/layout.html.erb", "static_app/templates/layout_helper.rb", "static_app/templates/sorttable.js", "static_app/templates/static_style.css", "static_gen_specs/static_gen_specs_generator.rb", "static_gen_specs/templates/generator_specs.rb", "static_gen_specs/templates/model_gen_specs.rb", "static_scaffold/static_scaffold_generator.rb", "lib"]
   s.has_rdoc = true
   s.homepage = %q{http://github.com/jrhicks/static-scaffolds}
   s.rdoc_options = ["--main", "README"]

@@ -10,7 +10,7 @@ end
 namespace :gem do
 
   PACKAGE_NAME = "static-scaffolds"
-  GEM_VERSION = "0.1"
+  GEM_VERSION = "0.2"
   SUMMARY = "Generate attractive interfaces that are easy to edit."
   DESCRIPTION = SUMMARY
 
@@ -27,7 +27,7 @@ namespace :gem do
     s.authors = ["Jeffrey Hicks"]
     s.files = Dir["README", "USAGE", "static_app/static_app_generator.rb", "static_app/templates/*",
                                      "static_gen_specs/static_gen_specs_generator.rb","static_gen_specs/templates/*",
-                                     "static_scaffold/static_scaffold_generator.rb","static_scaffold/tempaltes/*"]
+                                     "static_scaffold/static_scaffold_generator.rb","static_scaffold/tempaltes/*","lib"]
     s.test_files = Dir["/test/**/*"]
     s.rdoc_options = ["--main", "README"]    
     s.add_dependency("rails", [">= 2.3"])
@@ -57,4 +57,12 @@ namespace :gem do
     f.close
   end
   
+  desc "Create gem spec, build gem, and install"
+  task :deploy do
+      f = File.open("#{PACKAGE_NAME}.gemspec", "w+")
+      f << spec.to_ruby
+      f.close
+      sh "sudo gem build #{PACKAGE_NAME}.gemspec"
+      sh "sudo gem install #{PACKAGE_NAME}-#{GEM_VERSION}.gem"
+  end
 end
