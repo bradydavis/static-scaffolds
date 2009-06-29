@@ -6,8 +6,8 @@ defaults.
 
 ## Installation
 
-	gem sources -a http://gems.github.com 
-	gem install jrhicks-static-scaffolds
+  gem sources -a http://gems.github.com 
+  gem install jrhicks-static-scaffolds
 
 ## Usage (Roadmap)
 
@@ -15,10 +15,13 @@ defaults.
     ruby script/generate static_gen_specs MyModel
     ruby script/generate static_scaffold MyModel
 
-## Development
+## Gem Development
 
+	gem install echoe
     rake manifest
-	rake install
+    rake install
+    rake build
+    rake publish
 
 ## Author
 
