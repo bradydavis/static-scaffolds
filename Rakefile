@@ -1,68 +1,15 @@
-require "active_support"
-require 'rake/gempackagetask'
+require 'rubygems'
+require 'rake'
+require 'echoe'
 
-namespace :dev do
-  desc "rebuild and reinstall gem"
-  task :gem => ["gem:clobber_package", "gem:uninstall_local", "gem:install_local"]
-  
+Echoe.new('static-generators', '0.1') do |p|
+  p.project        = "staticgenerators"
+  p.description    = "Generate attractive interfaces that are easy to edit."
+  p.url            = "http://github.com/jrhicks/static-scaffolds"
+  p.author         = 'Jeffrey Hicks'
+  p.email          = "jrhicks (at) gmail (dot) com"
+  p.ignore_pattern = ["script/*"]
+  p.development_dependencies = []
 end
 
-namespace :gem do
-
-  PACKAGE_NAME = "static-scaffolds"
-  GEM_VERSION = "0.2"
-  SUMMARY = "Generate attractive interfaces that are easy to edit."
-  DESCRIPTION = SUMMARY
-
-
-  spec = Gem::Specification.new do |s|
-    s.name = PACKAGE_NAME
-    s.version = GEM_VERSION
-    s.date = Date.today
-    s.summary = SUMMARY
-    s.email = "jrhicks@gmail.com"
-    s.homepage = "http://github.com/jrhicks/static-scaffolds"
-    s.description = DESCRIPTION
-    s.has_rdoc = true
-    s.authors = ["Jeffrey Hicks"]
-    s.files = Dir["README", "USAGE", "static_app/static_app_generator.rb", "static_app/templates/*",
-                                     "static_gen_specs/static_gen_specs_generator.rb","static_gen_specs/templates/*",
-                                     "static_scaffold/static_scaffold_generator.rb","static_scaffold/tempaltes/*","lib"]
-    s.test_files = Dir["/test/**/*"]
-    s.rdoc_options = ["--main", "README"]    
-    s.add_dependency("rails", [">= 2.3"])
-  end    
-
-
-
-  Rake::GemPackageTask.new(spec) do |p|
-    p.gem_spec = spec
-    p.need_tar = true
-    p.need_zip = true
-  end
-
-  task :install_local => ["gem"] do
-    sh "sudo gem install pkg/#{PACKAGE_NAME}-#{GEM_VERSION}.gem"
-  end
-
-  task :uninstall_local do
-    sh "sudo gem uninstall #{PACKAGE_NAME} -x"        
-  end
-
-  
-  desc "Create gem spec file"
-  task :spec do
-    f = File.open("#{PACKAGE_NAME}.gemspec", "w+")
-    f << spec.to_ruby
-    f.close
-  end
-  
-  desc "Create gem spec, build gem, and install"
-  task :deploy do
-      f = File.open("#{PACKAGE_NAME}.gemspec", "w+")
-      f << spec.to_ruby
-      f.close
-      sh "sudo gem build #{PACKAGE_NAME}.gemspec"
-      sh "sudo gem install #{PACKAGE_NAME}-#{GEM_VERSION}.gem"
-  end
-end
+Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |ext| load ext }
