@@ -1,13 +1,11 @@
-## Static Scaffold (Beta)
+## Static Scaffolds (Not really ready yet)
 
 Generate attractive interfaces that are easy to edit.
 
-defaults.  
-
 ## Installation
 
-  gem sources -a http://gems.github.com 
-  gem install jrhicks-static-scaffolds
+    gem sources -a http://gems.github.com 
+    gem install jrhicks-static-generators
 
 ## Usage (Roadmap)
 
