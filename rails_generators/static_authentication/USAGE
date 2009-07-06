@@ -1,0 +1,15 @@
+NAME
+     static_authentication - short description of the generator
+
+SYNOPSIS
+     static_authentication [user model name]
+
+DESCRIPTION
+     Generate tables and interfaces to manage controller_action_permissions, scoped_permissions, and roles.
+     Designed to be compatible with the :static_authentication option selected in the static_scaffold
+
+            
+EXAMPLE
+      ./script/generate static_authentication
+
+     Result of the example
