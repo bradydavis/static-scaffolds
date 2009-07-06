@@ -61,6 +61,11 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
       m.directory(File.join('test/unit', class_path))
       m.directory(File.join('test/unit/helpers', class_path))
       m.directory(File.join('public/stylesheets', class_path))
+      
+      # Paperclip tokens initializer
+      # http://blog.eizesus.com/2009/4/paperclip-custom-storage-path
+      m.template("paperclip_tokens.rb",
+            File.join("config","initializers","paperclip_tokens.rb"))
 
       # Model
       m.template(

@@ -1,23 +1,24 @@
 class <%= class_name %> < ActiveRecord::Base
 
-
 <%if gen_spec.file_columns.length>0 -%>
 <%for column,options in gen_spec.file_columns -%>
 <%if options[:access]==:private -%>
   has_attached_file <%=column.inspect%>, 
-     :url => "/<%=gen_spec.controller_name%>/attachment/:attachment/:id/:style/:basename.:extension",  
+     :url => "/<%=gen_spec.plural_name%>/attachment/:attachment/:id/:style/:basename.:extension",  
      :path => "<%=gen_spec.paperclip_private_root_path%><%=":custom_root_path/" if gen_spec.paperclip_custom_root_path_code%>:attachment/:id/:style/:basename.:extension"
 <%else -%>
   has_attached_file <%=column.inspect%>, 
      :url => "/system/:attachment/:id/:style/:basename.:extension",  
      :path => "<%=gen_spec.paperclip_public_root_path%><%=":custom_root_path/" if gen_spec.paperclip_custom_root_path_code%>:attachment/:id/:style/:basename.:extension"
 <%end -%>
+
 <%end -%>
-<%if gen_spec.paperclip_custom_root_path -%>
-  def custom_root_path
+<%if gen_spec.paperclip_custom_root_path_code -%>
+  def paperclip_custom_root_path
     <%=gen_spec.paperclip_custom_root_path_code%>
   end
 <%end -%>
+
 <%end -%>
 <%if gen_spec.belongs_to.length>0 -%>
 <%for bt in gen_spec.belongs_to.sort {|a,b|a["name"]<=>b["name"]} -%>

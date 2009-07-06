@@ -30,7 +30,6 @@ rails_generators/static_scaffold/templates/view_show.html.erb
 rails_generators/static_scaffold/USAGE
 Rakefile
 README.md
-static-generators.gemspec
 tasks/deployment.rake
 TODO
 USAGE
