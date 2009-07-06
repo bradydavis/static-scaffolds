@@ -8,6 +8,9 @@ rails_generators/static_app/templates/layout_helper.rb
 rails_generators/static_app/templates/sorttable.js
 rails_generators/static_app/templates/static_style.css
 rails_generators/static_app/USAGE
+rails_generators/static_authentication/static_authentication_generator.rb
+rails_generators/static_authentication/templates/migration.rb
+rails_generators/static_authentication/USAGE
 rails_generators/static_gen_specs/static_gen_specs_generator.rb
 rails_generators/static_gen_specs/templates/generator_specs.rb
 rails_generators/static_gen_specs/templates/model_gen_specs.rb
