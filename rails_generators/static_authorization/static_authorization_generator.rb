@@ -1,11 +1,11 @@
-class StaticAuthenticationGenerator <  Rails::Generator::Base
+class StaticAuthorizationGenerator <  Rails::Generator::Base
   def manifest
     record do |m| 
 
         # Migration
         m.template(
               "migration.rb",
-              File.join('db','migrate',"#{Time.now.strftime("%Y%m%d%H%M%S")}_static_authentication.rb"))
+              File.join('db','migrate',"#{Time.now.strftime("%Y%m%d%H%M%S")}_static_authorization.rb"))
     end
   end
   
