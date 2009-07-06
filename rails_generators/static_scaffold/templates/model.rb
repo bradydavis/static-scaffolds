@@ -1,13 +1,23 @@
 class <%= class_name %> < ActiveRecord::Base
 
-  PUBLIC_ROOT_PATH = <%=gen_spec.public_root_path%>
-  PRIVATE_ROOT_PATH = <%=gen_spec.private_root_path%>
 
 <%if gen_spec.file_columns.length>0 -%>
 <%for column,options in gen_spec.file_columns -%>
-  file_column <%=column.inspect%>, :store_dir=><%="#{column}_store_dir".inspect%>, :root_path=><%if options["access"]%>PUBLIC_ROOT_PATH><%else%>PRIVATE_ROOT_PATH<%end%>
+<%if options[:access]==:private -%>
+  has_attached_file <%=column.inspect%>, 
+     :url => "/<%=gen_spec.controller_name%>/attachment/:attachment/:id/:style/:basename.:extension",  
+     :path => "<%=gen_spec.paperclip_private_root_path%><%=":custom_root_path/" if gen_spec.paperclip_custom_root_path_code%>:attachment/:id/:style/:basename.:extension"
+<%else -%>
+  has_attached_file <%=column.inspect%>, 
+     :url => "/system/:attachment/:id/:style/:basename.:extension",  
+     :path => "<%=gen_spec.paperclip_public_root_path%><%=":custom_root_path/" if gen_spec.paperclip_custom_root_path_code%>:attachment/:id/:style/:basename.:extension"
 <%end -%>
-
+<%end -%>
+<%if gen_spec.paperclip_custom_root_path -%>
+  def custom_root_path
+    <%=gen_spec.paperclip_custom_root_path_code%>
+  end
+<%end -%>
 <%end -%>
 <%if gen_spec.belongs_to.length>0 -%>
 <%for bt in gen_spec.belongs_to.sort {|a,b|a["name"]<=>b["name"]} -%>
@@ -48,42 +58,7 @@ class <%= class_name %> < ActiveRecord::Base
   end
 
 <%end -%>
-<%if gen_spec.file_columns -%>
-  # File Columns Directory
 
-  def refactored_store_dir
-      <%=gen_spec.singular_name.pluralize.inspect%>
-  end
-<%for column,options in gen_spec.file_columns -%>  
-  def <%=column%>_store_dir
-      File.join(refactored_store_dir, <%=column.to_s.pluralize.inspect%>)
-  end
-
-  def <%=column%>_icon
-<%if options["type"]==:photo%>
-    return "photo.gif"
-<%else -%>
-    return "attachment.gif"
-<%end -%>
-  end
-  
-  def <%=column%>_basename
-    File.basename(@<%=column%>)
-  end
-  
-  def <%=column%>_shortname
-    b=<%=column%>_basename
-    if b and b.length>13
-      "#{b.slice(0,8)}~#{b.slice(-4,4)}"
-    else
-      b
-    end  
-  end
-  
-  
-<%end -%>
-
-<%end -%>
   # Security / Authorization
   
 <%if gen_spec.authorization_method.to_s == 'static_authorization' -%>

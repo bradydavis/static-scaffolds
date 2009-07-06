@@ -8,9 +8,9 @@ rails_generators/static_app/templates/layout_helper.rb
 rails_generators/static_app/templates/sorttable.js
 rails_generators/static_app/templates/static_style.css
 rails_generators/static_app/USAGE
-rails_generators/static_authentication/static_authentication_generator.rb
-rails_generators/static_authentication/templates/migration.rb
-rails_generators/static_authentication/USAGE
+rails_generators/static_authorization/static_authorization_generator.rb
+rails_generators/static_authorization/templates/migration.rb
+rails_generators/static_authorization/USAGE
 rails_generators/static_gen_specs/static_gen_specs_generator.rb
 rails_generators/static_gen_specs/templates/generator_specs.rb
 rails_generators/static_gen_specs/templates/model_gen_specs.rb
@@ -22,6 +22,7 @@ rails_generators/static_scaffold/templates/helper.rb
 rails_generators/static_scaffold/templates/helper_test.rb
 rails_generators/static_scaffold/templates/layout.html.erb
 rails_generators/static_scaffold/templates/model.rb
+rails_generators/static_scaffold/templates/paperclip_tokens.rb
 rails_generators/static_scaffold/templates/view_edit.html.erb
 rails_generators/static_scaffold/templates/view_index.html.erb
 rails_generators/static_scaffold/templates/view_new.html.erb
@@ -29,6 +30,7 @@ rails_generators/static_scaffold/templates/view_show.html.erb
 rails_generators/static_scaffold/USAGE
 Rakefile
 README.md
+static-generators.gemspec
 tasks/deployment.rake
 TODO
 USAGE
