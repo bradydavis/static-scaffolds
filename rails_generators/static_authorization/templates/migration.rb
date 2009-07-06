@@ -1,4 +1,4 @@
-class StaticAuthentication < ActiveRecord::Migration
+class StaticAuthorization < ActiveRecord::Migration
 
   def self.up
     create_table :roles do |t|
