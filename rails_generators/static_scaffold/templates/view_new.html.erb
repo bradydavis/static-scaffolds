@@ -1,14 +1,31 @@
 <%% title "New <%= gen_spec.singular_title %>" %>
 <h1>New <%= gen_spec.singular_name %></h1>
 
-<%% form_for(@<%= singular_name %>) do |f| %>
+<%% form_for(@<%= gen_spec.singular_name %>) do |f| %>
   <%%= f.error_messages %>
-
-<% for attribute in attributes -%>
+<% if gen_spec.ascendant -%>
+<%%=f.hidden(<%=gen_spec.singular_name%>, <%=gen_spec.ascendant[:key].inspect%>)
+<% end %>
+<% for group in gen_spec.safe_form_groups -%>
+<h2><%=group[:group_name]%></h2>
+<% for attribute in group[:attributes] -%>
+<%options=gen_spec.column_specs[attribute] -%>
   <p>
-    <%%= f.label :<%= attribute.name %> %><br />
-    <%%= f.<%= attribute.field_type %> :<%= attribute.name %> %>
+    <%%= f.label <%= options[:label].inspect %> %><br />
+<% case options[:type] -%>
+<% when :file -%>
+    <%%= f.file_field :<%= attribute %> %>
+<% when :string -%>
+    <%%= f.text_field :<%= attribute %> %>
+<% when :foreign_key -%>
+    <%%= f.text_field :<%= attribute %> %>
+<% when :photo -%>
+    <%%= f.file_field :<%= attribute %> %>
+<% when :datetime -%>
+    <%%= f.text_field :<%= attribute %> %>
+<% end -%>
   </p>
+<% end -%>
 <% end -%>
   <p>
     <%%= f.submit 'Create' %>
@@ -16,3 +33,6 @@
 <%% end %>
 
 <%%= link_to 'Back', <%= plural_name %>_path %>
+
+
+

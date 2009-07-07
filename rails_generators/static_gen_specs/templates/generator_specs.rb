@@ -21,6 +21,17 @@ end
 
 class GeneratorSpecs < GenSpecFactory
     
+    def ascendant_columns
+      if ascendant
+        [ascendant[:key]]
+      else
+        []
+      end
+    end
+    
+    def primary_columns
+      column_specs.keys.select {|k| column_specs[k][:type]==:primary_key }
+    end
     
     def table_name
         raise Exception("table_name method not implimented.")

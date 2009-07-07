@@ -51,7 +51,24 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%end -%>
     ]
   end
-  
+
+  def form_groups
+    [
+      {:group_name=>"<%=model_name.titleize%>",
+       :attributes=> [
+<%for c in column_names -%>
+<%if guess_list_columns.include?(c) -%>
+                        <%=c.to_sym.inspect%>,
+<%else -%>
+                      # <%=c.to_sym.inspect%>,
+<%end -%>
+<%end -%>
+                     ]},
+#      {:group_name=>"Group 2",
+#       :attributes=> [
+#                     ]},
+    ]     
+  end
 
   def column_specs
     {
@@ -75,9 +92,12 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
   def file_columns
       column_specs.select {|k,v| v[:type]==:file or v[:type]==:photo}
   end
+  
+  def safe_form_groups
+    form_groups.map {|group| {:group_name=>group[:group_name], :attributes=>(group[:attributes]-ascendant_columns-primary_columns)}}
+  end
 
   def belongs_to
-    # {:name=>"foo", :model=>"Foo", :key=>"foo_id"}
     [
 <%justifier = CodeJustifier.new(belongs_to_columns) -%>
 <%justifier.add_parameter {|o| ":name=>#{o.name.slice(0,o.name.length-3).inspect}, "} -%>
@@ -89,8 +109,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     ]
   end
 
-  def ascendant
-    # {:name=>"foo", :model=>"Foo", :key=>"foo_id"}    
+  def ascendant  
 <%justifier = CodeJustifier.new(belongs_to_columns) -%>
 <%justifier.add_parameter {|o| ":name=>#{o.name.slice(0,o.name.length-3).inspect}, "} -%>
 <%justifier.add_parameter {|o| ":model=>#{o.name.slice(0,o.name.length-3).camelize.inspect}, "} -%>
@@ -101,7 +120,6 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
   end
 
   def has_many
-    # {:name=>"foo", :model=>"Foo", :key=>"foo_id"}    
     [
 <%justifier = CodeJustifier.new(has_many_columns) -%>
 <%justifier.add_parameter {|o| ":name=>#{o[:table].pluralize.inspect}, "} -%>
@@ -113,8 +131,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
     ]
   end
   
-  def desendants
-    # {:name=>"foo", :model=>"Foo", :key=>"foo_id"}    
+  def desendants 
     [
 <%justifier = CodeJustifier.new(has_many_columns) -%>
 <%justifier.add_parameter {|o| ":name=>#{o[:table].pluralize.inspect}, "} -%>
