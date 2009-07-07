@@ -3,10 +3,14 @@ lib/static_generators.rb
 LICENSE
 rails_generators/static_app/static_app_generator.rb
 rails_generators/static_app/templates/application_helper.rb
+rails_generators/static_app/templates/jquery.js
 rails_generators/static_app/templates/layout.html.erb
 rails_generators/static_app/templates/layout_helper.rb
 rails_generators/static_app/templates/sorttable.js
 rails_generators/static_app/templates/static_style.css
+rails_generators/static_app/templates/uni-form-generic.css
+rails_generators/static_app/templates/uni-form.css
+rails_generators/static_app/templates/uni-form.jquery.js
 rails_generators/static_app/USAGE
 rails_generators/static_authorization/static_authorization_generator.rb
 rails_generators/static_authorization/templates/migration.rb

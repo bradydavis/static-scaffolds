@@ -1,17 +1,20 @@
 <%% title "New <%= gen_spec.singular_title %>" %>
 <h1>New <%= gen_spec.singular_name %></h1>
 
-<%% form_for(@<%= gen_spec.singular_name %>) do |f| %>
+<%% form_for(@<%= gen_spec.singular_name %>, :html=>{:class=>"uniForm"}) do |f| %>
   <%%= f.error_messages %>
 <% if gen_spec.ascendant -%>
 <%%=f.hidden(<%=gen_spec.singular_name%>, <%=gen_spec.ascendant[:key].inspect%>)
 <% end %>
+
 <% for group in gen_spec.safe_form_groups -%>
-<h2><%=group[:group_name]%></h2>
+<fieldset class="inlineLabels">
+  <legend><%=group[:group_name]%></legend>
+
 <% for attribute in group[:attributes] -%>
 <%options=gen_spec.column_specs[attribute] -%>
-  <p>
-    <%%= f.label <%= options[:label].inspect %> %><br />
+  <div class="ctrlHolder">
+    <%%= f.label <%= options[:label].inspect %> %>
 <% case options[:type] -%>
 <% when :file -%>
     <%%= f.file_field :<%= attribute %> %>
@@ -24,12 +27,13 @@
 <% when :datetime -%>
     <%%= f.text_field :<%= attribute %> %>
 <% end -%>
-  </p>
+  </div>
 <% end -%>
+</fieldset>
 <% end -%>
-  <p>
-    <%%= f.submit 'Create' %>
-  </p>
+<div class="buttonHolder">
+  <%%= f.submit 'Create', :class=>"primaryAction"%>
+</div>
 <%% end %>
 
 <%%= link_to 'Back', <%= plural_name %>_path %>

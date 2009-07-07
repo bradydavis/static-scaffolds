@@ -14,6 +14,12 @@ class StaticAppGenerator < Rails::Generator::Base
       m.file "sorttable.js", "public/javascripts/sorttable.js"
       m.file "application_helper.rb", "app/helpers/application_helper.rb"      
       m.file "layout_helper.rb", "app/helpers/layout_helper.rb"
+      
+      #Uni-formn
+      m.file "uni-form-generic.css", "public/stylesheets/uni-form-generic.css"
+      m.file "uni-form.css","public/stylesheets/uni-form.css"
+      m.file "uni-form.jquery.js", "public/javascripts/uni-form.jquery.js"
+      m.file "jquery.js", "public/javascripts/jquery.js"      
     end
   end
    
