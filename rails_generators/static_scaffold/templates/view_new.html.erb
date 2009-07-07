@@ -21,7 +21,7 @@
 <% when :string -%>
     <%%= f.text_field :<%= attribute %> %>
 <% when :foreign_key -%>
-    <%%= f.text_field :<%= attribute %> %>
+    <%%= collection_select(:<%=gen_spec.singular_name%>, :<%= attribute %>, @<%=gen_spec.belongs_to_name(attribute).pluralize%>, :id, :short_name, options = {:prompt => "- Select a <%=gen_spec.belongs_to_name(attribute).titleize.downcase%>"}, html_options = {}) %>
 <% when :photo -%>
     <%%= f.file_field :<%= attribute %> %>
 <% when :datetime -%>

@@ -88,14 +88,6 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%end -%>
     }
   end
-  
-  def file_columns
-      column_specs.select {|k,v| v[:type]==:file or v[:type]==:photo}
-  end
-  
-  def safe_form_groups
-    form_groups.map {|group| {:group_name=>group[:group_name], :attributes=>(group[:attributes]-ascendant_columns-primary_columns)}}
-  end
 
   def belongs_to
     [

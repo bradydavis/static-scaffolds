@@ -29,6 +29,26 @@ class GeneratorSpecs < GenSpecFactory
       end
     end
     
+    def file_columns
+      column_specs.select {|k,v| v[:type]==:file or v[:type]==:photo}
+    end
+
+    def safe_form_groups
+      form_groups.map {|group| {:group_name=>group[:group_name], :attributes=>(group[:attributes]-ascendant_columns-primary_columns)}}
+    end    
+
+    def belongs_to_hash(column_name)
+      belongs_to.select {|bt| bt[:key].to_s==column_name.to_s}.first
+    end
+    
+    def belongs_to_name(column_name)
+      belongs_to_hash(column_name)[:name]
+    end
+
+    def belongs_to_model(column_name)
+      belongs_to_hash(column_name)[:model]
+    end
+    
     def primary_columns
       column_specs.keys.select {|k| column_specs[k][:type]==:primary_key }
     end
@@ -64,8 +84,4 @@ class GeneratorSpecs < GenSpecFactory
         # <%=model_name.underscore.inspect%> 
         model_name.pluralize.underscore
     end
-
-    
 end
-
-

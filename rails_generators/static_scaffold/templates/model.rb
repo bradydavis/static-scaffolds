@@ -1,6 +1,6 @@
 class <%= class_name %> < ActiveRecord::Base
 
-<%if gen_spec.file_columns.length>0 -%>
+<%if gen_spec.file_columns and gen_spec.file_columns.length>0 -%>
 <%for column,options in gen_spec.file_columns -%>
 <%if options[:access]==:private -%>
   has_attached_file <%=column.inspect%>, 
@@ -21,13 +21,13 @@ class <%= class_name %> < ActiveRecord::Base
 
 <%end -%>
 <%if gen_spec.belongs_to.length>0 -%>
-<%for bt in gen_spec.belongs_to.sort {|a,b|a["name"]<=>b["name"]} -%>
+<%for bt in gen_spec.belongs_to -%>
   belongs_to <%=bt[:name].inspect%>, :class_name=><%=bt[:model].inspect%>, :foreign_key=><%=bt[:key].inspect%>
 <%end -%>
 
 <%end -%>
 <%if gen_spec.has_many.length>0 -%>
-<%for hm in gen_spec.has_many.sort {|a,b|a["name"]<=>b["name"]} -%>
+<%for hm in gen_spec.has_many -%>
   has_many <%=hm[:name].inspect%>, :class_name=><%=hm[:model].inspect%>, :foreign_key=><%=hm[:key].inspect%>
 <%end -%>
 

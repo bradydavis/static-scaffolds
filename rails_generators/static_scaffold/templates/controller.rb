@@ -2,7 +2,13 @@ class <%= controller_class_name %>Controller < ApplicationController
   # GET /<%= table_name %>
   # GET /<%= table_name %>.xml
   def index
-    @<%= table_name %> = <%= class_name %>.all
+<%  if gen_spec.ascendant -%>
+    @<%=gen_spec.ascendant[:name]%> = <%=gen_spec.ascendant[:model]%>.find(params["<%=gen_spec.ascendant[:name]%>"])
+    @<%=gen_spec.plural_name %> = @<%=gen_spec.ascendant[:name]%>.<%= gen_spec.plural_name %>    
+<%else -%>
+    @<%=gen_spec.plural_name %> = <%= gen_spec.model_name %>.all
+<%end -%>
+
 
     respond_to do |format|
       format.html # index.html.erb
@@ -26,6 +32,13 @@ class <%= controller_class_name %>Controller < ApplicationController
   def new
     @<%= file_name %> = <%= class_name %>.new
 
+<% if gen_spec.belongs_to.length>0 -%>
+    # Form drop downs
+<% for bt in gen_spec.belongs_to -%>
+        @<%=bt[:name].pluralize%> = <%=bt[:model]%>.all
+<% end -%>
+
+<%end -%>
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @<%= file_name %> }
