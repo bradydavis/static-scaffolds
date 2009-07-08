@@ -37,7 +37,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
   
   def short_name_columns
      # Specify the columns that constitute the "name" for example ["first_name", "last_name"]
-    <%=guess_short_name.inspect%>
+    <%=guess_short_name.map{|c|c.to_sym}.inspect%>
   end
   
   def table_view_columns

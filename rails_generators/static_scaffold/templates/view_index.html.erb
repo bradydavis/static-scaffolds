@@ -2,23 +2,39 @@
 <h1>Listing <%= gen_spec.plural_title %></h1>
 
 <%%=data_table_start <%="#{gen_spec.plural_name}_#{next_count}".inspect%>%>
+
   <tr>
 	<th>&nbsp;</th>
-<% for cname in gen_spec.table_view_columns -%>
-<% specs = gen_spec.column_specs[cname] -%>
+<% for cname, specs in gen_spec.safe_table_view_columns -%>
     <th><%= specs[:label]%><%= " (#{specs[:units]})" if specs[:units]%></th>
 <% end -%>
   </tr>
 
 <%% @<%= gen_spec.plural_name %>.each do |<%= gen_spec.singular_name %>| %>
   <tr>
-  <td><%%= link_to <%=gen_spec.singular_name%>.short_name, <%= gen_spec.singular_name %> %> </td>
-<% for cname in gen_spec.table_view_columns -%>
-<% specs = gen_spec.column_specs[cname] -%>
-    <td align="<%=specs["align"]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
-<% end -%>
+    <td><%%= link_to <%=gen_spec.singular_name%>.short_name, <%= gen_spec.singular_name %> %> </td>
+<% for cname, specs in gen_spec.safe_table_view_columns -%>
+<% case specs[:type] -%>
+<% when :file -%>
+    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+<% when :integer -%>
+    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+<% when :float -%>
+    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+<% when :decimal -%>
+    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+<% when :string -%>
+    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+<% when :photo -%>
+    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+<% when :foreign_key -%>
+    <td align="<%=specs[:align]%>"><%%=(h <%= gen_spec.singular_name %>.<%= gen_spec.belongs_to_name(cname) %>.short_name) if <%= gen_spec.singular_name %>.<%= gen_spec.belongs_to_name(cname) %> -%></td>
+<% when :datetime -%>
+    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> -%></td>
+<% end -%><% end -%>
   </tr>
-<%% end %>
+<%% end -%>
+
 <%%=data_table_end <%="#{gen_spec.plural_name}_#{count}".inspect%>%>
 
 <br />

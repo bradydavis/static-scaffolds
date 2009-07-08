@@ -35,7 +35,11 @@ class GeneratorSpecs < GenSpecFactory
 
     def safe_form_groups
       form_groups.map {|group| {:group_name=>group[:group_name], :attributes=>(group[:attributes]-ascendant_columns-primary_columns)}}
-    end    
+    end
+    
+    def safe_table_view_columns
+      (table_view_columns - primary_columns - short_name_columns).map {|c| [c,column_specs[c]]}
+    end
 
     def belongs_to_hash(column_name)
       belongs_to.select {|bt| bt[:key].to_s==column_name.to_s}.first
