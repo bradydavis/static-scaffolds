@@ -10,15 +10,25 @@ namespace :db do
 <%case options[:type] -%>
 <%when :integer -%>
       <%=gen_spec.singular_name%>.<%=attribute%> = 10..10000
+<%match=true -%>      
 <%when :text -%>
       <%=gen_spec.singular_name%>.<%=attribute%> = Populator.sentences(2..5)
+<%match=true -%>      
 <%when :string -%>
-<%if "first_name last_name firstname lastname fname lname full_name fname fullname".split.select {|x| attribute.to_s.match(x)}.first -%>
+<%if "full_name fullname".split.select {|x| attribute.to_s.match(x)}.first -%>
       <%=gen_spec.singular_name%>.<%=attribute%> = Faker::Name.name
 <%match=true -%>
 <%end -%>
+<%if "first_name fname firstname f_name".split.select {|x| attribute.to_s.match(x)}.first -%>
+      <%=gen_spec.singular_name%>.<%=attribute%> = Faker::Name.first_name
+<%match=true -%>
+<%end -%>
+<%if "last_name lname lastname l_name maiden_name".split.select {|x| attribute.to_s.match(x)}.first -%>
+      <%=gen_spec.singular_name%>.<%=attribute%> = Faker::Name.last_name
+<%match=true -%>
+<%end -%>
 <%if "username login login_name".split.select {|x| attribute.to_s.match(x)}.first -%>
-      <%=gen_spec.singular_name%>.<%=attribute%> = Faker::Name.name.split.join.underscore.downcase
+      <%=gen_spec.singular_name%>.<%=attribute%> = Faker::Internet.user_name
 <%match=true -%>
 <%end -%>
 <%if "company firm organization agency employer school".split.select {|x| attribute.to_s.match(x) or (attribute.to_s=="name" and gen_spec.singular_name.to_s.match(x))}.first -%>
@@ -26,7 +36,7 @@ namespace :db do
 <%match=true -%>
 <%end -%>
 <%if "email".split.select {|x| attribute.to_s.match(x)}.first -%>
-      <%=gen_spec.singular_name%>.<%=attribute%> = Faker::Internet.name
+      <%=gen_spec.singular_name%>.<%=attribute%> = Faker::Internet.email
 <%match=true -%>
 <%end -%>
 <%if "phone cell pager".split.select {|x| attribute.to_s.match(x)}.first -%>
@@ -52,6 +62,7 @@ namespace :db do
 <%if not match -%>
       <%=gen_spec.singular_name%>.<%=attribute%> = Populator.words(2..5)  
 <%end -%>
+<%match=false -%>
 <%when :decimal -%>
       <%=gen_spec.singular_name%>.<%=attribute%> = 100.0*rand 
 <%when :float -%>
