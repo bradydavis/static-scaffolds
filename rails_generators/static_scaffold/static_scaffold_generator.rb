@@ -67,6 +67,11 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
       m.template("paperclip_tokens.rb",
             File.join("config","initializers","paperclip_tokens.rb"))
 
+      # Fake Data Populator
+      m.directory "lib/tasks"
+      m.template("fake_data.rake",
+                  File.join("lib/tasks","#{controller_singular_name.downcase}_fake_data.rake"))
+
       # Model
       m.template(
             "model.rb",
