@@ -71,12 +71,15 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
       m.directory "lib/tasks"
       m.template("fake_data.rake",
                   File.join("lib/tasks","#{controller_singular_name.downcase}_fake_data.rake"))
+                  
 
       # Model
       m.template(
             "model.rb",
             File.join('app/models',"#{@controller_singular_name.downcase}.rb"))
 
+
+      # Views
       for action in scaffold_views
         m.template(
           "view_#{action}.html.erb",
@@ -84,12 +87,22 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
         )
       end
 
+      # Partials
+      #for action in "".split
+      #  m.template(
+      #    "partial_#{action}.html.erb",
+      #    File.join('app/views', controller_class_path, controller_file_name, "_#{action}.html.erb")
+      #  )
+      #end
+      
+
       # Layout and stylesheet.
       m.template('layout.html.erb', File.join('app/views/layouts', controller_class_path, "#{controller_file_name}.html.erb"))
 
       m.template(
         'controller.rb', File.join('app/controllers', controller_class_path, "#{controller_file_name}_controller.rb")
       )
+      
 
       m.template('functional_test.rb', File.join('test/functional', controller_class_path, "#{controller_file_name}_controller_test.rb"))
       m.template('helper.rb',          File.join('app/helpers',     controller_class_path, "#{controller_file_name}_helper.rb"))

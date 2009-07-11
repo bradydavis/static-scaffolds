@@ -35,8 +35,10 @@
 	<link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print">
 	<link rel="stylesheet" href="/stylesheets/redmond/jquery-ui-1.7.2.custom.css" type="text/css" media="screen">	
 
-</head>
-<body <%%if @onload_javascript%>onLoad="on_load_function();"<%%end%>>
+<%# Author: Craig Erskine Description: Dynamic Menu System  %>
+<%#
+$(document).ready(function(){ $("#navmenu-h li,#navmenu-v li").hover( function() { $(this).addClass("iehover"); }, function() { $(this).removeClass("iehover"); } ); });
+%>
 
-<%%=render :partial=>"shared/standard_banner"%>
-<div class="container showgrid">
+</head>
+<body>

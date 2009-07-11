@@ -13,6 +13,11 @@ class StaticAppGenerator < Rails::Generator::Base
       m.file "static_style.css", "public/stylesheets/static_style.css"
       m.file "application_helper.rb", "app/helpers/application_helper.rb"      
       m.file "layout_helper.rb", "app/helpers/layout_helper.rb"
+      
+      # Rake Tasks
+      m.directory "lib/tasks"
+      m.template("static_generator.rake",
+                  File.join("lib/tasks","static_generate.rake"))
 
       # BluePrint CSS
       m.file "blueprint/grid.png", "public/images/blueprint_css_grid.png"
