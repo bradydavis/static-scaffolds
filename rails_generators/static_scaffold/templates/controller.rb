@@ -6,7 +6,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%=gen_spec.ascendant[:name]%> = <%=gen_spec.ascendant[:model]%>.find(params["<%=gen_spec.ascendant[:name]%>"])
     @<%=gen_spec.plural_name %> = @<%=gen_spec.ascendant[:name]%>.<%= gen_spec.plural_name %>    
 <%else -%>
-    @<%=gen_spec.plural_name %> = <%= gen_spec.model_name %>.all
+    @<%=gen_spec.plural_name %> = <%= gen_spec.model_name %>.search(params[:page])
 <%end -%>
 
 

@@ -35,7 +35,13 @@ class <%= class_name %> < ActiveRecord::Base
   def self.table_name() 
     "<%=gen_spec.table_name%>" 
   end
-  
+
+  def self.search(page)
+   page=1 if not page
+   Client.paginate :per_page => 12, :page => page, :order => order_preference
+  #            :conditions => ['name like ?', "%#{search}%"], :order => 'company'
+  end
+
   def icon
       "<%=gen_spec.singular_name%>.gif"
   end
@@ -49,7 +55,7 @@ class <%= class_name %> < ActiveRecord::Base
       end
   end
   
-  def order_preference
+  def self.order_preference
     "<%=gen_spec.order_preference_columns.join(", ")%> <%=gen_spec.order_preference%>" 
   end
 

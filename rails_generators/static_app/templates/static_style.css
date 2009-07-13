@@ -99,6 +99,35 @@
 	
 }
 
+.pagination {
+}
+
+.pagination a {
+  text-decoration: none;
+  color: #fff;
+	padding-left: .25em;
+	padding-right: .25em;
+	border: 1px solid #899AB7;	
+}
+.pagination a:hover, .pagination a:active {
+  color: black;
+	border: 1px solid #FFDE6B;
+  background-color: #FFDE6B;	
+	padding-left: .25em;
+	padding-right: .25em;
+}
+.pagination span.current {
+  color: #fff;
+	border: 1px solid #6982a7;
+	background-color: #6982a7;	
+	padding-left: .25em;
+	padding-right: .25em;
+}
+.pagination span.disabled {
+  color: #899AB7;
+	border: 1px solid #899AB7;	
+}
+
 
 .fieldWithErrors {
   padding: 2px;

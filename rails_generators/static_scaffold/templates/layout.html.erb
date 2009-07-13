@@ -40,9 +40,15 @@
 		<div class='span-19 last'>
 			<table><tr style="margin: 0; padding:0;"><td style="margin: 0; padding:0;">
 				<div class="work_area">
+					
 					<div class="work_area_header ui-corner-tr">
-				   Application Work Area Title Bar
-					</div>
+							<div style="float: right; padding-right: 1em; font-size: .8em;">
+								<%%= will_paginate @posts, :inner_window=>1, :outer_window=>0, :previous_label=>'&laquo;', :next_label=>'&raquo;' %>							
+								
+							</div>
+				   		Application Work Area Title Bar
+					</div> <!-- end work_area header -->
+					
 					<div class="presentation_selector">
 						<div class="presentation_selection">
 							<%%=link_to "Table"%>
