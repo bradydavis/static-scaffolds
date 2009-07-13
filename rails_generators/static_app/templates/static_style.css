@@ -1,6 +1,105 @@
 /* Author: Craig Erskine Description: Dynamic Menu System - Horizontal/Vertical */ ul#navmenu-h { margin: 0; padding: 0; list-style: none; position: relative; } ul#navmenu-h ul { width: 160px; /* Sub Menu Width */ margin: 0; list-style: none; display: none; position: absolute; top: 100%; left: 0; } ul#navmenu-h ul ul,ul#navmenu-h ul ul ul { top: 0; left: 100%; } ul#navmenu-h li { float: left; display: inline; position: relative; } ul#navmenu-h ul li { width: 100%; display: block; } /* Root Menu */ ul#navmenu-h a { border-top: 1px solid #FFF; border-right: 1px solid #FFF; padding: 6px; float: left; display: block; background: #DDD; color: #666; font: bold 11px Arial, sans-serif; text-decoration: none; height: 1%; } /* Root Menu Hover Persistence */ ul#navmenu-h a:hover,ul#navmenu-h li:hover a,ul#navmenu-h li.iehover a { background: #BBB; color: #FFF; } /* 2nd Menu */ ul#navmenu-h li:hover li a,ul#navmenu-h li.iehover li a { float: none; background: #BBB; } /* 2nd Menu Hover Persistence */ ul#navmenu-h li:hover li a:hover,ul#navmenu-h li:hover li:hover a,ul#navmenu-h li.iehover li a:hover,ul#navmenu-h li.iehover li.iehover a { background: #999; } /* 3rd Menu */ ul#navmenu-h li:hover li:hover li a,ul#navmenu-h li.iehover li.iehover li a { background: #999; } /* 3rd Menu Hover Persistence */ ul#navmenu-h li:hover li:hover li a:hover,ul#navmenu-h li:hover li:hover li:hover a,ul#navmenu-h li.iehover li.iehover li a:hover,ul#navmenu-h li.iehover li.iehover li.iehover a { background: #666; } /* 4th Menu */ ul#navmenu-h li:hover li:hover li:hover li a,ul#navmenu-h li.iehover li.iehover li.iehover li a { background: #666; } /* 4th Menu Hover */ ul#navmenu-h li:hover li:hover li:hover li a:hover,ul#navmenu-h li.iehover li.iehover li.iehover li a:hover { background: #333; } /* Hover Function - Do Not Move */ ul#navmenu-h li:hover ul ul,ul#navmenu-h li:hover ul ul ul,ul#navmenu-h li.iehover ul ul,ul#navmenu-h li.iehover ul ul ul { display: none; } ul#navmenu-h li:hover ul,ul#navmenu-h ul li:hover ul,ul#navmenu-h ul ul li:hover ul,ul#navmenu-h li.iehover ul,ul#navmenu-h ul li.iehover ul,ul#navmenu-h ul ul li.iehover ul { display: block; }
 /* Author: Craig Erskine Description: Dynamic Menu System - Vertical */ ul#navmenu-v,ul#navmenu-v li,ul#navmenu-v ul { width: 160px; /* Menu Width */ margin: 0; list-style: none; } ul#navmenu-v li { float: left; position: relative; width: 100%; } ul#navmenu-v li.iehover { z-index: 1000; /* IE z-index bugfix */ } ul#navmenu-v ul { display: none; position: absolute; top: 0; left: 100%; z-index: 9999; } /* Root Menu */ ul#navmenu-v a { border-top: 1px solid #FFF; border-right: 1px solid #FFF; padding: 6px; display: block; background: #DDD; color: #666; font: bold 11px Arial, sans-serif; text-decoration: none; height: 1%; } /* Root Menu Hover Persistence */ ul#navmenu-v a:hover,ul#navmenu-v li:hover a,ul#navmenu-v li.iehover a { background: #BBB; color: #FFF; } /* 2nd Menu */ ul#navmenu-v li:hover li a,ul#navmenu-v li.iehover li a { float: none; background: #BBB; } /* 2nd Menu Hover Persistence */ ul#navmenu-v li:hover li a:hover,ul#navmenu-v li:hover li:hover a,ul#navmenu-v li.iehover li a:hover,ul#navmenu-v li.iehover li.iehover a { background: #999; } /* 3rd Menu */ ul#navmenu-v li:hover li:hover li a,ul#navmenu-v li.iehover li.iehover li a { background: #999; } /* 3rd Menu Hover Persistence */ ul#navmenu-v li:hover li:hover li a:hover,ul#navmenu-v li:hover li:hover li:hover a,ul#navmenu-v li.iehover li.iehover li a:hover,ul#navmenu-v li.iehover li.iehover li.iehover a { background: #666; } /* 4th Menu */ ul#navmenu-v li:hover li:hover li:hover li a,ul#navmenu-v li.iehover li.iehover li.iehover li a { background: #666; } /* 4th Menu Hover */ ul#navmenu-v li:hover li:hover li:hover li a:hover,ul#navmenu-v li.iehover li.iehover li.iehover li a:hover { background: #333; } /* Hover Function - Do Not Move */ ul#navmenu-v li:hover ul ul,ul#navmenu-v li:hover ul ul ul,ul#navmenu-v li.iehover ul ul,ul#navmenu-v li.iehover ul ul ul { display: none; } ul#navmenu-v li:hover ul,ul#navmenu-v ul li:hover ul,ul#navmenu-v ul ul li:hover ul,ul#navmenu-v li.iehover ul,ul#navmenu-v ul li.iehover ul,ul#navmenu-v ul ul li.iehover ul { display: block; }
 
+
+.model_selector {
+	border-bottom: 3px solid #6982a7;
+	font-weight: bold;
+	color: white;
+}
+
+.model_selection {
+	font-size: 1.25em;
+	padding-top: 3px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+	background-color: #6982a7;
+	border-bottom: 1px solid #6982a7; /* 778bAF; */
+	font-weight: bold;
+	color: white;
+}
+
+
+.model_selection a {
+	width: 100%;
+	display: block;
+	text-decoration: none;
+	background-color: #778bAF; /* #899ab7; */
+	padding-top: 3px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+	margin-top: -3px;
+	margin-bottom: -2px;
+	margin-left: -5px;
+	color: white;
+}
+
+.model_selection a:hover {
+	background-color: #FFDE6B;
+	color: black;
+}
+
+.model_selection a:active {
+	color: black;
+	text-decoration: underline;
+}
+
+.work_area_header {
+	font-size: 1.25em;
+	padding-top: 3px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+	background-color: #899AB7;
+	border-top: 1px solid #6982a7; /* 778bAF; */
+	border-right: 1px solid #6982a7; /* 778bAF; */
+	border-left: 1px solid #6982a7; /* 778bAF; */		
+	color: white;
+}
+
+.presentation_selector {
+	background-color: #D4D4D4;
+	padding-left: 5px;
+	padding-top: 7px;
+	border: 1px solid #AAAAAA;
+}
+
+.presentation_selection {
+	padding-top: 4px;
+	padding-bottom: 3px;
+	padding-left: 7px;
+	padding-right: 7px;
+
+	background-color: #F3F3F3;
+	display: inline;
+	border-top: 1px solid #AAAAAA;	
+	border-left: 1px solid #AAAAAA;	
+	border-right: 1px solid #AAAAAA;	
+	border-bottom: 1px solid #F3F3F3;	
+	
+}
+
+
+.presentation_selection a {
+	background-color: #E2E2E2;
+	display: inline;
+	border: 1px solid #AAAAAA;
+	
+	padding-top: 4px;
+	padding-bottom: 3px;
+	padding-left: 7px;
+	padding-right: 7px;
+
+	margin-top: -4px;
+	margin-bottom: -3px;
+	margin-left: -7px;
+	margin-right: -14px;
+	
+	text-decoration: none;
+	color: black;
+	
+}
+
+
 .fieldWithErrors {
   padding: 2px;
   background-color: red;

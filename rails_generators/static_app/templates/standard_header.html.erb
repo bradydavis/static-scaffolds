@@ -4,11 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%%= h yield(:title) || <%=File.basename(RAILS_ROOT).titleize.inspect%> %></title>
+  <title><%%= h yield(:title) || "Highrise" %></title>
   <%%= stylesheet_link_tag 'static_style' %>
   <%%= javascript_include_tag 'sorttable' %>
 
-  <%%# Uni-Form %>
+  <%# Uni-Form %>
   <style type="text/css" media="screen">
     @import "/stylesheets/default-style.css";
     @import "/stylesheets/uni-form.css";
@@ -31,14 +31,14 @@
   <%%= javascript_include_tag 'uni-form.jquery' %>
 
 
+	<!-- Liquid Blueprint CSS -->
 	<link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection">
-	<link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print">
+	<!--[if IE]><link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection"><![endif]-->
+
 	<link rel="stylesheet" href="/stylesheets/redmond/jquery-ui-1.7.2.custom.css" type="text/css" media="screen">	
 
-<%# Author: Craig Erskine Description: Dynamic Menu System  %>
-<%#
-$(document).ready(function(){ $("#navmenu-h li,#navmenu-v li").hover( function() { $(this).addClass("iehover"); }, function() { $(this).removeClass("iehover"); } ); });
-%>
+
+
 
 </head>
 <body>

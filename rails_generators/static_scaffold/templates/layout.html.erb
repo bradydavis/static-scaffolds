@@ -1,3 +1,65 @@
 <%%=render :partial=>"shared/standard_header"%>
-<%%= yield %>
+
+<div class="container showgrid" >
+	<img src="/images/spacer.gif" style="border: 1px; height: 1px; width: 950px;">
+
+	<div>
+		<div class="span-20">
+			<h1>Static App</h1>
+		</div>
+ 		<div class="span-4 last">
+		 	<%%=link_to "Logout"%>
+		</div>
+ 	</div> <!-- end application header -->
+
+	<!-- Application Body -->
+	<div>
+		
+		<!-- Left Column -->
+	  <div class="span-5">
+		  <div class="model_selector">
+			  <div class="model_selection ui-corner-tl">
+						Clients
+				</div>
+			  <div class="model_selection">
+		  			<%%=link_to 'Projects'%>
+	  		</div>
+			  <div class="model_selection">
+						<%%=link_to 'Users'%>
+				</div>
+			  <div class="model_selection">
+						<%%=link_to 'Offices'%>
+				</div>
+			  <div class="model_selection">
+						<%%=link_to 'Vendors'%>
+				</div>
+			</div> <!-- end model selector -->
+		</div> <!-- end left_column -->
+		
+		<!-- Right Column -->
+		<div class='span-19 last'>
+			<table><tr style="margin: 0; padding:0;"><td style="margin: 0; padding:0;">
+				<div class="work_area">
+					<div class="work_area_header ui-corner-tr">
+				   Application Work Area Title Bar
+					</div>
+					<div class="presentation_selector">
+						<div class="presentation_selection">
+							<%%=link_to "Table"%>
+						</div>
+						<div class="presentation_selection">
+							<%%=link_to "Map"%>
+						</div>
+						<div class="presentation_selection">
+							<%%=link_to "Hourly Averages"%>
+						</div>					
+					</div> <!-- end presentation selector -->
+				<div class="presentation_window">
+			   <%%=yield%>
+				</div> <!-- end presentation window -->
+				</td></tr></table>
+			</div> <!-- end work_area -->
+		</div> <!-- end right column -->
+	</div> <!-- end application body -->
+	
 <%%=render :partial=>"shared/standard_footer"%>

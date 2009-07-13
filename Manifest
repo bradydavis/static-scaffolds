@@ -3,10 +3,15 @@ lib/static_generators.rb
 LICENSE
 rails_generators/static_app/static_app_generator.rb
 rails_generators/static_app/templates/application_helper.rb
-rails_generators/static_app/templates/blueprint/grid.png
+rails_generators/static_app/templates/blueprint/AUTHORS.textile
+rails_generators/static_app/templates/blueprint/icons/cross.png
+rails_generators/static_app/templates/blueprint/icons/key.png
+rails_generators/static_app/templates/blueprint/icons/tick.png
 rails_generators/static_app/templates/blueprint/ie.css
-rails_generators/static_app/templates/blueprint/LICENSE
 rails_generators/static_app/templates/blueprint/print.css
+rails_generators/static_app/templates/blueprint/README
+rails_generators/static_app/templates/blueprint/README.textile
+rails_generators/static_app/templates/blueprint/readme.txt
 rails_generators/static_app/templates/blueprint/screen.css
 rails_generators/static_app/templates/header_bg.png
 rails_generators/static_app/templates/icons/cross.png

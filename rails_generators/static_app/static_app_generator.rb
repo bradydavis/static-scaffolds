@@ -20,7 +20,6 @@ class StaticAppGenerator < Rails::Generator::Base
                   File.join("lib/tasks","static_generate.rake"))
 
       # BluePrint CSS
-      m.file "blueprint/grid.png", "public/images/blueprint_css_grid.png"
       m.file "blueprint/print.css", "public/stylesheets/print.css"
       m.file "blueprint/ie.css", "public/stylesheets/ie.css"
       m.file "blueprint/screen.css", "public/stylesheets/screen.css"
