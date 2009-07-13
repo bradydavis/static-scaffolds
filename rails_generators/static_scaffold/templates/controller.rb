@@ -9,6 +9,8 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%=gen_spec.plural_name %> = <%= gen_spec.model_name %>.search(params[:page])
 <%end -%>
 
+    # Configure Partials
+    @work_area_header = "work_area_index_header"
 
     respond_to do |format|
       format.html # index.html.erb
@@ -20,6 +22,8 @@ class <%= controller_class_name %>Controller < ApplicationController
   # GET /<%= table_name %>/1.xml
   def show
     @<%= file_name %> = <%= class_name %>.find(params[:id])
+
+    @work_area_header = "work_area_entry_header"
 
     respond_to do |format|
       format.html # show.html.erb
@@ -39,6 +43,8 @@ class <%= controller_class_name %>Controller < ApplicationController
 <% end -%>
 
 <%end -%>
+    @work_area_header = "work_area_entry_header"
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @<%= file_name %> }
@@ -58,13 +64,18 @@ class <%= controller_class_name %>Controller < ApplicationController
     respond_to do |format|
       if @<%= file_name %>.save
         flash[:notice] = '<%= class_name %> was successfully created.'
+        @work_area_header = "work_area_index_header"        
         format.html { redirect_to(@<%= file_name %>) }
         format.xml  { render :xml => @<%= file_name %>, :status => :created, :location => @<%= file_name %> }
       else
+        @work_area_header = "work_area_entry_header"        
         format.html { render :action => "new" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }
       end
     end
+    
+
+    
   end
 
   # PUT /<%= table_name %>/1
@@ -72,12 +83,15 @@ class <%= controller_class_name %>Controller < ApplicationController
   def update
     @<%= file_name %> = <%= class_name %>.find(params[:id])
 
+
     respond_to do |format|
       if @<%= file_name %>.update_attributes(params[:<%= file_name %>])
         flash[:notice] = '<%= class_name %> was successfully updated.'
         format.html { redirect_to(@<%= file_name %>) }
         format.xml  { head :ok }
+        @work_area_header = "work_area_index_header"                
       else
+        @work_area_header = "work_area_entry_header"        
         format.html { render :action => "edit" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }
       end

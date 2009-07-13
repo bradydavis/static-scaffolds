@@ -88,12 +88,12 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
       end
 
       # Partials
-      #for action in "".split
-      #  m.template(
-      #    "partial_#{action}.html.erb",
-      #    File.join('app/views', controller_class_path, controller_file_name, "_#{action}.html.erb")
-      #  )
-      #end
+      for action in "work_area_entry_header work_area_index_header".split
+        m.template(
+          "partial_#{action}.html.erb",
+          File.join('app/views', controller_class_path, controller_file_name, "_#{action}.html.erb")
+        )
+      end
       
 
       # Layout and stylesheet.

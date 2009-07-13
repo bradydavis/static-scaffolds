@@ -42,11 +42,7 @@
 				<div class="work_area">
 					
 					<div class="work_area_header ui-corner-tr">
-							<div style="float: right; padding-right: 1em; font-size: .8em;">
-								<%%= will_paginate @posts, :inner_window=>1, :outer_window=>0, :previous_label=>'&laquo;', :next_label=>'&raquo;' %>							
-								
-							</div>
-				   		Application Work Area Title Bar
+						<%%=render :partial=>@work_area_header%>
 					</div> <!-- end work_area header -->
 					
 					<div class="presentation_selector">
