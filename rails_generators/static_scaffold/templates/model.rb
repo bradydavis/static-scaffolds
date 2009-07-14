@@ -38,7 +38,7 @@ class <%= class_name %> < ActiveRecord::Base
 
   def self.search(page)
    page=1 if not page
-   Client.paginate :per_page => 12, :page => page, :order => order_preference
+   <%=gen_spec.model_name%>.paginate :per_page => 12, :page => page, :order => order_preference
   #            :conditions => ['name like ?', "%#{search}%"], :order => 'company'
   end
 
