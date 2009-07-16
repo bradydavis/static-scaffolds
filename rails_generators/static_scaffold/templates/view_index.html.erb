@@ -15,21 +15,21 @@
 <% for cname, specs in gen_spec.safe_table_view_columns -%>
 <% case specs[:type] -%>
 <% when :file -%>
-    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+    <td style="text-align: <%=specs[:align]%>;"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
 <% when :integer -%>
-    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+    <td style="text-align: <%=specs[:align]%>;"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
 <% when :float -%>
-    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+    <td style="text-align: <%=specs[:align]%>;"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
 <% when :decimal -%>
-    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+    <td style="text-align: <%=specs[:align]%>;"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
 <% when :string -%>
-    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+    <td style="text-align: <%=specs[:align]%>;"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
 <% when :photo -%>
-    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
+    <td style="text-align: <%=specs[:align]%>;"><%%=h <%= gen_spec.singular_name %>.<%= cname %> %></td>
 <% when :foreign_key -%>
-    <td align="<%=specs[:align]%>"><%%=(h <%= gen_spec.singular_name %>.<%= gen_spec.belongs_to_name(cname) %>.short_name) if <%= gen_spec.singular_name %>.<%= gen_spec.belongs_to_name(cname) %> -%></td>
+    <td style="text-align: <%=specs[:align]%>;"><%%=(h <%= gen_spec.singular_name %>.<%= gen_spec.belongs_to_name(cname) %>.short_name) if <%= gen_spec.singular_name %>.<%= gen_spec.belongs_to_name(cname) %> -%></td>
 <% when :datetime -%>
-    <td align="<%=specs[:align]%>"><%%=h <%= gen_spec.singular_name %>.<%= cname %> -%></td>
+    <td style="text-align: <%=specs[:align]%>;"><%%=h <%= gen_spec.singular_name %>.<%= cname %> -%></td>
 <% end -%><% end -%>
   </tr>
 <%% end -%>

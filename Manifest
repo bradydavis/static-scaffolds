@@ -81,11 +81,13 @@ rails_generators/static_gen_specs/USAGE
 rails_generators/static_scaffold/static_scaffold_generator.rb
 rails_generators/static_scaffold/templates/controller.rb
 rails_generators/static_scaffold/templates/fake_data.rake
+rails_generators/static_scaffold/templates/filter_session_base.rb
 rails_generators/static_scaffold/templates/functional_test.rb
 rails_generators/static_scaffold/templates/helper.rb
 rails_generators/static_scaffold/templates/helper_test.rb
 rails_generators/static_scaffold/templates/layout.html.erb
 rails_generators/static_scaffold/templates/model.rb
+rails_generators/static_scaffold/templates/model_filter_session.rb
 rails_generators/static_scaffold/templates/paperclip_tokens.rb
 rails_generators/static_scaffold/templates/partial_work_area_entry_header.html.erb
 rails_generators/static_scaffold/templates/partial_work_area_index_header.html.erb

@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{static-generators}
-  s.version = "0.4.1"
+  s.version = "0.4.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.2") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jeffrey Hicks"]
-  s.date = %q{2009-07-13}
+  s.date = %q{2009-07-14}
   s.description = %q{Generate attractive interfaces that are easy to edit.}
   s.email = %q{jrhicks (at) gmail (dot) com}
   s.extra_rdoc_files = ["CHANGELOG", "lib/static_generators.rb", "LICENSE", "README.md", "tasks/deployment.rake", "TODO"]
