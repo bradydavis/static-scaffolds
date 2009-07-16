@@ -1,0 +1,7 @@
+<%for f in gen_spec.search_facets -%>
+<div style="padding-top: 2em;">
+<h6><%=f[:title]%></h6>
+<%%@facet=<%=gen_spec.singular_name%>_search.<%=f[:name]%> %>
+<%%=render :partial=>"/faceted_search/<%=f[:partial]%>"%>
+</div>
+<%end -%>

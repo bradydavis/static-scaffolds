@@ -1,4 +1,7 @@
 class <%= controller_class_name %>Controller < ApplicationController
+  
+  before_filter :update_<%=gen_spec.singular_name%>_search
+  
   # GET /<%= table_name %>
   # GET /<%= table_name %>.xml
   def index
@@ -6,7 +9,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%=gen_spec.ascendant[:name]%> = <%=gen_spec.ascendant[:model]%>.find(params["<%=gen_spec.ascendant[:name]%>"])
     @<%=gen_spec.plural_name %> = @<%=gen_spec.ascendant[:name]%>.<%= gen_spec.plural_name %>    
 <%else -%>
-    @<%=gen_spec.plural_name %> = <%= gen_spec.model_name %>.search(params[:page])
+    @<%=gen_spec.plural_name %> = <%= gen_spec.singular_name %>_search.paginate
 <%end -%>
 
     # Configure Partials
@@ -109,4 +112,17 @@ class <%= controller_class_name %>Controller < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  private
+  
+  def <%=gen_spec.singular_name%>_search
+    @<%=gen_spec.singular_name%>_search ||= <%=gen_spec.model_name%>Search.new(session)
+  end
+  
+  def update_<%=gen_spec.singular_name%>_search
+    <%=gen_spec.singular_name%>_search.update_with(params)
+  end
+  
+  helper_method :<%=gen_spec.singular_name%>_search  
+  
 end

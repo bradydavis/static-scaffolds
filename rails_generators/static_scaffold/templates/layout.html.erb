@@ -19,21 +19,10 @@
 	  <div class="span-5">
 		  <div class="model_selector">
 			  <div class="model_selection ui-corner-tl">
-						Clients
-				</div>
-			  <div class="model_selection">
-		  			<%%=link_to 'Projects'%>
-	  		</div>
-			  <div class="model_selection">
-						<%%=link_to 'Users'%>
-				</div>
-			  <div class="model_selection">
-						<%%=link_to 'Offices'%>
-				</div>
-			  <div class="model_selection">
-						<%%=link_to 'Vendors'%>
+						<%=gen_spec.plural_name.titleize%>
 				</div>
 			</div> <!-- end model selector -->
+			<%%=render :partial=>"<%=gen_spec.plural_name%>/facet_form"%>
 		</div> <!-- end left_column -->
 		
 		<!-- Right Column -->

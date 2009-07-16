@@ -151,6 +151,14 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         end
     end
     
+    def guess_numeric_range_facets
+      column_names.select {|cname| [:int,:float, :decimal].include?(guess_type(cname)) }
+    end
+    
+    def guess_keyword_facets
+      column_names.select {|cname| [:text,:string].include?(guess_type(cname)) }
+    end
+    
     def estimate_string(cname)
         # Look for commonly named fields and guess length otherwise make an educated guess based on db limits
         c=column(cname)

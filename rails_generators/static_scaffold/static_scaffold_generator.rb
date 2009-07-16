@@ -78,7 +78,12 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
             "model.rb",
             File.join('app/models',"#{@controller_singular_name.downcase}.rb"))
 
-
+      # Faceted Search
+      m.template("model_search.rb",
+                  File.join('app/models',"#{@controller_singular_name.downcase}_search.rb"))
+      m.template("partial_facet_form.html.erb",
+                  File.join('app/views',controller_class_path, controller_file_name, "_facet_form.html.erb"))
+                  
       # Views
       for action in scaffold_views
         m.template(

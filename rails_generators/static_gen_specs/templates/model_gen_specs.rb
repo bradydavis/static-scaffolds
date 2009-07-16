@@ -51,6 +51,26 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%end -%>
     ]
   end
+  
+  def search_facets
+    [<%if guess_keyword_facets and guess_keyword_facets.length>0 -%>  
+      {
+        :name       => "keyword_facet",
+        :type       => "keyword_facet",
+        :attributes => <%=guess_keyword_facets.inspect%>,
+        :partial    => "keyword_facet",
+        :title      => "Search"
+      },
+<%end -%><%for nrc in guess_numeric_range_facets -%>
+      { 
+        :name       => "<%=nrc%>_facet",
+        :type       => "numeric_range_facet",
+        :attributes => <%=nrc.inspect%>,
+        :partial    => "numeric_range_facet",
+        :title      => <%=nrc.titleize.inspect%>        
+      },<%end -%> 
+    ]
+  end
 
   def form_groups
     [
