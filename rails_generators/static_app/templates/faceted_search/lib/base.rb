@@ -18,11 +18,11 @@ class FacetedSearch::Base
   end
 
   def create_keyword_facet(attributes)
-    register(KeywordFacet.new(attributes, @model.table_name, @session))
+    register(FacetedSearch::KeywordFacet.new(attributes, @model.table_name, @session))
   end
   
   def create_numeric_range_facet(attribute)
-    register(NumericRangeFacet.new(attribute, @model.table_name, @session))
+    register(FacetedSearch::NumericRangeFacet.new(attribute, @model.table_name, @session))
   end
 
   def refined(scope)
