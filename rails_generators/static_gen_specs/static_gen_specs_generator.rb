@@ -151,6 +151,14 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         end
     end
     
+    def is_meta_data?(cname)
+      ["created_at", "updated_at"].include?(cname.to_s)
+    end
+    
+    def guess_date_range_facets
+      column_names.select {|cname| [:datetime, :date, :timestamp].include?(guess_type(cname))}
+    end
+    
     def guess_numeric_range_facets
       column_names.select {|cname| [:int,:float, :decimal].include?(guess_type(cname)) }
     end

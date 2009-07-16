@@ -24,6 +24,10 @@ class FacetedSearch::Base
   def create_numeric_range_facet(attribute)
     register(FacetedSearch::NumericRangeFacet.new(attribute, @model.table_name, @session))
   end
+  
+  def create_date_range_facet(attribute)
+    register(FacetedSearch::DateRangeFacet.new(attribute, @model.table_name, @session))
+  end
 
   def refined(scope)
     @facets.each {|facet| scope = facet.refined(scope)}
@@ -48,8 +52,11 @@ class FacetedSearch::Base
   end
 
   def update_with(params)
-    @facets.each {|facet| facet.update_with(params)}
-    @session[page_param] = params[page_param] unless params[page_param].blank?
+    if @facets.map {|facet| facet.update_with(params)}.include?(true)
+      @session[page_param]=1  # Parameter of search changed.  Start over at page 1
+    else
+      @session[page_param] = params[page_param] unless params[page_param].blank?
+    end
   end
   
   def order

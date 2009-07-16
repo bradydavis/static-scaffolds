@@ -53,7 +53,17 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
   end
   
   def search_facets
-    [<%if guess_keyword_facets and guess_keyword_facets.length>0 -%>  
+    [
+<%for attribute_name in guess_date_range_facets -%>
+<%="#" if is_meta_data?(attribute_name)%>      { 
+<%="#" if is_meta_data?(attribute_name)%>        :name       => "<%=attribute_name%>_facet",
+<%="#" if is_meta_data?(attribute_name)%>        :type       => "date_range_facet",
+<%="#" if is_meta_data?(attribute_name)%>        :attributes => <%=attribute_name.inspect%>,
+<%="#" if is_meta_data?(attribute_name)%>        :partial    => "date_range_facet",
+<%="#" if is_meta_data?(attribute_name)%>        :title      => <%=attribute_name.titleize.inspect%>      
+<%="#" if is_meta_data?(attribute_name)%>      },
+<%end -%>      
+<%if guess_keyword_facets and guess_keyword_facets.length>0 -%>  
       {
         :name       => "keyword_facet",
         :type       => "keyword_facet",
@@ -61,14 +71,17 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
         :partial    => "keyword_facet",
         :title      => "Search"
       },
-<%end -%><%for nrc in guess_numeric_range_facets -%>
-      { 
-        :name       => "<%=nrc%>_facet",
-        :type       => "numeric_range_facet",
-        :attributes => <%=nrc.inspect%>,
-        :partial    => "numeric_range_facet",
-        :title      => <%=nrc.titleize.inspect%>        
-      },<%end -%> 
+<%end -%>
+<%for attribute_name in guess_numeric_range_facets -%>
+<%="#" if is_meta_data?(attribute_name)%>      { 
+<%="#" if is_meta_data?(attribute_name)%>         :name       => "<%=attribute_name%>_facet",
+<%="#" if is_meta_data?(attribute_name)%>         :type       => "numeric_range_facet",
+<%="#" if is_meta_data?(attribute_name)%>         :attributes => <%=attribute_name.inspect%>,
+<%="#" if is_meta_data?(attribute_name)%>         :partial    => "numeric_range_facet",
+<%="#" if is_meta_data?(attribute_name)%>         :title      => <%=attribute_name.titleize.inspect%>        
+<%="#" if is_meta_data?(attribute_name)%>      },
+<%end -%>
+
     ]
   end
 

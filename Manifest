@@ -14,9 +14,11 @@ rails_generators/static_app/templates/blueprint/README.textile
 rails_generators/static_app/templates/blueprint/readme.txt
 rails_generators/static_app/templates/blueprint/screen.css
 rails_generators/static_app/templates/faceted_search/lib/base.rb
+rails_generators/static_app/templates/faceted_search/lib/date_range_facet.rb
 rails_generators/static_app/templates/faceted_search/lib/facet.rb
 rails_generators/static_app/templates/faceted_search/lib/keyword_facet.rb
 rails_generators/static_app/templates/faceted_search/lib/numeric_range_facet.rb
+rails_generators/static_app/templates/faceted_search/views/date_range_facet.html.erb
 rails_generators/static_app/templates/faceted_search/views/keyword_facet.html.erb
 rails_generators/static_app/templates/faceted_search/views/numeric_range_facet.html.erb
 rails_generators/static_app/templates/header_bg.png

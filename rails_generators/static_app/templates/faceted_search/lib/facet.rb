@@ -23,7 +23,14 @@ class FacetedSearch::Facet
   end
   
   def update_with(params)
-    parameter_names.each {|p| @session[p] = params[p] unless params[p]==nil}
+    value_changed=false
+    for p in parameter_names
+      if params[p]!=nil
+        value_changed=true
+        @session[p] = params[p]
+      end
+    end
+    return value_changed
   end
   
 end
