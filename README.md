@@ -7,7 +7,7 @@
     gem sources -a http://gems.github.com 
     gem install jrhicks-static-generators
 
-## Install into new app (Requires Rails 2.3)
+## Install with Template
 
     rails project_name -m http://github.com/jrhicks/static-scaffolds/raw/master/rails_templates/static_base.rb
 
