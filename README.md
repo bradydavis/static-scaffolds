@@ -1,27 +1,44 @@
-## Static Scaffolds (Not really ready yet)
+## Static Scaffolds
 
-Generate attractive interfaces that are easy to edit.
+		Scaffold usable rails apps that are easy to edit.
 
-## Installation
+## Install Gem
 
     gem sources -a http://gems.github.com 
     gem install jrhicks-static-generators
 
-## Usage (Roadmap)
+## Install into new app (Requires Rails 2.3)
+
+    rails project_name -m http://github.com/jrhicks/static-scaffolds/raw/master/rails_templates/static_base.rb
+
+## Usage
 
     ruby script/generate static_app
     ruby script/generate static_gen_specs MyModel
     ruby script/generate static_scaffold MyModel
 
-## Gem Development
+## Demo AddressBook App
 
-	gem install echoe
-    rake manifest
-    rake install
+    rails address_book -m http://github.com/jrhicks/static-scaffolds/raw/master/rails_templates/static_base.rb
+		ruby script/generate model contact full_name, email, work_phone, cell_phone, street_address, city, state, zip
+		rake db:migrate
+		ruby script/generate static_gen_specs contact -f
+		ruby script/generate static_scaffold contact -f
+		rake db:populate_fake_contacts
+		ruby script/server
+		
+		http://localhost:3000/contacts
+
+## Development
+
+		git clone git://github.com/jrhicks/static-scaffolds.git 	  
+
+	  gem install echoe
+		rake manifest
     rake build
-    rake publish
+    rake install
 
 ## Author
 
-Jeffrey Hicks
+		Jeffrey Hicks
 
