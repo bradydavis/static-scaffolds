@@ -1,4 +1,4 @@
-sh "gem sources -a http://gems.github.com"
+run "gem sources -a http://gems.github.com"
 gem 'jrhicks-static-scaffold'
 gem 'paperclip'
 gem 'mislav-will_paginate', :lib => 'will_paginate'
