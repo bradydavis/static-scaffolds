@@ -17,12 +17,14 @@
 		
 		<!-- Left Column -->
 	  <div class="span-5">
-		  <div class="model_selector">
-			  <div class="model_selection ui-corner-tl">
-						<%=gen_spec.plural_name.titleize%>
+		  <div class="model">
+			  <div class="model_header ui-corner-tl">
+						<%=gen_spac.titleize%>
+				</div>
+				<div class="model_facets">
+					<%%=render :partial=>"<%=gen_spac.plural_name%>/facet_form"%>
 				</div>
 			</div> <!-- end model selector -->
-			<%%=render :partial=>"<%=gen_spec.plural_name%>/facet_form"%>
 		</div> <!-- end left_column -->
 		
 		<!-- Right Column -->
@@ -35,16 +37,26 @@
 					</div> <!-- end work_area header -->
 					
 					<div class="presentation_selector">
-						<div class="presentation_selection">
+						<div class="presentation_selected ui-corner-ul ui-corner-ur">
 							<%%=link_to "Table"%>
 						</div>
-						<div class="presentation_selection">
+						<div class="presentation_selection ui-corner-ul ui-corner-ur">
 							<%%=link_to "Map"%>
 						</div>
-						<div class="presentation_selection">
-							<%%=link_to "Hourly Averages"%>
+						<div class="presentation_selection ui-corner-ul ui-corner-ur">
+							<%%=link_to "Chart"%>
 						</div>					
 					</div> <!-- end presentation selector -->
+					
+					<!-- facet remove bar -->
+					<%if <%=gen_spac.singular_name%>_search.active_facets.length>0%>
+					<div class="remove_facets_panel"> 
+						<%@search=<%=gen_spac.singular_name%>_search%>
+						<%%=render :partial=>"faceted_search/active_facets"%>
+					</div> 
+					<%end%>					
+					<!-- end facet remove bar -->
+					
 				<div class="presentation_window">
 			   <%%=yield%>
 				</div> <!-- end presentation window -->

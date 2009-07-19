@@ -6,7 +6,7 @@ class <%=gen_spec.model_name%>Search < FacetedSearch::Base
     @session = session
     @model = <%=gen_spec.model_name%>
 <%for f in gen_spec.search_facets -%>
-    @<%=f[:name]%> = create_<%=f[:type]%>(<%=f[:attributes].inspect%>)
+    @<%=f[:name]%> = create_<%=f[:type]%>(<%=f[:title].inspect%>, <%=f[:attributes].inspect%>)
 <%end -%>
   end
 

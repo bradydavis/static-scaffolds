@@ -18,6 +18,7 @@ rails_generators/static_app/templates/faceted_search/lib/date_range_facet.rb
 rails_generators/static_app/templates/faceted_search/lib/facet.rb
 rails_generators/static_app/templates/faceted_search/lib/keyword_facet.rb
 rails_generators/static_app/templates/faceted_search/lib/numeric_range_facet.rb
+rails_generators/static_app/templates/faceted_search/views/active_facets.html.erb
 rails_generators/static_app/templates/faceted_search/views/date_range_facet.html.erb
 rails_generators/static_app/templates/faceted_search/views/keyword_facet.html.erb
 rails_generators/static_app/templates/faceted_search/views/numeric_range_facet.html.erb

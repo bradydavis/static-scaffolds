@@ -1,45 +1,57 @@
-class FacetedSearch::DateRangeFacet < FacetedSearch::Facet
+class FacetedSearch::Facet
   
-  # Set upper and lower limit values for an attribute
+  # facilitate complex queries by managing session data from request paramaters
   
-  def initialize(attribute, table_name, session)
-    @attribute = attribute
-    @table_name = table_name
-    @session = session
+  attr_reader :title
+  
+  def initialize()
+    raise Exception.new("initialize is a subclase responsibility")
+  end  
+
+  def turn_off_param
+    raise Exception.new("turn_off_param is a subclass responsibility")
   end
 
-  def refined(scope)
-    scope = scope.scoped :conditions => ["#{@table_name}.#{@attribute} <= ?", upper_limit_date] unless upper_limit.blank?
-    scope = scope.scoped :conditions => ["#{@table_name}.#{@attribute} >= ?", lower_limit_date] unless lower_limit.blank?
-    return scope
+  def is_active?
+    raise Exception.new("is_on? is a subclass responsibility")
+  end
+  
+  def turn_off
+    raise Exception.new("turn_off is a subclass responsibility")
   end
 
-  def upper_limit_param_name()
-    "#{@table_name}_date_ul_#{@attribute}"
+  def refined
+    raise Exception.new("refine is a subclass responsibility")
   end
-  
-  def lower_limit_param_name()
-    "#{@table_name}_date_ll_#{@attribute}"
-  end
-  
-  def upper_limit_date
-    Date.parse(upper_limit)
-  end
-  
-  def lower_limit_date
-    Date.parse(lower_limit)
-  end
-  
-  def upper_limit
-    @session[upper_limit_param_name]
-  end
-  
-  def lower_limit
-    @session[lower_limit_param_name]
-  end
-  
+
   def parameter_names
-    [upper_limit_param_name, lower_limit_param_name]
+    raise Exception.new("parameter_names is subclass responsibility")
+  end
+
+  def to_params
+    params = {}
+    parameter_names.each {|pname| params[pname]=@session[pname]}
+    return params
+  end
+  
+  def turn_off_if_needed(params)
+    if params.keys.include?(turn_off_param) and is_active?
+      turn_off
+      return true
+    else
+      return false
+    end
+  end
+  
+  def update_with(params)
+    value_changed = turn_off_if_needed(params)
+    for p in parameter_names
+      if params[p]!=nil and @session[p]!=params[p]
+        value_changed=true
+        @session[p] = params[p]
+      end
+    end
+    return value_changed
   end
   
 end

@@ -39,6 +39,7 @@ class StaticAppGenerator < Rails::Generator::Base
       m.file("faceted_search/lib/numeric_range_facet.rb","lib/faceted_search/numeric_range_facet.rb")
       m.file("faceted_search/lib/date_range_facet.rb","lib/faceted_search/date_range_facet.rb")      
       m.directory "app/views/faceted_search"
+      m.file("faceted_search/views/active_facets.html.erb","app/views/faceted_search/_active_facets.html.erb")      
       m.file("faceted_search/views/keyword_facet.html.erb","app/views/faceted_search/_keyword_facet.html.erb")
       m.file("faceted_search/views/numeric_range_facet.html.erb","app/views/faceted_search/_numeric_range_facet.html.erb")
       m.file("faceted_search/views/date_range_facet.html.erb","app/views/faceted_search/_date_range_facet.html.erb")

@@ -1,0 +1,6 @@
+Results filtered on
+<%for facet in @search.active_facets%>
+	<span class="remove_facet ui-corner-all">
+	<%=facet.title%> <%=link_to "x", {facet.turn_off_param=>"now"}, :method=>:get%>
+	</span>
+<%end%>

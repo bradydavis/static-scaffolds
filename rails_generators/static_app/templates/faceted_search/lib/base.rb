@@ -17,16 +17,16 @@ class FacetedSearch::Base
     return facet
   end
 
-  def create_keyword_facet(attributes)
-    register(FacetedSearch::KeywordFacet.new(attributes, @model.table_name, @session))
+  def create_keyword_facet(title, attributes)
+    register(FacetedSearch::KeywordFacet.new(attributes, title, @model.table_name, @session))
   end
   
-  def create_numeric_range_facet(attribute)
-    register(FacetedSearch::NumericRangeFacet.new(attribute, @model.table_name, @session))
+  def create_numeric_range_facet(title, attribute)
+    register(FacetedSearch::NumericRangeFacet.new(attribute, title, @model.table_name, @session))
   end
   
-  def create_date_range_facet(attribute)
-    register(FacetedSearch::DateRangeFacet.new(attribute, @model.table_name, @session))
+  def create_date_range_facet(title, attribute)
+    register(FacetedSearch::DateRangeFacet.new(attribute, title, @model.table_name, @session))
   end
 
   def refined(scope)
@@ -57,6 +57,14 @@ class FacetedSearch::Base
     else
       @session[page_param] = params[page_param] unless params[page_param].blank?
     end
+  end
+  
+  def active_facets 
+    @facets.select {|facet| facet.is_active? }
+  end
+  
+  def turn_off_facets
+    @facets.each {|facet| facet.turn_off }
   end
   
   def order
