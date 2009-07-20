@@ -1,9 +1,10 @@
-run "gem sources -a http://gems.github.com"
-gem 'jrhicks-static-scaffold'
+gem 'jrhicks-static-scaffold', :source => 'http://gems.github.com'
 gem 'paperclip'
-gem 'mislav-will_paginate', :lib => 'will_paginate'
-generate(:static_app)
+gem 'mislav-will_paginate', :version => '~> 2.2.3', :lib => 'will_paginate', :source => 'http://gems.github.com'
+generate(:static_app, "-f")
 rake("gems:install", :sudo => true)
+
+
 
 # Install file column plugin and overwrite file_column.rb that has bug in Rails 2.3
 #run "sudo ruby script/plugin install http://opensvn.csie.org/rails_file_column/plugins/file_column/trunk"
