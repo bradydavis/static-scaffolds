@@ -1,9 +1,8 @@
 #gem 'jrhicks-static-generators', :source => 'http://gems.github.com'
 gem 'paperclip'
 gem 'mislav-will_paginate', :version => '~> 2.2.3', :lib => 'will_paginate', :source => 'http://gems.github.com'
-generate(:static_app, "-f")
 rake("gems:install", :sudo => true)
-
+generate(:static_app, "-f")
 
 
 # Install file column plugin and overwrite file_column.rb that has bug in Rails 2.3
