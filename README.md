@@ -22,7 +22,7 @@
     gem sources -a http://gems.github.com 
     gem install jrhicks-static-generators		
     rails address_book -m http://github.com/jrhicks/static-scaffolds/raw/master/rails_templates/static_base.rb
-    ruby script/generate model contact full_name, email, work_phone, cell_phone, street_address, city, state, zip
+    ruby script/generate model contact full_name:string, birth_date:datetime, email:string, phone:string, city:string, s:string
     rake db:migrate
     ruby script/generate static_gen_specs contact -f
     ruby script/generate static_scaffold contact -f
