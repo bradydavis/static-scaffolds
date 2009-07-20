@@ -5,7 +5,7 @@
 ## Install Gem
 
     gem sources -a http://gems.github.com 
-    gem install jrhicks-static-generators
+    sudogem install jrhicks-static-generators
 
 ## Create Base Rails App
 
@@ -20,7 +20,7 @@
 ## Demo App Walkthrough
 
     gem sources -a http://gems.github.com 
-    gem install jrhicks-static-generators		
+    sudo gem install jrhicks-static-generators		
     rails address_book -m http://github.com/jrhicks/static-scaffolds/raw/master/rails_templates/static_base.rb
     ruby script/generate model contact full_name:string birth_date:datetime email:string phone:string city:string state:string
     rake db:migrate

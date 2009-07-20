@@ -19,10 +19,10 @@
 	  <div class="span-5">
 		  <div class="model">
 			  <div class="model_header ui-corner-tl">
-						<%=gen_spac.titleize%>
+						<%=gen_spec.plural_title%>
 				</div>
 				<div class="model_facets">
-					<%%=render :partial=>"<%=gen_spac.plural_name%>/facet_form"%>
+					<%%=render :partial=>"<%=gen_spec.plural_name%>/facet_form"%>
 				</div>
 			</div> <!-- end model selector -->
 		</div> <!-- end left_column -->
@@ -49,12 +49,12 @@
 					</div> <!-- end presentation selector -->
 					
 					<!-- facet remove bar -->
-					<%if <%=gen_spac.singular_name%>_search.active_facets.length>0%>
+					<%%if <%=gen_spec.singular_name%>_search.active_facets.length != 0%>
 					<div class="remove_facets_panel"> 
-						<%@search=<%=gen_spac.singular_name%>_search%>
+						<%%@search=<%=gen_spec.singular_name%>_search%>
 						<%%=render :partial=>"faceted_search/active_facets"%>
 					</div> 
-					<%end%>					
+					<%%end%>					
 					<!-- end facet remove bar -->
 					
 				<div class="presentation_window">
