@@ -1,5 +1,21 @@
-<div style="float: right; padding-right: 1em; font-size: .8em;">
-	<%%= will_paginate @posts, :param_name=><%=gen_spec.singular_name%>_search.page_param, :inner_window=>1, :outer_window=>0, :prev_label=>'&larr;', :next_label=>'&rarr;' %>							
-	
-</div>
-<%%=@title if @title%>&nbsp;
+<div class="work_area_header ui-corner-tr">
+	<div class="header_links">
+		<%%= will_paginate @posts, :param_name=><%=gen_spec.singular_name%>_search.page_param, :inner_window=>1, :outer_window=>0, :prev_label=>'&larr;', :next_label=>'&rarr;' %>							
+
+	</div>
+	<%%=@title if @title%>&nbsp;
+</div> <!-- end work_area header -->
+
+<div class="presentation_selector">
+	<div class="presentation_selected ui-corner-ul ui-corner-ur">
+		<%%=link_to "Table"%>
+	</div>
+	<div class="presentation_selection ui-corner-ul ui-corner-ur">
+		<%%=link_to "Map"%>
+	</div>
+	<div class="presentation_selection ui-corner-ul ui-corner-ur">
+		<%%=link_to "Chart"%>
+	</div>					
+</div> <!-- end presentation selector -->
+
+

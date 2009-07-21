@@ -1,10 +1,14 @@
-<div class="header_links">
-	<div class="pagination">
-	<!-- <img src="/images/icons/close_window.gif"> -->
-	<%%=link_to "&uarr;", {:action=>"show", :<%=gen_spec.singular_name%>_previous=>"load", :id=>@<%=gen_spec.singular_name%>.id}%>  
-	<%%=link_to "&darr;", {:action=>"show", :<%=gen_spec.singular_name%>_next=>"load", :id=>@<%=gen_spec.singular_name%>.id}%>  
+<div class="work_area_header ui-corner-tr">
+	<div class="header_links">
+		<div class="pagination">
+		<!-- <img src="/images/icons/close_window.gif"> -->
+		<%%=link_to "&uarr;", {:action=>"show", :<%=gen_spec.singular_name%>_previous=>"load", :id=>@<%=gen_spec.singular_name%>.id}%>  
+		<%%=link_to "&darr;", {:action=>"show", :<%=gen_spec.singular_name%>_next=>"load", :id=>@<%=gen_spec.singular_name%>.id}%>  
 	
-	<%%=link_to "&otimes;", {:action=>"index"}, :method=>:get%>
+		<%%=link_to "&otimes;", {:action=>"index"}, :method=>:get%>
+		</div>
 	</div>
+	<%%=@title if @title%>&nbsp;
 </div>
-<%%=@title if @title%>&nbsp;
+
+

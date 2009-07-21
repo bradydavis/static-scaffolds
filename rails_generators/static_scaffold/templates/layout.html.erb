@@ -31,22 +31,8 @@
 		<div class='span-19 last'>
 			<table><tr style="margin: 0; padding:0;"><td style="margin: 0; padding:0;">
 				<div class="work_area">
-					
-					<div class="work_area_header ui-corner-tr">
+
 						<%%=render :partial=>@header%>
-					</div> <!-- end work_area header -->
-					
-					<div class="presentation_selector">
-						<div class="presentation_selected ui-corner-ul ui-corner-ur">
-							<%%=link_to "Table"%>
-						</div>
-						<div class="presentation_selection ui-corner-ul ui-corner-ur">
-							<%%=link_to "Map"%>
-						</div>
-						<div class="presentation_selection ui-corner-ul ui-corner-ur">
-							<%%=link_to "Chart"%>
-						</div>					
-					</div> <!-- end presentation selector -->
 					
 					<!-- facet remove bar -->
 					<%%if <%=gen_spec.singular_name%>_search.active_facets.length != 0%>
