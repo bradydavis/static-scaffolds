@@ -107,7 +107,11 @@ class StaticAppGenerator < Rails::Generator::Base
       for file in pngs
         m.file "icons/#{file}.png", "public/images/icons/#{file}.png"
       end
-      
+      gifs = "close_window".split()
+      for file in gifs
+        m.file "icons/#{file}.gif", "public/images/icons/#{file}.gif"
+      end
+            
       #Uni-formn
       m.file "uni-form/uni-form-generic.css", "public/stylesheets/uni-form-generic.css"
       m.file "uni-form/uni-form.css","public/stylesheets/uni-form.css"

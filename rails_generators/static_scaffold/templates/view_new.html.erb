@@ -1,6 +1,3 @@
-<%% title "New <%= gen_spec.singular_title %>" %>
-<h1>New <%= gen_spec.singular_name %></h1>
-
 <%% form_for(@<%= gen_spec.singular_name %>, :html=>{:class=>"uniForm"}) do |f| %>
   <%%= f.error_messages %>
 <% if gen_spec.ascendant -%>
@@ -19,6 +16,12 @@
 <% when :file -%>
     <%%= f.file_field :<%= attribute %> %>
 <% when :string -%>
+    <%%= f.text_field :<%= attribute %> %>
+<% when :int -%>
+    <%%= f.text_field :<%= attribute %> %>
+<% when :float -%>
+    <%%= f.text_field :<%= attribute %> %>
+<% when :decimal -%>
     <%%= f.text_field :<%= attribute %> %>
 <% when :foreign_key -%>
     <%%= collection_select(:<%=gen_spec.singular_name%>, :<%= attribute %>, @<%=gen_spec.belongs_to_name(attribute).pluralize%>, :id, :short_name, options = {:prompt => "- Select a <%=gen_spec.belongs_to_name(attribute).titleize.downcase%>"}, html_options = {}) %>

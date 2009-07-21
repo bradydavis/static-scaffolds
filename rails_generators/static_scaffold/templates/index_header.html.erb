@@ -1,0 +1,5 @@
+<div style="float: right; padding-right: 1em; font-size: .8em;">
+	<%%= will_paginate @posts, :param_name=><%=gen_spec.singular_name%>_search.page_param, :inner_window=>1, :outer_window=>0, :prev_label=>'&larr;', :next_label=>'&rarr;' %>							
+	
+</div>
+<%%=@title if @title%>&nbsp;

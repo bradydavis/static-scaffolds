@@ -12,8 +12,9 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%=gen_spec.plural_name %> = <%= gen_spec.singular_name %>_search.paginate
 <%end -%>
 
-    # Configure Partials
-    @work_area_header = "work_area_index_header"
+    # Configure Partials and Layout Text
+    @header = "index_header"
+    @title = "Index"
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,10 +25,24 @@ class <%= controller_class_name %>Controller < ApplicationController
   # GET /<%= table_name %>/1
   # GET /<%= table_name %>/1.xml
   def show
+    
+    if params.has_key?("<%=gen_spec.singular_name%>_next")
+      @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_next(params[:id])
+      redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id
+      return
+    end
+    if params.has_key?("<%=gen_spec.singular_name%>_previous")
+      @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_previous(params[:id])
+      redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id
+      return
+    end    
+    
+    
     @<%= file_name %> = <%= class_name %>.find(params[:id])
 
-    @work_area_header = "work_area_entry_header"
-
+    @header = "entry_header"
+    @title = "#{@<%=gen_spec.singular_name%>.short_name}"
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @<%= file_name %> }
@@ -46,7 +61,11 @@ class <%= controller_class_name %>Controller < ApplicationController
 <% end -%>
 
 <%end -%>
-    @work_area_header = "work_area_entry_header"
+
+    # Configure Partials and Layout Text
+    @header = "entry_header"
+    @title = "New <%=gen_spec.singular_title%>"
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -56,7 +75,18 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # GET /<%= table_name %>/1/edit
   def edit
-    @<%= file_name %> = <%= class_name %>.find(params[:id])
+    @<%= gen_spec.singular_name %> = <%= gen_spec.model_name %>.find(params[:id])
+    @title = "Edit #{@<%=gen_spec.singular_name%>.short_name}"
+<% if gen_spec.belongs_to.length>0 -%>
+    # Form drop downs
+<% for bt in gen_spec.belongs_to -%>
+        @<%=bt[:name].pluralize%> = <%=bt[:model]%>.all
+<% end -%>
+
+<%end -%>
+    # Configure Partials and Layout Text
+    @header = "entry_header"
+    @title = "Edit #{@<%=gen_spec.singular_name%>.short_name}"
   end
 
   # POST /<%= table_name %>
@@ -67,11 +97,15 @@ class <%= controller_class_name %>Controller < ApplicationController
     respond_to do |format|
       if @<%= file_name %>.save
         flash[:notice] = '<%= class_name %> was successfully created.'
-        @work_area_header = "work_area_index_header"        
+
         format.html { redirect_to(@<%= file_name %>) }
         format.xml  { render :xml => @<%= file_name %>, :status => :created, :location => @<%= file_name %> }
       else
-        @work_area_header = "work_area_entry_header"        
+
+        # Configure Partials and Layout Text
+        @header = "entry_header"
+        @title = "New <%=gen_spec.singular_title%>"
+
         format.html { render :action => "new" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }
       end
@@ -91,10 +125,11 @@ class <%= controller_class_name %>Controller < ApplicationController
       if @<%= file_name %>.update_attributes(params[:<%= file_name %>])
         flash[:notice] = '<%= class_name %> was successfully updated.'
         format.html { redirect_to(@<%= file_name %>) }
-        format.xml  { head :ok }
-        @work_area_header = "work_area_index_header"                
+        format.xml  { head :ok }              
       else
-        @work_area_header = "work_area_entry_header"        
+        # Configure Partials and Layout Text
+        @header = "entry_header"
+        @title = "Edit #{<%=gen_spec.singular_name%>.short_name}"
         format.html { render :action => "edit" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }
       end

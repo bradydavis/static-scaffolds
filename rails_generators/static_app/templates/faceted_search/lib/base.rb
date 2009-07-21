@@ -17,6 +17,28 @@ class FacetedSearch::Base
     return facet
   end
 
+  def get_previous(id, scope=nil)
+    scope=default_scope if not scope
+    records = paginate(scope)
+    for previous,current in records.each_cons(2)
+      if current.id==id.to_i
+        return previous
+      end
+    end
+    raise Exception.new("record before this page  .... #{records.map {|r| r.id}.inspect} #{id}")
+  end
+  
+  def get_next(id, scope=nil)
+    scope=default_scope if not scope
+    records = paginate(scope)
+    for current,next_record in records.each_cons(2)
+      if current.id==id.to_i
+        return next_record
+      end
+    end
+    raise Exception.new("record after this page  .... #{records.map {|r| r.id}.inspect} #{id}")
+  end
+
   def create_keyword_facet(title, attributes)
     register(FacetedSearch::KeywordFacet.new(attributes, title, @model.table_name, @session))
   end
@@ -34,10 +56,14 @@ class FacetedSearch::Base
     return scope
   end
   
+  def default_scope
+    @model.scoped({})
+  end
+  
   def paginate(scope=nil)
-    scope = @model.scoped({}) if not scope
+    scope = default_scope
     scope = refined(scope)
-    return scope.paginate({:page=>page})
+    return scope.paginate(:page=>page ,:per_page => page_size)
   end
   
   def to_params
@@ -57,6 +83,10 @@ class FacetedSearch::Base
     else
       @session[page_param] = params[page_param] unless params[page_param].blank?
     end
+    if update_page_size(params)
+      @session[page_param]=1  # Ouch
+      # TODO be smarter about page change
+    end
   end
   
   def active_facets 
@@ -74,7 +104,25 @@ class FacetedSearch::Base
   def page
     @session[page_param]
   end
-   
+  
+  def page_size
+     @session[page_size_param] || @default_page_size
+  end
+  
+  def update_page_size(params)
+    v=params[page_size_param]
+    if params[page_size_param] and v!=@session[page_size_param] and v.to_f<=@max_page_size
+      @session[page_size_param]=v
+      return true
+    else
+      return false
+    end
+  end
+  
+  def page_size_param
+    "#{@model.table_name}_page_size"
+  end
+  
   def order_param
     "#{@model.table_name}_order"
   end

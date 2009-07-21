@@ -5,6 +5,8 @@ class <%=gen_spec.model_name%>Search < FacetedSearch::Base
   def initialize(session)
     @session = session
     @model = <%=gen_spec.model_name%>
+    @default_page_size=20
+    @max_page_size=500    
 <%for f in gen_spec.search_facets -%>
     @<%=f[:name]%> = create_<%=f[:type]%>(<%=f[:title].inspect%>, <%=f[:attributes].inspect%>)
 <%end -%>
