@@ -1,10 +1,47 @@
-<% for attribute in attributes -%>
-<p>
-  <b><%= attribute.column.human_name %>:</b>
-  <%%=h @<%= singular_name %>.<%= attribute.name %> %>
-</p>
+<div class="static_form">
+<div class="entry_actions">
+	<table style="width: inherit;">
+		<tr>
+    <td>
+	    <%%=link_to "<img src='/images/icons/pencil.png' alt=''/> Edit", {:action=>"edit"}, :class=>"button"%>
+	    </a>
+		</td>
+	 </tr>
+	</table>
+</div>
+<div class="entry_body">
 
+<% for group in gen_spec.safe_form_groups -%>
+<fieldset>
+  <legend><%=group[:group_name]%></legend>
+  <table>
+	 <tr>
+<% for attribute in group[:attributes] -%>
+<%options=gen_spec.column_specs[attribute] -%>
+<td valign="top"><%= options[:label] %></td>
+<% case options[:type] -%>
+<% when :string -%>
+    <td valign="top"><%%=@<%=gen_spec.singular_name%>.<%=attribute%>%></td>
+<% when :int -%>
+    <td valign="top"><%%=@<%=gen_spec.singular_name%>.<%=attribute%>%></td>
+<% when :float -%>
+    <td valign="top"><%%=@<%=gen_spec.singular_name%>.<%=attribute%>%></td>
+<% when :decimal -%>
+    <td valign="top"><%%=@<%=gen_spec.singular_name%>.<%=attribute%>%></td>
+<% when :foreign_key -%>
+    <td valign="top"><%%=@<%=gen_spec.singular_name%>.<%=gen_spec.belongs_to_name(attribute)%>.try(:short_name)%></td>
+<% when :file -%>
+		<td valign="top"><%%=@<%=gen_spec.singular_name%>.<%=attribute%>%></td>
+<% when :photo -%>
+    <td valign="top"><%%=@<%=gen_spec.singular_name%>.<%=attribute%>%></td>
+<% when :datetime -%>
+    <td valign="top"><%%=@<%=gen_spec.singular_name%>.<%=attribute%>%></td>
+<% end -%>
+  </tr>
+<% end -%>
+ </table>
+</fieldset>
 <% end -%>
 
-<%%= link_to 'Edit', edit_<%= singular_name %>_path(@<%= singular_name %>) %> |
-<%%= link_to 'Back', <%= plural_name %>_path %>
+</div>
+</div>

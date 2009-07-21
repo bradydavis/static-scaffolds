@@ -6,6 +6,15 @@
 	<%%=@title if @title%>&nbsp;
 </div> <!-- end work_area header -->
 
+<!-- facet remove bar -->
+<%%if <%=gen_spec.singular_name%>_search.active_facets.length != 0%>
+<div class="remove_facets_panel"> 
+	<%%@search=<%=gen_spec.singular_name%>_search%>
+	<%%=render :partial=>"faceted_search/active_facets"%>
+</div> 
+<%%end%>					
+<!-- end facet remove bar -->
+
 <div class="presentation_selector">
 	<div class="presentation_selected ui-corner-ul ui-corner-ur">
 		<%%=link_to "Table"%>

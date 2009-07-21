@@ -1,40 +1,56 @@
-<%% form_for(@<%= gen_spec.singular_name %>, :html=>{:class=>"uniForm"}) do |f| %>
+<%% form_for(@<%= gen_spec.singular_name %>, :html=>{:class=>"static_form"}) do |f| %>
+<div class="entry_actions">
+	<table style="width: inherit;">
+		<tr><td>
+	    <button type="submit" name="commit" value="Save" class="button positive">
+	        <img src="/images/icons/tick.png" alt=""/> 
+	        Save
+	    </button>
+		</td>
+    <td>
+	    <%%=link_to "<img src='/images/icons/cross.png' alt=''/> Cancel", @<%=gen_spec.singular_name%>, :class=>"button negative"%>
+	    </a>
+		</td>
+	 </tr>
+	</table>
+</div>
+<div class="entry_body">
+
   <%%= f.error_messages %>
 <% if gen_spec.ascendant -%>
 <%%=f.hidden(<%=gen_spec.singular_name%>, <%=gen_spec.ascendant[:key].inspect%>)
 <% end %>
 
 <% for group in gen_spec.safe_form_groups -%>
-<fieldset class="inlineLabels">
+<fieldset>
   <legend><%=group[:group_name]%></legend>
-
+  <table>
+	 <tr>
 <% for attribute in group[:attributes] -%>
 <%options=gen_spec.column_specs[attribute] -%>
-  <div class="ctrlHolder">
-    <%%= f.label <%= options[:label].inspect %> %>
+   	<td valign="top"><%%= f.label <%= options[:label].inspect %> %></td>
 <% case options[:type] -%>
 <% when :file -%>
-    <%%= f.file_field :<%= attribute %> %>
+   	<td valign="top"><%%= f.file_field :<%= attribute %> %></td>
 <% when :string -%>
-    <%%= f.text_field :<%= attribute %> %>
+    <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
 <% when :int -%>
-    <%%= f.text_field :<%= attribute %> %>
+    <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
 <% when :float -%>
-    <%%= f.text_field :<%= attribute %> %>
+    <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
 <% when :decimal -%>
-    <%%= f.text_field :<%= attribute %> %>
+    <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
 <% when :foreign_key -%>
-    <%%= collection_select(:<%=gen_spec.singular_name%>, :<%= attribute %>, @<%=gen_spec.belongs_to_name(attribute).pluralize%>, :id, :short_name, options = {:prompt => "- Select a <%=gen_spec.belongs_to_name(attribute).titleize.downcase%>"}, html_options = {}) %>
+    <td valign="top"><%%= collection_select(:<%=gen_spec.singular_name%>, :<%= attribute %>, @<%=gen_spec.belongs_to_name(attribute).pluralize%>, :id, :short_name, options = {:prompt => "- Select a <%=gen_spec.belongs_to_name(attribute).titleize.downcase%>"}, html_options = {}) %></td>
 <% when :photo -%>
-    <%%= f.file_field :<%= attribute %> %>
+    <td valign="top"><%%= f.file_field :<%= attribute %> %></td>
 <% when :datetime -%>
-    <%%= f.text_field :<%= attribute %> %>
+    <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
 <% end -%>
-  </div>
+  </tr>
 <% end -%>
+ </table>
 </fieldset>
 <% end -%>
-<div class="buttonHolder">
-  <%%= f.submit 'Create', :class=>"primaryAction"%>
-</div>
 <%% end %>
+</div>

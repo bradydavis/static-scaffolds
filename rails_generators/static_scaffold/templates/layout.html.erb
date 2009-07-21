@@ -1,7 +1,7 @@
 <%%=render :partial=>"shared/standard_header"%>
 
-<div class="container" >
-	<img src="/images/spacer.gif" style="border: 1px; height: 1px; width: 950px;">
+<div class="container" style="height: 100%; ">
+	<img src="/images/spacer.gif"">
 
 	<div>
 		<div class="span-20">
@@ -13,11 +13,11 @@
  	</div> <!-- end application header -->
 
 	<!-- Application Body -->
-	<div>
+	<div >
 		
 		<!-- Left Column -->
-	  <div class="span-5">
-		  <div class="model">
+	  <div class="span-5" >
+		  <div class="model" >
 			  <div class="model_header ui-corner-tl">
 						<%=gen_spec.plural_title%>
 				</div>
@@ -28,20 +28,12 @@
 		</div> <!-- end left_column -->
 		
 		<!-- Right Column -->
-		<div class='span-19 last'>
+		<div class='span-18 last'>
 			<table><tr style="margin: 0; padding:0;"><td style="margin: 0; padding:0;">
 				<div class="work_area">
 
 						<%%=render :partial=>@header%>
 					
-					<!-- facet remove bar -->
-					<%%if <%=gen_spec.singular_name%>_search.active_facets.length != 0%>
-					<div class="remove_facets_panel"> 
-						<%%@search=<%=gen_spec.singular_name%>_search%>
-						<%%=render :partial=>"faceted_search/active_facets"%>
-					</div> 
-					<%%end%>					
-					<!-- end facet remove bar -->
 					
 				<div class="presentation_window">
 			   <%%=yield%>

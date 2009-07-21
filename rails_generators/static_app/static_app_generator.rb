@@ -103,7 +103,7 @@ class StaticAppGenerator < Rails::Generator::Base
                   
       # icons
       m.directory 'public/images/icons'
-      pngs = "tick cross feed key doc external pdf email visited xls".split()
+      pngs = "pencil tick cross feed key doc external pdf email visited xls".split()
       for file in pngs
         m.file "icons/#{file}.png", "public/images/icons/#{file}.png"
       end
@@ -111,12 +111,7 @@ class StaticAppGenerator < Rails::Generator::Base
       for file in gifs
         m.file "icons/#{file}.gif", "public/images/icons/#{file}.gif"
       end
-            
-      #Uni-formn
-      m.file "uni-form/uni-form-generic.css", "public/stylesheets/uni-form-generic.css"
-      m.file "uni-form/uni-form.css","public/stylesheets/uni-form.css"
-      m.file "uni-form/uni-form.jquery.js", "public/javascripts/uni-form.jquery.js"
-      m.file "uni-form/jquery.js", "public/javascripts/jquery.js"      
+             
     end
   end
    
