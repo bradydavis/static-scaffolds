@@ -21,9 +21,10 @@ end
 
 class GeneratorSpecs < GenSpecFactory
     
-    def ascendant_columns
-      if ascendant
-        [ascendant[:key]]
+    def nested_by_columns
+      # Its only one, but a list is easy to work with
+      if nested_by
+        [nested_by[:key]]
       else
         []
       end
@@ -34,7 +35,7 @@ class GeneratorSpecs < GenSpecFactory
     end
 
     def safe_form_groups
-      form_groups.map {|group| {:group_name=>group[:group_name], :attributes=>(group[:attributes]-ascendant_columns-primary_columns)}}
+      form_groups.map {|group| {:group_name=>group[:group_name], :attributes=>(group[:attributes]-nested_by_columns-primary_columns)}}
     end
     
     def safe_table_view_columns

@@ -5,9 +5,9 @@ class <%= controller_class_name %>Controller < ApplicationController
   # GET /<%= table_name %>
   # GET /<%= table_name %>.xml
   def index
-<%  if gen_spec.ascendant -%>
-    @<%=gen_spec.ascendant[:name]%> = <%=gen_spec.ascendant[:model]%>.find(params["<%=gen_spec.ascendant[:name]%>"])
-    @<%=gen_spec.plural_name %> = @<%=gen_spec.ascendant[:name]%>.<%= gen_spec.plural_name %>    
+<%  if gen_spec.nested_by -%>
+    @<%=gen_spec.nested_by[:name]%> = <%=gen_spec.nested_by[:model]%>.find(params["<%=gen_spec.nested_by[:name]%>"])
+    @<%=gen_spec.plural_name %> = @<%=gen_spec.nested_by[:name]%>.<%= gen_spec.plural_name %>    
 <%else -%>
     @<%=gen_spec.plural_name %> = <%= gen_spec.singular_name %>_search.paginate
 <%end -%>

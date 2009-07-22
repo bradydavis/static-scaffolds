@@ -17,8 +17,8 @@
 <div class="entry_body">
 
   <%%= f.error_messages %>
-<% if gen_spec.ascendant -%>
-<%%=f.hidden(<%=gen_spec.singular_name%>, <%=gen_spec.ascendant[:key].inspect%>)
+<% if gen_spec.nested_by -%>
+<%%=f.hidden(<%=gen_spec.singular_name%>, <%=gen_spec.nested_by[:key].inspect%>)
 <% end %>
 
 <% for group in gen_spec.safe_form_groups -%>

@@ -59,9 +59,9 @@ class <%= class_name %> < ActiveRecord::Base
     "<%=gen_spec.order_preference_columns.join(", ")%> <%=gen_spec.order_preference%>" 
   end
 
-<%if gen_spec.ascendant -%>
-  def ascendant
-    <%=gen_spec.ascendant[:name]%>  
+<%if gen_spec.nested_by -%>
+  def nested_by
+    <%=gen_spec.nested_by[:name]%>  
   end
 
 <%end -%>
@@ -73,8 +73,8 @@ class <%= class_name %> < ActiveRecord::Base
     if user.has_global_permit_for(<%=gen_spec.plural_name.inspect%>)
       return true
     else
-<%if gen_spec.ascendant -%>
-      return (permitted_include?(user) and ascendant.permits?(user))
+<%if gen_spec.nested_by -%>
+      return (permitted_include?(user) and nested_by.permits?(user))
 <%else -%>
       return permitted_include?(user)
 <%end -%>
@@ -82,7 +82,7 @@ class <%= class_name %> < ActiveRecord::Base
   end
 
   def permitted_include?(user)
-    # Asside from ascendant constraints, is this user permitted to access this <%=gen_spec.singular_name%>
+    # Asside from nested_by constraints, is this user permitted to access this <%=gen_spec.singular_name%>
     return true
   end
 
