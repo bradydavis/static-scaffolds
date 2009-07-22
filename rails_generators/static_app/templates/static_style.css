@@ -28,8 +28,8 @@
 }
 
 .entry_actions {
-	border: 1px solid #DDD;	
-  border-bottom-color: #CCC;
+	border: 1px solid #DDD;
+	border-bottom: 0px;	
   padding-left: 5px;
   background: #EEEEEE;
   color: #666;
