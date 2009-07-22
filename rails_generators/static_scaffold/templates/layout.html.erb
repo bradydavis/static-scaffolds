@@ -15,17 +15,7 @@
 	<!-- Application Body -->
 	<div >
 		
-		<!-- Left Column -->
-	  <div class="span-5" >
-		  <div class="model" >
-			  <div class="model_header ui-corner-tl">
-						<%=gen_spec.plural_title%>
-				</div>
-				<div class="model_facets">
-					<%%=render :partial=>"<%=gen_spec.plural_name%>/facet_form"%>
-				</div>
-			</div> <!-- end model selector -->
-		</div> <!-- end left_column -->
+		<%%=render :partial=>@navigation%>
 		
 		<!-- Right Column -->
 		<div class='span-18 last'>

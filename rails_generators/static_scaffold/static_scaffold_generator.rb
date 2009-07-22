@@ -93,7 +93,7 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
       end
 
       # Partials
-      for action in "entry_header index_header".split
+      for action in "entry_navigation index_navigation entry_header index_header".split
         m.template(
           "#{action}.html.erb",
           File.join('app/views', controller_class_path, controller_file_name, "_#{action}.html.erb")
