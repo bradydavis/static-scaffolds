@@ -22,23 +22,20 @@ class <%= controller_class_name %>Controller < ApplicationController
       format.xml  { render :xml => @<%= table_name %> }
     end
   end
+  
+  def next
+    @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_next(params[:id])
+    redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id    
+  end
+  
+  def prev
+    @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_previous(params[:id])
+    redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id    
+  end
 
   # GET /<%= table_name %>/1
   # GET /<%= table_name %>/1.xml
   def show
-    
-    if params.has_key?("<%=gen_spec.singular_name%>_next")
-      @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_next(params[:id])
-      redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id
-      return
-    end
-    if params.has_key?("<%=gen_spec.singular_name%>_previous")
-      @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_previous(params[:id])
-      redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id
-      return
-    end    
-    
-    
     @<%= file_name %> = <%= class_name %>.find(params[:id])
 
     @header = "entry_header"
