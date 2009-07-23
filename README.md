@@ -4,10 +4,10 @@
 
 ## Install Gem
 
-		gem install echoe
+    gem install echoe
     git clone git://github.com/jrhicks/static-scaffolds.git
-		cd static-scaffolds
-		rake install
+    cd static-scaffolds
+    rake install
 
 ## Create Base Rails App
 
