@@ -50,6 +50,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   # GET /<%= table_name %>/new.xml
   def new
     @<%= file_name %> = nested_and_authorized_scope.new
+    load_form_drop_downs
 
     # Configure Partials and Layout Text
     @header = "entry_header"
@@ -66,6 +67,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   def edit
     @<%= gen_spec.singular_name %> = nested_and_authorized_scope.find(params[:id])
     @title = "Edit #{@<%=gen_spec.singular_name%>.short_name}"
+    load_form_drop_downs
 
     # Configure Partials and Layout Text
     @header = "entry_header"
