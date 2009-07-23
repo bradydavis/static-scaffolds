@@ -4,8 +4,10 @@
 
 ## Install Gem
 
-    gem sources -a http://gems.github.com 
-    sudogem install jrhicks-static-generators
+		gem install echoe
+    git clone git://github.com/jrhicks/static-scaffolds.git
+		cd static-scaffolds
+		rake install
 
 ## Create Base Rails App
 
@@ -17,10 +19,8 @@
     ruby script/generate static_gen_specs MyModel
     ruby script/generate static_scaffold MyModel
 
-## Demo App Walkthrough
+## Basic Walkthrough
 
-    gem sources -a http://gems.github.com 
-    sudo gem install jrhicks-static-generators		
     rails address_book -m http://github.com/jrhicks/static-scaffolds/raw/master/rails_templates/static_base.rb
     ruby script/generate model contact full_name:string birth_date:datetime email:string phone:string city:string state:string
     rake db:migrate
@@ -29,15 +29,6 @@
     rake db:populate_fake_contacts
     ruby script/server
     http://localhost:3000/contacts
-
-## Development
-
-    git clone git://github.com/jrhicks/static-scaffolds.git     
-
-    gem install echoe
-    rake manifest
-    rake build
-    rake install
 
 ## Author
 
