@@ -91,10 +91,10 @@ class StaticAppGenerator < Rails::Generator::Base
 
       # header and footer
       m.directory 'app/views/shared'
-      m.template "standard_navigation.html.erb", "app/views/shared/_standard_navigation.html.erb"
       m.template "standard_header.html.erb", "app/views/shared/_standard_header.html.erb"
       m.template "standard_footer.html.erb", "app/views/shared/_standard_footer.html.erb"
       m.template "standard_banner.html.erb", "app/views/shared/_standard_banner.html.erb"
+      m.template "root_navigation.html.erb", "app/views/shared/_root_navigation.html.erb"
       m.file "header_bg.png", "public/images/header_bg.png"
       #m.template "standard_banner_user.html.erb", "app/views/shared/_standard_banner_user.html.erb"
 

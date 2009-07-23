@@ -1,24 +1,15 @@
 <%%=render :partial=>"shared/standard_header"%>
 
 <div class="container" style="height: 100%; ">
-	<img src="/images/spacer.gif"">
 
-	<div>
-		<div class="span-20">
-			<h1>Static App</h1>
-		</div>
- 		<div class="span-4 last">
-		 	<%%=link_to "Logout"%>
-		</div>
- 	</div> <!-- end application header -->
+	<%%=render :partial=>"/shared/standard_banner"%>
 
 	<!-- Application Body -->
-	<div >
-		
+	<div>
 		<%%=render :partial=>@navigation%>
 		
 		<!-- Right Column -->
-		<div class='span-18 last'>
+		<div class='span-19 last'>
 			<table><tr style="margin: 0; padding:0;"><td style="margin: 0; padding:0;">
 				<div class="work_area">
 

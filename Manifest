@@ -1057,11 +1057,11 @@ rails_generators/static_app/templates/plugins/jrails/javascripts/sources/jrails.
 rails_generators/static_app/templates/plugins/jrails/lib/jrails.rb
 rails_generators/static_app/templates/plugins/jrails/README
 rails_generators/static_app/templates/plugins/jrails/tasks/jrails.rake
+rails_generators/static_app/templates/root_navigation.html.erb
 rails_generators/static_app/templates/sorttable/sorttable.js
 rails_generators/static_app/templates/standard_banner.html.erb
 rails_generators/static_app/templates/standard_footer.html.erb
 rails_generators/static_app/templates/standard_header.html.erb
-rails_generators/static_app/templates/standard_navigation.html.erb
 rails_generators/static_app/templates/static_generator.rake
 rails_generators/static_app/templates/static_style.css
 rails_generators/static_app/USAGE
