@@ -1,17 +1,15 @@
 class <%= controller_class_name %>Controller < ApplicationController
-  
+
+<%  if gen_spec.nested_by -%>
+  before_filter :get_<%=gen_spec.nested_by[:name]%>
+<%end -%>
   before_filter :update_<%=gen_spec.singular_name%>_search
-  
+
   # GET /<%= table_name %>
   # GET /<%= table_name %>.xml
   def index
-<%  if gen_spec.nested_by -%>
-    @<%=gen_spec.nested_by[:name]%> = <%=gen_spec.nested_by[:model]%>.find(params["<%=gen_spec.nested_by[:name]%>"])
-    @<%=gen_spec.plural_name %> = @<%=gen_spec.nested_by[:name]%>.<%= gen_spec.plural_name %>    
-<%else -%>
-    @<%=gen_spec.plural_name %> = <%= gen_spec.singular_name %>_search.paginate
-<%end -%>
-
+    @<%=gen_spec.plural_name%> = <%=gen_spec.singular_name%>_search.paginate(nested_and_authorized_scope)
+    
     # Configure Partials and Layout Text
     @header = "index_header"
     @navigation = "index_navigation"
@@ -24,19 +22,19 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
   
   def next
-    @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_next(params[:id])
+    @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_next(params[:id], nested_and_authorized_scope)
     redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id    
   end
   
   def prev
-    @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_previous(params[:id])
+    @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_previous(params[:id], nested_and_authorized_scope)
     redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id    
   end
 
   # GET /<%= table_name %>/1
   # GET /<%= table_name %>/1.xml
   def show
-    @<%= file_name %> = <%= class_name %>.find(params[:id])
+    @<%= file_name %> = nested_and_authorized_scope.find(params[:id])
 
     @header = "entry_header"
     @navigation = "entry_navigation"
@@ -51,21 +49,12 @@ class <%= controller_class_name %>Controller < ApplicationController
   # GET /<%= table_name %>/new
   # GET /<%= table_name %>/new.xml
   def new
-    @<%= file_name %> = <%= class_name %>.new
-
-<% if gen_spec.belongs_to.length>0 -%>
-    # Form drop downs
-<% for bt in gen_spec.belongs_to -%>
-        @<%=bt[:name].pluralize%> = <%=bt[:model]%>.all
-<% end -%>
-
-<%end -%>
+    @<%= file_name %> = nested_and_authorized_scope.new
 
     # Configure Partials and Layout Text
     @header = "entry_header"
     @navigation = "entry_navigation"
     @title = "New <%=gen_spec.singular_title%>"
-
 
     respond_to do |format|
       format.html # new.html.erb
@@ -75,15 +64,9 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # GET /<%= table_name %>/1/edit
   def edit
-    @<%= gen_spec.singular_name %> = <%= gen_spec.model_name %>.find(params[:id])
+    @<%= gen_spec.singular_name %> = nested_and_authorized_scope.find(params[:id])
     @title = "Edit #{@<%=gen_spec.singular_name%>.short_name}"
-<% if gen_spec.belongs_to.length>0 -%>
-    # Form drop downs
-<% for bt in gen_spec.belongs_to -%>
-        @<%=bt[:name].pluralize%> = <%=bt[:model]%>.all
-<% end -%>
 
-<%end -%>
     # Configure Partials and Layout Text
     @header = "entry_header"
     @navigation = "entry_navigation"
@@ -152,7 +135,38 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
   
   private
+
+  def load_form_drop_downs
+<% if gen_spec.belongs_to.length>0 -%>
+<% for bt in gen_spec.belongs_to -%>
+        @<%=bt[:name].pluralize%> = <%=bt[:model]%>.all
+<% end -%>
+<% end -%>    
+  end
+
+  def nested_and_authorized_scope
+    # authorized not implimented yet
+    nested_scope
+  end
   
+  def nested_scope
+<%  if gen_spec.nested_by -%>
+    if @<%=gen_spec.nested_by[:name]%>
+      return @<%=gen_spec.nested_by[:name]%>.<%=gen_spec.plural_name%>
+    else
+      return <%=gen_spec.model_name%>.scoped({})
+    end
+<% else -%>
+    return <%=gen_spec.model_name%>.scoped({})
+<%end -%>    
+  end
+
+<%  if gen_spec.nested_by -%>
+  def get_<%=gen_spec.nested_by[:name]%>
+  	@<%=gen_spec.nested_by[:name]%> = <%=gen_spec.nested_by[:model]%>.find(params[:<%=gen_spec.nested_by[:key]%>])
+  end  
+
+<% end -%>
   def <%=gen_spec.singular_name%>_search
     @<%=gen_spec.singular_name%>_search ||= <%=gen_spec.model_name%>Search.new(session)
   end

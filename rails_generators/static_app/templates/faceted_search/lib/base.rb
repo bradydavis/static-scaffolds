@@ -61,7 +61,7 @@ class FacetedSearch::Base
   end
   
   def paginate(scope=nil)
-    scope = default_scope
+    scope = default_scope if not scope
     scope = refined(scope)
     return scope.paginate(:page=>page ,:per_page => page_size)
   end

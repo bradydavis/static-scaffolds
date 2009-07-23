@@ -113,7 +113,12 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
       m.template('helper.rb',          File.join('app/helpers',     controller_class_path, "#{controller_file_name}_helper.rb"))
       m.template('helper_test.rb',     File.join('test/unit/helpers',    controller_class_path, "#{controller_file_name}_helper_test.rb"))
 
-      m.route_resources controller_file_name
+      # http://weblog.jamisbuck.org/2007/2/5/nesting-resources
+      if gen_spec.nests_many and gen_spec.nests_many.length>0
+        m.route_nested_resources(controller_file_name, gen_spec.nests_many)
+      else
+        m.route_resources controller_file_name
+      end
 
       #m.dependency 'model', [name] + @args, :collision => :skip
     end
@@ -150,6 +155,35 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
         gen_specs_mname = "#{mname}GenSpecs"
         Object::const_get(gen_specs_mname).new()
     end
+    
+    # Nested Routes
+    # http://stackoverflow.com/questions/956723/generating-nested-routes-in-a-custom-generator
+    # http://weblog.jamisbuck.org/2007/2/5/nesting-resources    
+    def route_nested_resources(nesting_resource, nested_resources)
+      nesting_resource = nesting_resource.underscore.downcase.pluralize
+      sentinel = 'ActionController::Routing::Routes.draw do |map|'
+      nesting_code = "\n  map.resources :#{nesting_resource} do |#{nesting_resource}|%s\n  end"
+      nested_code = nested_resources.map {|r| "\n     #{nesting_resource}.resources #{r[:name].pluralize.to_sym.inspect}, :name_prefix=>'#{nesting_resource.singularize}_'"}.join("")
+      code = nesting_code%[nested_code]
+      logger.route "Nesting resource #{nested_resources.inspect} in #{nesting_resource.inspect}"
+      unless options[:pretend]
+        gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
+          "#{match}\n  #{code}\n"
+        end
+      end
+    end
+    
+    def gsub_file(relative_destination, regexp, *args, &block)
+      path = destination_path(relative_destination)
+      content = File.read(path).gsub(regexp, *args, &block)
+      File.open(path, 'wb') { |file| file.write(content) }
+    end
+    
+    #map.resources :notes do |notes|
+    #  notes.resources :comments, :name_prefix => "note_"
+    #end
+    
+    
     
     class CodeJustifier   
         # This class is designed to generate readable code, but is a hypocrate
