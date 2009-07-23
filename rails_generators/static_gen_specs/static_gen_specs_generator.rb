@@ -32,6 +32,8 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
     else
       @controller_class_name = "#{@controller_class_nesting}::#{@controller_class_name_without_nesting}"
     end
+    @tables=ActiveRecord::Base.connection.tables
+    @columns=ActiveRecord::Base.connection.columns(table_name) 
   end
 
   def manifest
@@ -80,7 +82,7 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
     end
     
     def columns
-        ActiveRecord::Base.connection.columns(table_name)    
+        @columns   
     end
 
     def table_name
@@ -100,7 +102,7 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         # search other tables for foreign keys, match based on naming convention
         # for example: friend_user_id would be assumed to be a foreign key to a User
         results = []
-        tables = ActiveRecord::Base.connection.tables
+        tables = @tables
         ref_id = "#{model_name.underscore.singularize.downcase}_id"
         for t in tables
             for c in ActiveRecord::Base.connection.columns(t)

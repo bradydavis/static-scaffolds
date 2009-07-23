@@ -5,24 +5,31 @@ namespace :static_force do
     
   end
   
-  task :app  do
-    sh "ruby <%=RAILS_ROOT%>/script/generate static_app -f -t"
+  task :load_env do
+    require File.dirname(__FILE__) + '/../../config/environment'
+    require File.dirname(__FILE__) + '/../../config/boot'
+    require 'rails_generator'
+    require 'rails_generator/scripts/generate'
   end
   
-  task :gen_specs => :environment do
-<%for table in ActiveRecord::Base.connection.tables -%>
-    sh "ruby <%=RAILS_ROOT%>/script/generate static_gen_specs <%=table.singularize%> -f -t"
+  task :app => :load_env do
+    Rails::Generator::Scripts::Generate.new.run(["static_app","-f","-t"])    
+  end
+  
+  task :gen_specs => :load_env do
+<%for table in ActiveRecord::Base.connection.tables - ["schema_migration"]-%>
+    Rails::Generator::Scripts::Generate.new.run(["static_gen_specs","<%=table.singularize%>","-f","-t"]) 
 <%end -%>
   end
   
-  task :scaffold => :environment do
-<%for table in ActiveRecord::Base.connection.tables -%>
-    sh "ruby <%=RAILS_ROOT%>/script/generate static_scaffold <%=table.singularize%> -f -t"
+  task :scaffold => :load_env do
+<%for table in ActiveRecord::Base.connection.tables - ["schema_migration"]-%>
+    Rails::Generator::Scripts::Generate.new.run(["static_scaffold","<%=table.singularize%>","-f","-t"]) 
 <%end -%>    
   end
   
   task :populate_fake_all => :environment do 
-<%for table in ActiveRecord::Base.connection.tables -%>
+<%for table in ActiveRecord::Base.connection.tables - ["schema_migration"]-%>
     sh "rake db:populate_fake_<%=table%>"
 <%end -%>    
   end
