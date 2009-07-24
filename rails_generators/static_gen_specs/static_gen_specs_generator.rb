@@ -93,9 +93,12 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         end
     end
     
+    def foreign_table_exists(cname)
+      @tables.include?(cname.slice(0,cname.length-3))
+    end
+    
     def belongs_to_columns
-        # return columns indending in '_id'
-        columns.select {|c| c.name.slice(-3,3)=="_id"}
+        columns.select {|c| c.name.slice(-3,3)=="_id" and foreign_table_exists(c.name)}
     end
     
     def has_many_columns
