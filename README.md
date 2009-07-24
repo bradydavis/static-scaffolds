@@ -2,7 +2,12 @@
 
     Scaffold usable rails apps that are easy to edit.
 
-## Install Gem
+## Install from Github
+
+    gem sources -a http://gems.github.com
+    sudo gem install jrhicks-static-scaffolds
+
+## Install from source
 
     gem install echoe
     git clone git://github.com/jrhicks/static-scaffolds.git
