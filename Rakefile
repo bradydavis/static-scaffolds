@@ -2,8 +2,8 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('static-scaffolds', '0.5.4') do |p|
-  p.project        = "staticgenerators"
+Echoe.new('static-scaffolds', '0.5.45') do |p|
+  p.project        = "static_scaffolds"
   p.description    = "Generate attractive interfaces that are easy to edit."
   p.url            = "http://github.com/jrhicks/static-scaffolds"
   p.author         = 'Jeffrey Hicks'

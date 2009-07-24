@@ -42,7 +42,7 @@ class <%= class_name %> < ActiveRecord::Base
   #            :conditions => ['name like ?', "%#{search}%"], :order => 'company'
   end
 
-  def icon
+  def <%=gen_spec.model_name%>.icon
       "<%=gen_spec.singular_name%>.gif"
   end
   

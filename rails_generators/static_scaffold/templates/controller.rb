@@ -12,7 +12,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     
     # Configure Partials and Layout Text
     @header = "index_header"
-    @navigation = "index_navigation"
+    @<%=gen_spec.singular_name%>_navigation = "index_navigation"
     @title = "Index"
 
     respond_to do |format|
@@ -37,7 +37,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%= file_name %> = nested_and_authorized_scope.find(params[:id])
 
     @header = "entry_header"
-    @navigation = "entry_navigation"
+    @<%=gen_spec.singular_name%>_navigation = "entry_navigation"
     @title = "#{@<%=gen_spec.singular_name%>.short_name}"
     
     respond_to do |format|
@@ -54,7 +54,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     # Configure Partials and Layout Text
     @header = "entry_header"
-    @navigation = "entry_navigation"
+    @<%=gen_spec.singular_name%>_navigation = "entry_navigation"
     @title = "New <%=gen_spec.singular_title%>"
 
     respond_to do |format|
@@ -71,7 +71,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     # Configure Partials and Layout Text
     @header = "entry_header"
-    @navigation = "entry_navigation"
+    @<%=gen_spec.singular_name%>_navigation = "entry_navigation"
     @title = "Edit #{@<%=gen_spec.singular_name%>.short_name}"
   end
 
@@ -90,7 +90,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
         # Configure Partials and Layout Text
         @header = "entry_header"
-        @navigation = "entry_navigation"
+        @<%=gen_spec.singular_name%>_navigation = "entry_navigation"
         @title = "New <%=gen_spec.singular_title%>"
 
         format.html { render :action => "new" }
@@ -116,7 +116,7 @@ class <%= controller_class_name %>Controller < ApplicationController
       else
         # Configure Partials and Layout Text
         @header = "entry_header"
-        @navigation = "entry_navigation"
+        @<%=gen_spec.singular_name%>_navigation = "entry_navigation"
         @title = "Edit #{<%=gen_spec.singular_name%>.short_name}"
         format.html { render :action => "edit" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }

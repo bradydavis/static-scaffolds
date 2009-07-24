@@ -1,9 +1,8 @@
-<!-- Left Column -->
-<div class="span-5" >
-  <div class="model" >
-	  <div class="model_header ui-corner-tl">
-				<%%=@<%=gen_spec.singular_name%>.short_name%>
-		</div>
-
-	</div> <!-- end model selector -->
-</div> <!-- end left_column -->
+<div class="model_facets">
+  <%%=@<%=gen_spec.singular_name%>.short_name%>
+  <ul class="model_header_ul">
+<% for hm in gen_spec.has_many -%>
+          <li><%%=link_to "#{image_tag(<%=hm[:model]%>.icon, :border=>0, :alt=>'_')} <%=hm[:model].pluralize.titleize%>", <%=hm[:name].pluralize%>_path%></li>
+<%end -%>
+  </ul>
+</div>

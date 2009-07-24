@@ -95,6 +95,7 @@ class StaticAppGenerator < Rails::Generator::Base
       m.template "standard_footer.html.erb", "app/views/shared/_standard_footer.html.erb"
       m.template "standard_banner.html.erb", "app/views/shared/_standard_banner.html.erb"
       m.template "root_navigation.html.erb", "app/views/shared/_root_navigation.html.erb"
+      m.template "standard_navigation.html.erb", "app/views/shared/_standard_navigation.html.erb"
       m.file "header_bg.png", "public/images/header_bg.png"
       #m.template "standard_banner_user.html.erb", "app/views/shared/_standard_banner_user.html.erb"
 
@@ -116,6 +117,11 @@ class StaticAppGenerator < Rails::Generator::Base
   end
    
   protected
+  
+    def root_models
+      # TODO: filter to only non-nested models
+      ActiveRecord::Base.connection.tables - ["schema_migrations"]
+    end
   
     def banner
       "Creates layout, stylesheet, and helper files designed to be compatible with other static_scaffolds"
