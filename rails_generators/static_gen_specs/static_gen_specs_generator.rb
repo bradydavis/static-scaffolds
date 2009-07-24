@@ -94,7 +94,9 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
     end
     
     def foreign_table_exists(cname)
-      @tables.include?(cname.slice(0,cname.length-3))
+      ftable=cname.slice(0,cname.length-3).pluralize.underscore.downcase
+      #print "\nDEBUG: #{ftable.inspect} in #{@tables.inspect}\n"
+      @tables.include?(ftable)
     end
     
     def belongs_to_columns
