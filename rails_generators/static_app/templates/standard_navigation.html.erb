@@ -1,12 +1,16 @@
-<div class="span-5" >
-  <div class="model" >
-<%rms=root_models -%>
-<%qty=rms.length -%>
-<%for m,i in rms.each_with_index -%>
-    <div class="model_header<%=" ui-corner-tl" if i==0%><%=" ui-corner-bl" if i==(qty-1)%>" >
-      <%%=link_to <%=m.titleize.to_s.inspect%>, <%=m.underscore.pluralize.downcase%>_path %>
-    </div>
-    <%%=render :partial=>@<%=m.underscore.singularize.downcase%>_navigation if @<%=m.underscore.singularize.downcase%>_navigation%>
-<%end -%>
+<%% if @root_navigation %>
+  <div class="model_header ui-corner-tl">
+    <%%= @navigation_title %>
   </div>
-</div> 
+  <div class="navigation_panel ui-corner-bl">
+    <%%= render :partial=>@root_navigation %>
+    <%%= render :partial=>@filter %>
+  </div>
+<%% end %>
+
+<%root_models.each_with_index do |m,i| -%>
+    <div class="model_header ui-corner-tl ui-corner-bl" >
+      <%%= link_to <%=m.titleize.to_s.inspect%>, <%=m.underscore.pluralize.downcase%>_path %>
+    </div>
+<%end -%>
+

@@ -1,8 +1,6 @@
-<div class="model_facets">
   <%%=@<%=gen_spec.singular_name%>.short_name%>
   <ul class="model_header_ul">
 <% for hm in gen_spec.has_many -%>
-          <li><%%=link_to "#{image_tag(<%=hm[:model]%>.icon, :border=>0, :alt=>'_')} <%=hm[:model].pluralize.titleize%>", <%=hm[:name].pluralize%>_path%></li>
+          <li><%%=link_to "#{image_tag(<%=hm[:model]%>.icon, :border=>0, :alt=>'_')} <%=hm[:model].pluralize.titleize%>", <%=gen_spec.singular_name%>_<%=hm[:name].pluralize%>_path(@<%=gen_spec.singular_name%>)%></li>
 <%end -%>
   </ul>
-</div>

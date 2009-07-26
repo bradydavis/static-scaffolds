@@ -12,7 +12,9 @@ class <%= controller_class_name %>Controller < ApplicationController
     
     # Configure Partials and Layout Text
     @header = "index_header"
-    @<%=gen_spec.singular_name%>_navigation = "index_navigation"
+    @navigation_title = <%=gen_spec.plural_title.inspect%>
+    @root_navigation = "/<%=gen_spec.plural_name%>/index_navigation"
+    @filter = "/<%=gen_spec.plural_name%>/facet_form"
     @title = "Index"
 
     respond_to do |format|
@@ -37,7 +39,9 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%= file_name %> = nested_and_authorized_scope.find(params[:id])
 
     @header = "entry_header"
-    @<%=gen_spec.singular_name%>_navigation = "entry_navigation"
+    @navigation_title = <%=gen_spec.plural_title.inspect%>
+    @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
+    @filter = "/<%=gen_spec.plural_name%>/facet_form"
     @title = "#{@<%=gen_spec.singular_name%>.short_name}"
     
     respond_to do |format|
@@ -54,7 +58,10 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     # Configure Partials and Layout Text
     @header = "entry_header"
-    @<%=gen_spec.singular_name%>_navigation = "entry_navigation"
+    @navigation_title = <%=gen_spec.plural_title.inspect%>
+    @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
+    @filter = "/<%=gen_spec.plural_name%>/facet_form"
+
     @title = "New <%=gen_spec.singular_title%>"
 
     respond_to do |format|
@@ -71,7 +78,10 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     # Configure Partials and Layout Text
     @header = "entry_header"
-    @<%=gen_spec.singular_name%>_navigation = "entry_navigation"
+    @navigation_title = <%=gen_spec.plural_title.inspect%>
+    @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
+    @filter = "/<%=gen_spec.plural_name%>/facet_form"
+
     @title = "Edit #{@<%=gen_spec.singular_name%>.short_name}"
   end
 
@@ -90,8 +100,10 @@ class <%= controller_class_name %>Controller < ApplicationController
 
         # Configure Partials and Layout Text
         @header = "entry_header"
-        @<%=gen_spec.singular_name%>_navigation = "entry_navigation"
         @title = "New <%=gen_spec.singular_title%>"
+        @navigation_title = <%=gen_spec.plural_title.inspect%>
+        @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
+        @filter = "/<%=gen_spec.plural_name%>/facet_form"
 
         format.html { render :action => "new" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }
@@ -116,7 +128,9 @@ class <%= controller_class_name %>Controller < ApplicationController
       else
         # Configure Partials and Layout Text
         @header = "entry_header"
-        @<%=gen_spec.singular_name%>_navigation = "entry_navigation"
+        @navigation_title = <%=gen_spec.plural_title.inspect%>
+        @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
+        @filter = "/<%=gen_spec.plural_name%>/facet_form"
         @title = "Edit #{<%=gen_spec.singular_name%>.short_name}"
         format.html { render :action => "edit" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }
@@ -172,6 +186,31 @@ class <%= controller_class_name %>Controller < ApplicationController
   def <%=gen_spec.singular_name%>_search
     @<%=gen_spec.singular_name%>_search ||= <%=gen_spec.model_name%>Search.new(session)
   end
+  
+  def context(obj=nil)
+<%  if gen_spec.nested_by -%>
+    if @<%=gen_spec.nested_by[:name]%> 
+      ctx = [@<%=gen_spec.nested_by[:name]%>]
+    else
+      ctx = []
+    end
+<%else -%>
+      ctx = []
+<%end -%>
+    if @<%=gen_spec.singular_name%>
+      ctx << @<%=gen_spec.singular_name%> 
+    end
+    if obj
+      ctx << obj
+    end
+    if ctx.length==1
+      return ctx[0]
+    else
+      return ctx
+    end
+  end
+  
+  helper_method :context
   
   def update_<%=gen_spec.singular_name%>_search
     <%=gen_spec.singular_name%>_search.update_with(params)

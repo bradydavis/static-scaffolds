@@ -1,22 +1,27 @@
 <%%=render :partial=>"shared/standard_header"%>
-<table style="height: 98%; border: 1px solid green; background-color: red;">
-  <tr style="height: 20px;">
-    <td colspan="2">
+<table class="container_table">
+  <tr class="container_header_row">
+    <td colspan=2>
       <%%=render :partial=>"/shared/standard_banner"%></td>
     </td>
   </tr>
-  <tr>
-    <td style="width: 200px; vertical-align:top; margin: 0; padding: 0px;">
+  <tr class="container_body_row">
+    <td class="container_body_navigation_cell">
 		  <%%=render :partial=>"/shared/standard_navigation"%>
 		</td>
-		<td style="vertical-align:top; margin: 0; padding: 0px;">
-      <div class="work_area">
-			  <%%=render :partial=>@header%>
-			</div>
-			<div class="presentation_window">
-		   <%%=yield%>
-			</div> <!-- end presentation window -->
+		<td class="container_body_main_cell ui-corner-tr">
+		  <%%=render :partial=>@header if @header%>
+		  <%%=yield%>
 		</td>
 	</tr>
+  <tr class="container_footer_row">
+    <td class="container_navigation_footer">
+      &nbsp;
+    </td>
+    <td class="container_main_footer ui-corner-br">
+      &nbsp;<%%=render :partial=>@footer if @footer%>
+    </td>
+  </tr>
+	
 </table>
 <%%=render :partial=>"shared/standard_footer"%>

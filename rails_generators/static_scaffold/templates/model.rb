@@ -36,14 +36,8 @@ class <%= class_name %> < ActiveRecord::Base
     "<%=gen_spec.table_name%>" 
   end
 
-  def self.search(page)
-   page=1 if not page
-   <%=gen_spec.model_name%>.paginate :per_page => 12, :page => page, :order => order_preference
-  #            :conditions => ['name like ?', "%#{search}%"], :order => 'company'
-  end
-
   def <%=gen_spec.model_name%>.icon
-      "<%=gen_spec.singular_name%>.gif"
+      "model_icons/<%=gen_spec.singular_name%>.png"
   end
   
   def short_name

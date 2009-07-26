@@ -1,20 +1,87 @@
 /* Author: Craig Erskine Description: Dynamic Menu System - Horizontal/Vertical */ ul#navmenu-h { margin: 0; padding: 0; list-style: none; position: relative; } ul#navmenu-h ul { width: 160px; /* Sub Menu Width */ margin: 0; list-style: none; display: none; position: absolute; top: 100%; left: 0; } ul#navmenu-h ul ul,ul#navmenu-h ul ul ul { top: 0; left: 100%; } ul#navmenu-h li { float: left; display: inline; position: relative; } ul#navmenu-h ul li { width: 100%; display: block; } /* Root Menu */ ul#navmenu-h a { border-top: 1px solid #FFF; border-right: 1px solid #FFF; padding: 6px; float: left; display: block; background: #DDD; color: #666; font: bold 11px Arial, sans-serif; text-decoration: none; height: 1%; } /* Root Menu Hover Persistence */ ul#navmenu-h a:hover,ul#navmenu-h li:hover a,ul#navmenu-h li.iehover a { background: #BBB; color: #FFF; } /* 2nd Menu */ ul#navmenu-h li:hover li a,ul#navmenu-h li.iehover li a { float: none; background: #BBB; } /* 2nd Menu Hover Persistence */ ul#navmenu-h li:hover li a:hover,ul#navmenu-h li:hover li:hover a,ul#navmenu-h li.iehover li a:hover,ul#navmenu-h li.iehover li.iehover a { background: #999; } /* 3rd Menu */ ul#navmenu-h li:hover li:hover li a,ul#navmenu-h li.iehover li.iehover li a { background: #999; } /* 3rd Menu Hover Persistence */ ul#navmenu-h li:hover li:hover li a:hover,ul#navmenu-h li:hover li:hover li:hover a,ul#navmenu-h li.iehover li.iehover li a:hover,ul#navmenu-h li.iehover li.iehover li.iehover a { background: #666; } /* 4th Menu */ ul#navmenu-h li:hover li:hover li:hover li a,ul#navmenu-h li.iehover li.iehover li.iehover li a { background: #666; } /* 4th Menu Hover */ ul#navmenu-h li:hover li:hover li:hover li a:hover,ul#navmenu-h li.iehover li.iehover li.iehover li a:hover { background: #333; } /* Hover Function - Do Not Move */ ul#navmenu-h li:hover ul ul,ul#navmenu-h li:hover ul ul ul,ul#navmenu-h li.iehover ul ul,ul#navmenu-h li.iehover ul ul ul { display: none; } ul#navmenu-h li:hover ul,ul#navmenu-h ul li:hover ul,ul#navmenu-h ul ul li:hover ul,ul#navmenu-h li.iehover ul,ul#navmenu-h ul li.iehover ul,ul#navmenu-h ul ul li.iehover ul { display: block; }
 /* Author: Craig Erskine Description: Dynamic Menu System - Vertical */ ul#navmenu-v,ul#navmenu-v li,ul#navmenu-v ul { width: 160px; /* Menu Width */ margin: 0; list-style: none; } ul#navmenu-v li { float: left; position: relative; width: 100%; } ul#navmenu-v li.iehover { z-index: 1000; /* IE z-index bugfix */ } ul#navmenu-v ul { display: none; position: absolute; top: 0; left: 100%; z-index: 9999; } /* Root Menu */ ul#navmenu-v a { border-top: 1px solid #FFF; border-right: 1px solid #FFF; padding: 6px; display: block; background: #DDD; color: #666; font: bold 11px Arial, sans-serif; text-decoration: none; height: 1%; } /* Root Menu Hover Persistence */ ul#navmenu-v a:hover,ul#navmenu-v li:hover a,ul#navmenu-v li.iehover a { background: #BBB; color: #FFF; } /* 2nd Menu */ ul#navmenu-v li:hover li a,ul#navmenu-v li.iehover li a { float: none; background: #BBB; } /* 2nd Menu Hover Persistence */ ul#navmenu-v li:hover li a:hover,ul#navmenu-v li:hover li:hover a,ul#navmenu-v li.iehover li a:hover,ul#navmenu-v li.iehover li.iehover a { background: #999; } /* 3rd Menu */ ul#navmenu-v li:hover li:hover li a,ul#navmenu-v li.iehover li.iehover li a { background: #999; } /* 3rd Menu Hover Persistence */ ul#navmenu-v li:hover li:hover li a:hover,ul#navmenu-v li:hover li:hover li:hover a,ul#navmenu-v li.iehover li.iehover li a:hover,ul#navmenu-v li.iehover li.iehover li.iehover a { background: #666; } /* 4th Menu */ ul#navmenu-v li:hover li:hover li:hover li a,ul#navmenu-v li.iehover li.iehover li.iehover li a { background: #666; } /* 4th Menu Hover */ ul#navmenu-v li:hover li:hover li:hover li a:hover,ul#navmenu-v li.iehover li.iehover li.iehover li a:hover { background: #333; } /* Hover Function - Do Not Move */ ul#navmenu-v li:hover ul ul,ul#navmenu-v li:hover ul ul ul,ul#navmenu-v li.iehover ul ul,ul#navmenu-v li.iehover ul ul ul { display: none; } ul#navmenu-v li:hover ul,ul#navmenu-v ul li:hover ul,ul#navmenu-v ul ul li:hover ul,ul#navmenu-v li.iehover ul,ul#navmenu-v ul li.iehover ul,ul#navmenu-v ul ul li.iehover ul { display: block; }
 
+.container_table {
+	height: 98%;
+}
 
+.container_header_row {
+	height: 15px;
+}
 
-.model_header a {              
-        color: white;
+.container_body_row {
+
+}
+
+.container_footer_row {
+	height: 1em;
+}
+
+.container_body_navigation_cell {
+	width: 200px; 
+	vertical-align:top;
+	padding: 0;
+	margin: 0; 
+	padding-right: 4px;
+}
+
+.standard_padding {
+	padding: 7px;
+}
+
+.container_navigation_footer {
+	}
+
+.container_main_footer {
+	border-left: 1px solid #DDD;
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+  padding-left: 5px;
+	background-color: #F9F9F9;
+  color: #666;	
+	padding: 0;
+	margin: 0;
 }
 
 
-ul.model_header_ul li a{       
- color: green;
- text-decoration: none;
+.container_body_main_cell {
+	padding: 0;
+	margin: 0;
+	vertical-align:top; 
+	background-color: #F9F9F9;
+	border-left: 1px solid #DDD;
+	border-right: 1px solid #DDD;	
+	height: 100%;	
 }
 
-.application_header {
-	padding-top: 1em;
+.model_header {
+	font-size: 1.25em;
+	padding-top: 3px;
+	padding-bottom: 2px;
+	padding-left: 5px;
+	background-color: #899AB7;
+	border-top: 1px solid #6982a7; /* 778bAF; */
+	border-right: 1px solid #6982a7; /* 778bAF; */
+	border-left: 1px solid #6982a7; /* 778bAF; */		
+	color: white;
+}
+
+.model_header a {             
+   color: white;
+	 text-decoration: none;
+}
+
+.model_header_ul li {             
+   list-style: none;
+   color: red;
+}
+
+ul.model_header_ul li a{             
+   color: black;
+   text-decoration: none;
+}
+ul.model_header_ul img{              
+vertical-align: middle;
 }
 
 .root_navigation {
@@ -51,6 +118,20 @@ ul.model_header_ul li a{
 	border: 1px solid #DDD;	
 	padding-left: -1px;
 	padding-right: -1px;
+}
+
+.navigation_panel {
+	padding: 5px;
+	background-color: #F9F9F9;
+	border: 1px solid #DDD;
+	margin-bottom: 4px;
+}
+
+.standard_panel {
+	padding: 5px;
+	background-color: #F9F9F9;
+	border: 1px solid #DDD;
+	height: 100%;
 }
 
 .entry_body {
@@ -115,17 +196,7 @@ ul.model_header_ul li a{
   height: 1%; /*For IE*/
 }
 
-.model_header {
-	font-size: 1.25em;
-	padding-top: 3px;
-	padding-bottom: 2px;
-	padding-left: 5px;
-	background-color: #899AB7;
-	border-top: 1px solid #6982a7; /* 778bAF; */
-	border-right: 1px solid #6982a7; /* 778bAF; */
-	border-left: 1px solid #6982a7; /* 778bAF; */		
-	color: white;
-}
+
 
 .model_facets {
 	border-left: 1px solid #DDD;
