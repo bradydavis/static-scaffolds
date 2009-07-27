@@ -1,6 +1,6 @@
   <%%=@<%=gen_spec.singular_name%>.short_name%>
   <ul class="model_header_ul">
-<% for hm in gen_spec.has_many -%>
-          <li><%%=link_to "#{image_tag(<%=hm[:model]%>.icon, :border=>0, :alt=>'_')} <%=hm[:model].pluralize.titleize%>", <%=gen_spec.singular_name%>_<%=hm[:name].pluralize%>_path(@<%=gen_spec.singular_name%>)%></li>
+<% for resource in gen_spec.nests_many -%>
+          <li><%%=link_to "#{image_tag(<%=resource[:model]%>.icon, :border=>0, :alt=>'_')} <%=resource[:model].pluralize.titleize%>",  <%=gen_spec.singular_name%>_<%=resource[:name].pluralize%>_path(@<%=gen_spec.singular_name%>)%></li>
 <%end -%>
   </ul>
