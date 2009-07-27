@@ -117,7 +117,9 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
       if gen_spec.nests_many and gen_spec.nests_many.length>0
         m.route_nested_resources(controller_file_name, gen_spec.nests_many)
       else
-        m.route_resources controller_file_name
+        if (gen_spec.nested_by == nil or gen_spec.nested_by.length==0)
+          m.route_resources controller_file_name
+        end
       end
 
       #m.dependency 'model', [name] + @args, :collision => :skip
@@ -162,8 +164,8 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
     def route_nested_resources(nesting_resource, nested_resources)
       nesting_resource = nesting_resource.underscore.downcase.pluralize
       sentinel = 'ActionController::Routing::Routes.draw do |map|'
-      nesting_code = "\n  map.resources :#{nesting_resource} do |#{nesting_resource}|%s\n  end"
-      nested_code = nested_resources.map {|r| "\n     #{nesting_resource}.resources #{r[:name].pluralize.to_sym.inspect}, :name_prefix=>'#{nesting_resource.singularize}_'"}.join("")
+      nesting_code = "\n  map.resources :#{nesting_resource}, :shallow=>true do |#{nesting_resource}|%s\n  end"
+      nested_code = nested_resources.map {|r| "\n     #{nesting_resource}.resources #{r[:name].pluralize.to_sym.inspect}"}.join("")
       code = nesting_code%[nested_code]
       logger.route "Nesting resource #{nested_resources.inspect} in #{nesting_resource.inspect}"
       unless options[:pretend]

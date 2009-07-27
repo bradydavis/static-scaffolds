@@ -104,7 +104,7 @@ class StaticAppGenerator < Rails::Generator::Base
                   
       # icons
       m.directory 'public/images/icons'
-      pngs = "pencil tick cross feed key doc external pdf email visited xls".split()
+      pngs = "add pencil tick cross feed key doc external pdf email visited xls".split()
       for file in pngs
         m.file "icons/#{file}.png", "public/images/icons/#{file}.png"
       end

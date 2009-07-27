@@ -9,8 +9,12 @@
 <%% end %>
 
 <%root_models.each_with_index do |m,i| -%>
+    <%%begin%>
     <div class="model_header ui-corner-tl ui-corner-bl" >
       <%%= link_to <%=m.titleize.to_s.inspect%>, <%=m.underscore.pluralize.downcase%>_path %>
     </div>
+    <%%rescue%>
+    </div>
+    <%%end%>
 <%end -%>
 
