@@ -1,8 +1,6 @@
 $(function() {
-	var loading = $('<img alt="loading" src="/images/icons/blue_bg_ajax_loader.gif" />').appendTo($('.pagination')).hide();
-  $(".pagination a").live("click", function() {
-		var loading = $('<img alt="loading" src="/images/icons/blue_bg_ajax_loader.gif" />').appendTo($('.pagination')).hide();	
-		loading.show();
+ $(".pagination a").live("click", function() {
+		$(".pagination").html('<img alt="loading" src="/images/icons/blue_bg_ajax_loader.gif" />');
     $.getScript(this.href, function(){ loading.hide() })
     return false;
   });
