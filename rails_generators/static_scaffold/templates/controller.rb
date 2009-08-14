@@ -19,6 +19,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
+      format.js   # index.js.erb
       format.xml  { render :xml => @<%= table_name %> }
     end
   end
@@ -47,7 +48,6 @@ class <%= controller_class_name %>Controller < ApplicationController
     @header = "entry_header"
     @navigation_title = <%=gen_spec.plural_title.inspect%>
     @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
-    @filter = "/<%=gen_spec.plural_name%>/facet_form"
     @title = "#{@<%=gen_spec.singular_name%>.short_name}"
     
     respond_to do |format|
@@ -68,10 +68,14 @@ class <%= controller_class_name %>Controller < ApplicationController
     # Configure Partials and Layout Text
     @header = "entry_header"
     @navigation_title = <%=gen_spec.plural_title.inspect%>
-    @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
-    @filter = "/<%=gen_spec.plural_name%>/facet_form"
-
     @title = "New <%=gen_spec.singular_title%>"
+    
+<%if gen_spec.nested_by -%>
+    @root_navigation = "/<%=gen_spec.root_resource.plural_name%>/entry_navigation"
+<%else -%>
+    @root_navigation = "/<%=gen_spec.plural_name%>/index_navigation"
+<%end -%>    
+    @filter = "/<%=gen_spec.plural_name%>/facet_form"    
 
     respond_to do |format|
       format.html # new.html.erb
@@ -89,8 +93,6 @@ class <%= controller_class_name %>Controller < ApplicationController
     @header = "entry_header"
     @navigation_title = <%=gen_spec.plural_title.inspect%>
     @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
-    @filter = "/<%=gen_spec.plural_name%>/facet_form"
-
     @title = "Edit #{@<%=gen_spec.singular_name%>.short_name}"
   end
 
@@ -111,7 +113,7 @@ class <%= controller_class_name %>Controller < ApplicationController
         @header = "entry_header"
         @title = "New <%=gen_spec.singular_title%>"
         @navigation_title = <%=gen_spec.plural_title.inspect%>
-        @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
+        @root_navigation = "/<%=gen_spec.plural_name%>/index_navigation"
         @filter = "/<%=gen_spec.plural_name%>/facet_form"
 
         format.html { render :action => "new" }
@@ -139,7 +141,6 @@ class <%= controller_class_name %>Controller < ApplicationController
         @header = "entry_header"
         @navigation_title = <%=gen_spec.plural_title.inspect%>
         @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
-        @filter = "/<%=gen_spec.plural_name%>/facet_form"
         @title = "Edit #{<%=gen_spec.singular_name%>.short_name}"
         format.html { render :action => "edit" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }

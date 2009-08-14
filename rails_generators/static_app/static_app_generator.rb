@@ -18,7 +18,7 @@ class StaticAppGenerator < Rails::Generator::Base
       m.directory "lib/tasks"
       m.template("static_generator.rake",
                   File.join("lib/tasks","static_generate.rake"))
-
+                  
       # BluePrint CSS
       m.file "blueprint/print.css", "public/stylesheets/print.css"
       m.file "blueprint/ie.css", "public/stylesheets/ie.css"
@@ -99,8 +99,9 @@ class StaticAppGenerator < Rails::Generator::Base
       m.file "header_bg.png", "public/images/header_bg.png"
       #m.template "standard_banner_user.html.erb", "app/views/shared/_standard_banner_user.html.erb"
 
-      # Sorttable Tables
+      # Misc Javascripts
       m.file "sorttable/sorttable.js", "public/javascripts/sorttable.js"  
+      m.file "ajax.js", "public/javascripts/ajax.js"
                   
       # icons
       m.directory 'public/images/icons'
@@ -108,7 +109,7 @@ class StaticAppGenerator < Rails::Generator::Base
       for file in pngs
         m.file "icons/#{file}.png", "public/images/icons/#{file}.png"
       end
-      gifs = "close_window".split()
+      gifs = "blue_bg_ajax_loader close_window".split()
       for file in gifs
         m.file "icons/#{file}.gif", "public/images/icons/#{file}.gif"
       end

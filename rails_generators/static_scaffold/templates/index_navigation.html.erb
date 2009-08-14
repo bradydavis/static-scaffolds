@@ -1,6 +1,10 @@
 <%if gen_spec.nested_by -%>
-  <%%=link_to "<img src='/images/icons/add.png' alt='+'/> New <%=gen_spec.singular_title%>", new_<%=gen_spec.nested_by[:name]%>_<%=gen_spec.singular_name%>_path(@<%=gen_spec.nested_by[:name]%>), :class=>"button"%>
+  <%% if @<%=gen_spec.nested_by[:name]%> -%>
+    <%%=link_to "<img src='/images/icons/add.png' alt='+'/> New <%=gen_spec.singular_title%>", new_<%=gen_spec.nested_by[:name]%>_<%=gen_spec.singular_name%>_path(@<%=gen_spec.nested_by[:name]%>), :class=>"button"%>
+    <hr>
+  <%% end -%>
 <%else -%>
   <%%=link_to "<img src='/images/icons/add.png' alt='+'/> New <%=gen_spec.singular_title%>", new_<%=gen_spec.singular_name%>_path, :class=>"button"%>
-<%end  -%>
 <hr>
+<%end  -%>
+

@@ -1,3 +1,4 @@
+<div id="<%=gen_spec.singular_name%>_header">
 <div class="work_area_header ui-corner-tr">
 	<div class="header_links">
 		<%%= will_paginate @posts, :param_name=><%=gen_spec.singular_name%>_search.page_param, :inner_window=>1, :outer_window=>0, :prev_label=>'&larr;', :next_label=>'&rarr;' %>							
@@ -26,5 +27,4 @@
 		<%%=link_to "Chart"%>
 	</div>					
 </div> <!-- end presentation selector -->
-
-
+</div>

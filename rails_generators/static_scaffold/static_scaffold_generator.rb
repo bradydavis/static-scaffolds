@@ -40,10 +40,13 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
     end
   end
 
+
+
   def next_count
       @count=@count+1
       return @count
   end
+
 
   def manifest
     record do |m|
@@ -85,15 +88,23 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
                   File.join('app/views',controller_class_path, controller_file_name, "_facet_form.html.erb"))
                   
       # Views
-      for action in scaffold_views
+      for action in %w[ index show new edit ]
         m.template(
           "view_#{action}.html.erb",
           File.join('app/views', controller_class_path, controller_file_name, "#{action}.html.erb")
         )
       end
+      
+      # Views RJS
+      for action in %w[ index ]
+        m.template(
+          "view_#{action}.js.erb",
+          File.join('app/views', controller_class_path, controller_file_name, "#{action}.js.erb")
+        )
+      end      
 
       # Partials
-      for action in "entry_navigation index_navigation entry_header index_header".split
+      for action in "index_body entry_navigation index_navigation entry_header index_header".split
         m.template(
           "#{action}.html.erb",
           File.join('app/views', controller_class_path, controller_file_name, "_#{action}.html.erb")
@@ -141,10 +152,6 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
              "Don't generate a migration file for this model") { |v| options[:skip_migration] = v }
       opt.on("--force-plural",
              "Forces the generation of a plural ModelName") { |v| options[:force_plural] = v }
-    end
-
-    def scaffold_views
-      %w[ index show new edit ]
     end
 
     def model_name

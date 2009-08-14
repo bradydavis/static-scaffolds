@@ -30,6 +30,35 @@ class GeneratorSpecs < GenSpecFactory
       end
     end
     
+    def root_resource
+      # returns the gen spec of the root resource of nested resources
+      root_resources[0]
+    end
+    
+    def resource_crumbtrail
+      # returns a list of gen specs for the nested resources where the current resource is last
+      root_resources.reverse
+    end
+    
+    def root_resources
+      # returns a list of gen specs for the nested resources where the current resource is first
+      if @cached_root_resources
+        return @cached_root_resources
+      else
+        @cached_root_resources = GenSpecFactory.constantize(root_resources_helper)
+        return @cached_root_resources
+      end
+    end
+    
+    def root_resources_helper
+      # build model name list of root resources
+      if nested_by
+        return [model_name]+GenSpecFactory.constantize(nested_by[:model]).root_resources_helper 
+      else
+        return [model_name]
+      end
+    end
+    
     def file_columns
       column_specs.select {|k,v| v[:type]==:file or v[:type]==:photo}
     end
