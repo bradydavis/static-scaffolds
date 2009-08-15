@@ -1,27 +1,16 @@
 <%%=render :partial=>"shared/standard_header"%>
-<table class="container_table">
-  <tr class="container_header_row">
-    <td colspan=2>
-      <%%=render :partial=>"/shared/standard_banner"%></td>
+<table cellpadding="0" cellspacing="0" class="tabbed" height="100%" width="100%">
+  <tr>
+    <td class="sidecolumn" id="sidecolumn" valign="top">
+        <div class="facet_form ui-corner-all">
+    		  <%%=render :partial=>"facet_form"%>
+        </div>
+    </td>
+    <td class="maincolumn" id="maincolumn" valign="top">
+    		  <%%=render :partial=>@header if @header%>
+    		  <%%=yield%>
     </td>
   </tr>
-  <tr class="container_body_row">
-    <td class="container_body_navigation_cell">
-		  <%%=render :partial=>"/shared/standard_navigation"%>
-		</td>
-		<td class="container_body_main_cell ui-corner-tr">
-		  <%%=render :partial=>@header if @header%>
-		  <%%=yield%>
-		</td>
-	</tr>
-  <tr class="container_footer_row">
-    <td class="container_navigation_footer">
-      &nbsp;
-    </td>
-    <td class="container_main_footer ui-corner-br">
-      &nbsp;<%%=render :partial=>@footer if @footer%>
-    </td>
-  </tr>
-	
 </table>
+
 <%%=render :partial=>"shared/standard_footer"%>

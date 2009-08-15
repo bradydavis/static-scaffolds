@@ -1,7 +1,13 @@
+spec_files = Dir.glob(File.join(RAILS_ROOT,"static_scaffold","*.rb"))
+for f in spec_files
+    load f
+end
+
 class StaticAppGenerator < Rails::Generator::Base
   def initialize(runtime_args, runtime_options = {})
     super
     @name = 'application'
+    
   end
   
   def manifest
@@ -119,9 +125,32 @@ class StaticAppGenerator < Rails::Generator::Base
    
   protected
   
+  
+  def gen_spec_constantize(mname)
+      if mname.class==Array
+          return mname.map {|m|m.constantize_gen_spec}
+      else
+          # Instantiate the GenSpec based on model name
+          mname = model_name if not mname
+          gen_specs_mname = "#{mname}GenSpecs"
+          Object::const_get(gen_specs_mname).new()
+      end
+  end
+  
     def root_models
       # TODO: filter to only non-nested models
-      ActiveRecord::Base.connection.tables - ["schema_migrations"]
+      tables=ActiveRecord::Base.connection.tables - ["schema_migrations"]
+      results = []
+      for t in tables
+        begin
+          gen_spec=gen_spec_constantize(t.singularize.camelcase)
+          if not gen_spec.nested_by
+            results.<< t
+          end
+        rescue
+        end
+      end
+      results
     end
   
     def banner

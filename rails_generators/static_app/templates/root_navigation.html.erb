@@ -1,11 +1,7 @@
-<div class="root_navigation">
-	<div class="root_model_navigation">
-		<%%=link_to "Home", "/"%>
-<%for table in ActiveRecord::Base.connection.tables - ["schema_migrations"]-%>
-		<%%=link_to "<%=table.titleize%>", <%=table%>_path%>
-<%end -%>
-	</div>
-	<div class="root_account_navigation">
-		<%%=link_to "Login", :action=>"account", :action=>"login" -%>
-	</div>
+<div id="model_selector">
+  <ul>
+    <%for model in root_models%>
+      <li> <%%=link_to "<%=model.titleize%>", <%=model%>_path, :class=>"ui-corner-tl ui-corner-tr"%> </li>
+    <%end%>
+  </ul>
 </div>

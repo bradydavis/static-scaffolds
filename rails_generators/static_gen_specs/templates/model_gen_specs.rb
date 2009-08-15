@@ -69,7 +69,7 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
         :type       => "keyword_facet",
         :attributes => <%=guess_keyword_facets.inspect%>,
         :partial    => "keyword_facet",
-        :title      => "Search"
+        :title      => "Search <%=model_name.pluralize.titleize%>"
       },
 <%end -%>
 <%for attribute_name in guess_numeric_range_facets -%>
