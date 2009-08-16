@@ -1,19 +1,17 @@
 class <%= controller_class_name %>Controller < ApplicationController
-
   before_filter :update_<%=gen_spec.singular_name%>_search
-
   # GET /<%= table_name %>
   # GET /<%= table_name %>.xml
   def index
 <%  if gen_spec.nested_by -%>
-    @<%=gen_spec.nested_by[:name]%> = <%=gen_spec.nested_by[:model]%>.find(params[:<%=gen_spec.nested_by[:key]%>])
+        load_parent_resources
 <% end -%>
     @<%=gen_spec.plural_name%> = <%=gen_spec.singular_name%>_search.paginate(nested_and_authorized_scope)
     
     # Configure Partials and Layout Text
     @header = "index_header"
     @navigation_title = <%=gen_spec.plural_title.inspect%>
-    @root_navigation = "/<%=gen_spec.plural_name%>/index_navigation"
+    @model_selector = <%=index_model_selector.inspect%>
     @filter = "/<%=gen_spec.plural_name%>/facet_form"
     @title = "Index"
 
@@ -26,28 +24,33 @@ class <%= controller_class_name %>Controller < ApplicationController
   
   def next
 <%  if gen_spec.nested_by -%>
+    load_parent_resources
     @<%=gen_spec.nested_by[:name]%> = <%=gen_spec.nested_by[:model]%>.find(params[:<%=gen_spec.nested_by[:key]%>])
 <% end -%>
-    @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_next(params[:id], nested_and_authorized_scope)
+    @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_next(params[:id], authorized_scope)
     redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id    
   end
   
   def prev
 <%  if gen_spec.nested_by -%>
+    load_parent_resources
     @<%=gen_spec.nested_by[:name]%> = <%=gen_spec.nested_by[:model]%>.find(params[:<%=gen_spec.nested_by[:key]%>])
 <% end -%>
-    @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_previous(params[:id], nested_and_authorized_scope)
+    @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_previous(params[:id], authorized_scope)
     redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id    
   end
 
   # GET /<%= table_name %>/1
   # GET /<%= table_name %>/1.xml
   def show
-    @<%= file_name %> = nested_and_authorized_scope.find(params[:id])
+    @<%= file_name %> = authorized_scope.find(params[:id])
+<%  if gen_spec.nested_by -%>
+    load_parent_resources
+<% end -%>
 
     @header = "entry_header"
     @navigation_title = <%=gen_spec.plural_title.inspect%>
-    @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
+    @model_selector = <%=entry_model_selector.inspect%>
     @title = "#{@<%=gen_spec.singular_name%>.short_name}"
     
     respond_to do |format|
@@ -62,19 +65,18 @@ class <%= controller_class_name %>Controller < ApplicationController
 <%  if gen_spec.nested_by -%>
     @<%=gen_spec.nested_by[:name]%> = <%=gen_spec.nested_by[:model]%>.find(params[:<%=gen_spec.nested_by[:key]%>])
 <% end -%>
-    @<%= file_name %> = nested_and_authorized_scope.new
+    @<%= file_name %> = authorized_scope.new
+<%  if gen_spec.nested_by -%>
+    load_parent_resources
+<% end -%>
+    
     load_form_drop_downs
 
     # Configure Partials and Layout Text
     @header = "entry_header"
     @navigation_title = <%=gen_spec.plural_title.inspect%>
     @title = "New <%=gen_spec.singular_title%>"
-    
-<%if gen_spec.nested_by -%>
-    @root_navigation = "/<%=gen_spec.root_resource.plural_name%>/entry_navigation"
-<%else -%>
-    @root_navigation = "/<%=gen_spec.plural_name%>/index_navigation"
-<%end -%>    
+    @model_selector = <%=index_model_selector.inspect%>
     @filter = "/<%=gen_spec.plural_name%>/facet_form"    
 
     respond_to do |format|
@@ -85,14 +87,18 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # GET /<%= table_name %>/1/edit
   def edit
-    @<%= gen_spec.singular_name %> = nested_and_authorized_scope.find(params[:id])
+    @<%= gen_spec.singular_name %> = authorized_scope.find(params[:id])
+<%  if gen_spec.nested_by -%>
+    load_parent_resources
+<% end -%>
+    
     @title = "Edit #{@<%=gen_spec.singular_name%>.short_name}"
     load_form_drop_downs
 
     # Configure Partials and Layout Text
     @header = "entry_header"
     @navigation_title = <%=gen_spec.plural_title.inspect%>
-    @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
+    @model_selector = <%=entry_model_selector.inspect%>
     @title = "Edit #{@<%=gen_spec.singular_name%>.short_name}"
   end
 
@@ -100,6 +106,9 @@ class <%= controller_class_name %>Controller < ApplicationController
   # POST /<%= table_name %>.xml
   def create
     @<%= file_name %> = <%= class_name %>.new(params[:<%= file_name %>])
+<%  if gen_spec.nested_by -%>
+    load_parent_resources
+<% end -%>
 
     respond_to do |format|
       if @<%= file_name %>.save
@@ -113,22 +122,22 @@ class <%= controller_class_name %>Controller < ApplicationController
         @header = "entry_header"
         @title = "New <%=gen_spec.singular_title%>"
         @navigation_title = <%=gen_spec.plural_title.inspect%>
-        @root_navigation = "/<%=gen_spec.plural_name%>/index_navigation"
+        @model_selector = <%=index_model_selector.inspect%>
         @filter = "/<%=gen_spec.plural_name%>/facet_form"
 
         format.html { render :action => "new" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }
       end
     end
-    
-
-    
   end
 
   # PUT /<%= table_name %>/1
   # PUT /<%= table_name %>/1.xml
   def update
     @<%= file_name %> = <%= class_name %>.find(params[:id])
+<%  if gen_spec.nested_by -%>
+    load_parent_resources
+<% end -%>
 
 
     respond_to do |format|
@@ -140,7 +149,7 @@ class <%= controller_class_name %>Controller < ApplicationController
         # Configure Partials and Layout Text
         @header = "entry_header"
         @navigation_title = <%=gen_spec.plural_title.inspect%>
-        @root_navigation = "/<%=gen_spec.plural_name%>/entry_navigation"
+        @model_selector = <%=entry_model_selector.inspect%>
         @title = "Edit #{<%=gen_spec.singular_name%>.short_name}"
         format.html { render :action => "edit" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }
@@ -152,6 +161,10 @@ class <%= controller_class_name %>Controller < ApplicationController
   # DELETE /<%= table_name %>/1.xml
   def destroy
     @<%= file_name %> = <%= class_name %>.find(params[:id])
+<%  if gen_spec.nested_by -%>
+    load_parent_resources
+<% end -%>
+    
     @<%= file_name %>.destroy
 
     respond_to do |format|
@@ -175,16 +188,34 @@ class <%= controller_class_name %>Controller < ApplicationController
     nested_scope
   end
   
+  def authorized_scope
+    # not implimented yet
+    <%=gen_spec.model_name%>.scoped({})
+  end
+  
   def nested_scope
 <%  if gen_spec.nested_by -%>
-    if @<%=gen_spec.nested_by[:name]%>
-      return @<%=gen_spec.nested_by[:name]%>.<%=gen_spec.plural_name%>
-    else
-      return <%=gen_spec.model_name%>.scoped({})
-    end
+    return @<%=gen_spec.nested_by[:name]%>.<%=gen_spec.plural_name%>
 <% else -%>
     return <%=gen_spec.model_name%>.scoped({})
 <%end -%>    
+  end
+
+<%if gen_spec.nested_by and gen_spec.nested_by.length>0%>
+  def load_parent_resources
+    if params[:<%=gen_spec.nested_by[:key]%>]
+      @<%=gen_spec.nested_by[:name]%> = <%=gen_spec.nested_by[:model]%>.find(params[:<%=gen_spec.nested_by[:key]%>])
+    else
+      @<%=gen_spec.nested_by[:name]%> = @<%=gen_spec.singular_name%>.<%=gen_spec.nested_by[:name]%>
+    end
+<%gen_spec.root_resources[1..-1].each_cons(2) do |child_spec,parent_spec| -%>
+    @<%=parent_spec.singular_name%> = @<%=child_spec.singular_name%>.<%=parent_spec.singular_name%>
+<%end -%>
+  end
+<%end%>
+
+  def parent_resources
+    [<%=gen_spec.root_resources.reverse.map{|r| "@#{r.singular_name}"}.join(",")%>]
   end
 
   def <%=gen_spec.singular_name%>_search
@@ -196,5 +227,6 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
   
   helper_method :<%=gen_spec.singular_name%>_search  
+  helper_method :parent_resources
   
 end

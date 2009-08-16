@@ -8,7 +8,7 @@ class GenSpecFactory
 
     def GenSpecFactory.constantize(mname)
         if mname.type==Array
-            return mname.map {|m|m.constantize_gen_spec}
+            return mname.flatten.map {|m| GenSpecFactory.constantize(m) }
         else
             # Instantiate the GenSpec based on model name
             mname = model_name if not mname
@@ -32,7 +32,7 @@ class GeneratorSpecs < GenSpecFactory
     
     def root_resource
       # returns the gen spec of the root resource of nested resources
-      root_resources[0]
+      root_resources.last
     end
     
     def resource_crumbtrail

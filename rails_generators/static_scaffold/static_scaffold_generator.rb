@@ -104,7 +104,7 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
       end      
 
       # Partials
-      for action in "index_body entry_navigation index_navigation entry_header index_header".split
+      for action in "nested_model_selector index_body entry_navigation index_navigation entry_header index_header".split
         m.template(
           "#{action}.html.erb",
           File.join('app/views', controller_class_path, controller_file_name, "_#{action}.html.erb")
@@ -139,6 +139,27 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
 
   protected
     # Override with your own usage banner.
+    
+    def index_model_selector
+      if gen_spec.nested_by
+        if gen_spec.root_resources.length>1
+          return "/#{gen_spec.root_resource.plural_name}/nested_model_selector"
+        else
+          return "/shared/root_model_selector"          
+        end
+      else
+        return "/shared/root_model_selector"
+      end
+    end
+    
+    def entry_model_selector
+      if gen_spec.nests_many
+        return "/#{gen_spec.root_resource.plural_name}/nested_model_selector"
+      else
+        return index_model_selector
+      end
+    end
+    
     def banner
       "Usage: #{$0} static_scaffold ModelName"
     end

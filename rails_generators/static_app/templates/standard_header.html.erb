@@ -17,15 +17,18 @@
 </head>
 <div id='header'>
  <h1>
-   <a href="/">my static app</a>
+   <a href="/">App</a>
+   <%%if parent_resources and parent_resources[0]%>
+   / <%%=parent_resources[0].short_name%>
+   <%%end%>
  </h1>
 </div>
 
-<% if @navigation %>
-  <%%= render :partial=>@navigation %>
-<% else %>
-  <%%= render :partial=>"/shared/root_navigation" %>
-<% end %>
+<%% if @model_selector %>
+  <%%= render :partial=>@model_selector %>
+<%% else %>
+  <%%= render :partial=>"/shared/root_model_selector" %>
+<%% end %>
    
 
 

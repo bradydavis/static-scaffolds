@@ -41,7 +41,8 @@ class <%= class_name %> < ActiveRecord::Base
   end
   
   def short_name
-      name = "<%=gen_spec.short_name_columns.map{|c| "\#{self.#{c}}"}.join(" ")%>"
+    name = "<%=gen_spec.short_name_columns.map{|c| "\#{self.#{c}}"}.join(" ")%>"
+
       if name==""
           return "Untitled"
       else

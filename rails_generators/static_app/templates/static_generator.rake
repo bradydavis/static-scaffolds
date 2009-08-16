@@ -17,19 +17,19 @@ namespace :static_force do
   end
   
   task :gen_specs => :load_env do
-<%for table in ActiveRecord::Base.connection.tables - ["schema_migration"]-%>
+<%for table in ActiveRecord::Base.connection.tables - ["schema_migrations"]-%>
     Rails::Generator::Scripts::Generate.new.run(["static_gen_specs","<%=table.singularize%>","-f","-t"]) 
 <%end -%>
   end
   
   task :scaffold => :load_env do
-<%for table in ActiveRecord::Base.connection.tables - ["schema_migration"]-%>
+<%for table in ActiveRecord::Base.connection.tables - ["schema_migrations"]-%>
     Rails::Generator::Scripts::Generate.new.run(["static_scaffold","<%=table.singularize%>","-f","-t"]) 
 <%end -%>    
   end
   
   task :populate_fake_all => :environment do 
-<%for table in ActiveRecord::Base.connection.tables - ["schema_migration"]-%>
+<%for table in ActiveRecord::Base.connection.tables - ["schema_migrations"]-%>
     sh "rake db:populate_fake_<%=table%>"
 <%end -%>    
   end
