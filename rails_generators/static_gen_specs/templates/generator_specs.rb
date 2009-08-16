@@ -21,6 +21,18 @@ end
 
 class GeneratorSpecs < GenSpecFactory
     
+    def nested_by_gen_spec
+      GenSpecFactory.constantize(nested_by[:model])
+    end
+    
+    def index_path
+      if nested_by and nested_by.length>0
+        "#{nested_by_gen_spec.singular_name}_#{plural_name}_path(@#{nested_by_gen_spec.singular_name})"
+      else
+        "#{plural_name}_path"
+      end
+    end
+    
     def nested_by_columns
       # Its only one, but a list is easy to work with
       if nested_by

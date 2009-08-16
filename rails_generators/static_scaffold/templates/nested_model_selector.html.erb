@@ -1,8 +1,8 @@
 <%if gen_spec.nests_many%>
 <div id="model_selector">
   <ul>
-    <%for resource in gen_spec.nests_many%>
-      <li> <%%=link_to "<%=resource[:model].pluralize.titleize%>", <%=gen_spec.singular_name%>_<%=resource[:name].pluralize%>_path(@<%=gen_spec.singular_name%>), :class=>"ui-corner-tl ui-corner-tr"%> </li>
+    <%for nested_resource in gen_spec.nests_many.map{|x| GenSpecFactory.constantize(x[:model])}%>
+      <li> <%%=link_to <%=nested_resource.plural_title.inspect%>, <%=nested_resource.index_path%>, :class=>"ui-corner-tl ui-corner-tr"%> </li>
     <%end%>
   </ul>
 </div>
