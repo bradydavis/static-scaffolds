@@ -1,5 +1,29 @@
-<%for f in gen_spec.search_facets -%>
-<h2><%=f[:title]%></h2>
-<%%@facet=<%=gen_spec.singular_name%>_search.<%=f[:name]%> %>
-<%%=render :partial=>"/faceted_search/<%=f[:partial]%>"%>
+<%%session_facets = <%=gen_spec.singular_name%>_search%>
+<form action=<%%=<%=gen_spec.index_path%>%> class="facet_form">
+<%for facet in gen_spec.search_facets -%>
+<h2><%=facet[:title]%></h2>
+<%if facet[:partial]=="date_range_facet" -%>
+  From:
+  <input type="text" id="<%%=session_facets.<%=facet[:name]%>.lower_limit_param_name%>" name="<%%=session_facets.<%=facet[:name]%>.lower_limit_param_name%>" value="<%%=session_facets.<%=facet[:name]%>.lower_limit%>" size="10"><br>
+  To:
+  <input type="text" id="<%%=session_facets.<%=facet[:name]%>.upper_limit_param_name%>" name="<%%=session_facets.<%=facet[:name]%>.upper_limit_param_name%>" value="<%%=session_facets.<%=facet[:name]%>.upper_limit%>" size="10"><br>
+
+  <script type="text/javascript">
+  $(function() {
+  	$("#<%%=session_facets.<%=facet[:name]%>.lower_limit_param_name%>").datepicker();
+  	$("#<%%=session_facets.<%=facet[:name]%>.upper_limit_param_name%>").datepicker();		
+  });
+  </script>	
 <%end -%>
+<%if facet[:partial]=="numeric_range_facet" -%>
+	From:
+	<input type="text" name="<%%=session_facets.<%=facet[:name]%>.lower_limit_param_name%>" value="<%%=session_facets.<%=facet[:name]%>.lower_limit%>" size="3">
+	To:
+	<input type="text" name="<%%=session_facets.<%=facet[:name]%>.upper_limit_param_name%>" value="<%%=session_facets.<%=facet[:name]%>.upper_limit%>" size="3"><br>
+<%end -%>
+<%if facet[:partial]=="keyword_facet" -%>
+  <input type="text" name="<%%=session_facets.<%=facet[:name]%>.param_name%>" value="<%%=session_facets.<%=facet[:name]%>.search_phrase%>">
+<%end -%>
+<%end -%>
+<input type="submit" id="facet_submit">
+</form>

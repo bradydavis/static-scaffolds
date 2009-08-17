@@ -1,4 +1,3 @@
-<%form_for(@facet, :url => { :action => "index" }) do |f|%>
-	<input type="text" name="<%=@facet.param_name%>" value="<%=@facet.search_phrase%>">
-  <%= submit_tag 'Update' %>
-<%end%>
+<input type="text" name="<%=@facet.param_name%>" value="<%=@facet.search_phrase%>">
+
+

@@ -1,4 +1,4 @@
-<%form_for(@facet, :url => { :action => "index" }) do |f|%>
+
 	From:
 	<input type="text" id="<%=@facet.lower_limit_param_name%>" name="<%=@facet.lower_limit_param_name%>" value="<%=@facet.lower_limit%>" size="10"><br>
 	To:
@@ -11,5 +11,3 @@
 	});
 	</script>	
 	
-  <%= submit_tag 'Update' %>
-<%end%>

@@ -9,11 +9,10 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%=gen_spec.plural_name%> = <%=gen_spec.singular_name%>_search.paginate(nested_and_authorized_scope)
     
     # Configure Partials and Layout Text
-    @header = "index_header"
     @navigation_title = <%=gen_spec.plural_title.inspect%>
     @model_selector = <%=index_model_selector.inspect%>
     @filter = "/<%=gen_spec.plural_name%>/facet_form"
-    @title = "Index"
+    @title = "<%=gen_spec.plural_title%>"
 
     respond_to do |format|
       format.html # index.html.erb
@@ -48,7 +47,6 @@ class <%= controller_class_name %>Controller < ApplicationController
     load_parent_resources
 <% end -%>
 
-    @header = "entry_header"
     @navigation_title = <%=gen_spec.plural_title.inspect%>
     @model_selector = <%=entry_model_selector.inspect%>
     @title = "#{@<%=gen_spec.singular_name%>.short_name}"
@@ -73,7 +71,6 @@ class <%= controller_class_name %>Controller < ApplicationController
     load_form_drop_downs
 
     # Configure Partials and Layout Text
-    @header = "entry_header"
     @navigation_title = <%=gen_spec.plural_title.inspect%>
     @title = "New <%=gen_spec.singular_title%>"
     @model_selector = <%=index_model_selector.inspect%>
@@ -96,7 +93,6 @@ class <%= controller_class_name %>Controller < ApplicationController
     load_form_drop_downs
 
     # Configure Partials and Layout Text
-    @header = "entry_header"
     @navigation_title = <%=gen_spec.plural_title.inspect%>
     @model_selector = <%=entry_model_selector.inspect%>
     @title = "Edit #{@<%=gen_spec.singular_name%>.short_name}"
@@ -119,7 +115,6 @@ class <%= controller_class_name %>Controller < ApplicationController
       else
 
         # Configure Partials and Layout Text
-        @header = "entry_header"
         @title = "New <%=gen_spec.singular_title%>"
         @navigation_title = <%=gen_spec.plural_title.inspect%>
         @model_selector = <%=index_model_selector.inspect%>
@@ -147,7 +142,6 @@ class <%= controller_class_name %>Controller < ApplicationController
         format.xml  { head :ok }              
       else
         # Configure Partials and Layout Text
-        @header = "entry_header"
         @navigation_title = <%=gen_spec.plural_title.inspect%>
         @model_selector = <%=entry_model_selector.inspect%>
         @title = "Edit #{<%=gen_spec.singular_name%>.short_name}"

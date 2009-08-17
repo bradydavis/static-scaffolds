@@ -1,11 +1,8 @@
-<div id="<%=gen_spec.singular_name%>_header">
-<div class="work_area_header ui-corner-tr">
-	<div class="header_links">
-		<%%= will_paginate @posts, :param_name=><%=gen_spec.singular_name%>_search.page_param, :inner_window=>1, :outer_window=>0, :prev_label=>'&larr;', :next_label=>'&rarr;' %>							
 
-	</div>
-	<%%=@title if @title%>&nbsp;
-</div> <!-- end work_area header -->
+<h2><%%=@title if @title%><div class="spinner"></div></h2>
+<hr>
+
+<%%= will_paginate @posts, :param_name=><%=gen_spec.singular_name%>_search.page_param, :inner_window=>1, :outer_window=>0, :prev_label=>'&larr;', :next_label=>'&rarr;' %>							
 
 <!-- facet remove bar -->
 <%%if <%=gen_spec.singular_name%>_search.active_facets.length != 0%>
@@ -16,15 +13,3 @@
 <%%end%>					
 <!-- end facet remove bar -->
 
-<div class="presentation_selector">
-	<div class="presentation_selected ui-corner-ul ui-corner-ur">
-		<%%=link_to "Table"%>
-	</div>
-	<div class="presentation_selection ui-corner-ul ui-corner-ur">
-		<%%=link_to "Map"%>
-	</div>
-	<div class="presentation_selection ui-corner-ul ui-corner-ur">
-		<%%=link_to "Chart"%>
-	</div>					
-</div> <!-- end presentation selector -->
-</div>

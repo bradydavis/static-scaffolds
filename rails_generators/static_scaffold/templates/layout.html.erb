@@ -7,8 +7,9 @@
         </div>
     </td>
     <td class="maincolumn" id="maincolumn" valign="top">
-    		  <%%=render :partial=>@header if @header%>
+      <div class="maincolumn_body ui-corner-all" id="maincolumn_body">
     		  <%%=yield%>
+    	</div>
     </td>
   </tr>
 </table>
