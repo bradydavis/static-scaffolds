@@ -1,5 +1,5 @@
 
-<h2><%%=@title if @title%><div class="spinner"></div></h2>
+<h2><%%=@title if @title%><span class="spinner"><img src="/images/icons/loading.gif" style="display: none;"></span></h2>
 <hr>
 
 <%%= will_paginate @posts, :param_name=><%=gen_spec.singular_name%>_search.page_param, :inner_window=>1, :outer_window=>0, :prev_label=>'&larr;', :next_label=>'&rarr;' %>							

@@ -95,6 +95,11 @@ body, h1, h2, h3, h4, h5, h6, ol, ul, li {
   width: 210px; 
 }
 
+.spinner {
+	padding-left: .5em;
+	padding-right: .5em;
+}
+
 .standard_padding {
 	padding: 7px;
 }
