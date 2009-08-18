@@ -3,7 +3,7 @@ $(function() {
 
  // DO PAGINATION AJAX
  $(".pagination a").live("click", function() {
-		$(".pagination").html('<img alt="loading" src="/images/icons/blue_bg_ajax_loader.gif" />');
+		$(".spinner").html('<img alt="loading" src="/images/icons/loading.gif" />');
     $.getScript(this.href)
     return false;
   });
