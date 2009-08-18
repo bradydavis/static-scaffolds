@@ -170,6 +170,10 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
       column_names.select {|cname| [:int,:float, :decimal].include?(guess_type(cname)) }
     end
     
+    def guess_checkbox_facets
+      column_names.select {|cname| [:string].include?(guess_type(cname)) }
+    end
+    
     def guess_keyword_facets
       column_names.select {|cname| [:text,:string].include?(guess_type(cname)) }
     end

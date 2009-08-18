@@ -82,6 +82,16 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%="#" if is_meta_data?(attribute_name)%>      },
 <%end -%>
 
+<%for attribute_name in guess_checkbox_facets -%>
+#     { 
+#        :name       => "<%=attribute_name%>_facet",
+#        :type       => "string_checkbox_facet",
+#        :attributes => <%=attribute_name.inspect%>,
+#        :partial    => "string_checkbox_facet",
+#        :title      => <%=attribute_name.titleize.inspect%>        
+#     },
+<%end -%>
+
     ]
   end
 

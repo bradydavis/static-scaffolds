@@ -50,6 +50,10 @@ class FacetedSearch::Base
   def create_date_range_facet(title, attribute)
     register(FacetedSearch::DateRangeFacet.new(attribute, title, @model.table_name, @session))
   end
+  
+  def create_checkbox_facet(title, attribute)
+    register(FacetedSearch::CheckboxFacet.new(attribute, title, @model.table_name, @session))
+  end
 
   def refined(scope)
     @facets.each {|facet| scope = facet.refined(scope)}
