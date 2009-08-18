@@ -22,13 +22,13 @@ class <%= class_name %> < ActiveRecord::Base
 <%end -%>
 <%if gen_spec.belongs_to.length>0 -%>
 <%for bt in gen_spec.belongs_to -%>
-  belongs_to <%=bt[:name].inspect%>, :class_name=><%=bt[:model].inspect%>, :foreign_key=><%=bt[:key].inspect%>
+  belongs_to <%=bt[:name].to_sym.inspect%>, :class_name=><%=bt[:model].inspect%>, :foreign_key=><%=bt[:key].inspect%>
 <%end -%>
 
 <%end -%>
 <%if gen_spec.has_many.length>0 -%>
 <%for hm in gen_spec.has_many -%>
-  has_many <%=hm[:name].inspect%>, :class_name=><%=hm[:model].inspect%>, :foreign_key=><%=hm[:key].inspect%>
+  has_many <%=hm[:name].to_sym.inspect%>, :class_name=><%=hm[:model].inspect%>, :foreign_key=><%=hm[:key].inspect%>
 <%end -%>
 
 <%end -%>

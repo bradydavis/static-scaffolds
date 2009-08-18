@@ -24,6 +24,13 @@
 <%if facet[:partial]=="keyword_facet" -%>
   <input type="text" name="<%%=session_facets.<%=facet[:name]%>.param_name%>" value="<%%=session_facets.<%=facet[:name]%>.search_phrase%>">
 <%end -%>
+
+<%if facet[:partial]=="checkbox_facet" -%>
+<%% for option in @<%=facet[:attributes]%>_checkbox_options -%>
+  <input type="checkbox" name="<%%=session_facets.<%=facet[:name]%>.param_name%>[]" value="<%%=option.<%=facet[:attributes]%>%>" <%%if session_facets.<%=facet[:name]%>.selections and  session_facets.<%=facet[:name]%>.selections.include?(option.<%=facet[:attributes]%>)%>CHECKED<%%end%>"> <%%=option.<%=facet[:attributes]%>%> <br>
+<%%end -%>
+<%end -%>
+
 <%end -%>
 <input type="submit" id="facet_submit">
 </form>
