@@ -9,15 +9,15 @@ class FacetedSearch::CheckboxFacet < FacetedSearch::Facet
   end
 
   def selection_options(scope)
-    # TODO deal with NULLs and Empty Strings
-    scope.find(:all, :select=>"distinct #{@table_name}.#{@attribute}", :order=>"#{@table_name}.#{@attribute} asc")
+    # Disables earger loading, any conditions requring joins should use :joins instead of :include
+    scope.find(:all, :select=>"distinct #{@table_name}.#{@attribute}", :include=>nil, :order=>"#{@table_name}.#{@attribute} asc")
   end
 
   def refined(scope)
     # TODO deal with NULLs and Empty Strings
     if is_active?
       sql = selections.map {|s| "#{@table_name}.#{@attribute} = ?"}.join(" or ")
-      scope = scope.scoped :conditions => [sql, selections]
+      scope = scope.scoped :conditions => [sql, selections].flatten
     end
     return scope
   end

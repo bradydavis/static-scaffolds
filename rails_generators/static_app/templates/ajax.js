@@ -16,22 +16,27 @@ $(function() {
      return false;
 	});
 
+ // ACTIVE_FILTER WATCH TEXT BOXES
  $(".facet_form input").live("keyup", function() {
-   clearTimeout($.data(this, "timer"));
-   var ms = 500; //milliseconds
-   var val = this.value;
+   clearTimeout($.data($(".facet_form"), "timer"));
+   var ms = 1000; //milliseconds
    var wait = setTimeout(function() {
-    $(".facet_form").submit();
+		  $(".spinner").html('<img alt="loading" src="/images/icons/loading.gif" />');	
+    	$.get($(".facet_form").action, $(".facet_form").serialize(), null, "script");
    }, ms);
-   $.data(this, "timer", wait);
+   $.data($(".facet_form"), "timer", wait);
 	});
 	
- $(".facet_form input:checkbox").live("keyup", function() {
-		$(".spinner").html('<img alt="loading" src="/images/icons/loading.gif" />');
-    $(".facet_form").submit();
-		return false;		
-	});	
+ // ACTIVE_FILTER WATCH CHECK BOXES
+ $(".facet_form input:checkbox").live("click", function() {
+   clearTimeout($.data($(".facet_form"), "timer"));
+   var ms = 300; //milliseconds
+   var wait = setTimeout(function() {
+		 	$(".spinner").html('<img alt="loading" src="/images/icons/loading.gif" />');	
+    	$.get($(".facet_form").action, $(".facet_form").serialize(), null, "script");
+   }, ms);
+   $.data($(".facet_form"), "timer", wait);
+	});
 	
 });
-
 

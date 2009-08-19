@@ -27,7 +27,9 @@
 
 <%if facet[:partial]=="checkbox_facet" -%>
 <%% for option in @<%=facet[:attributes]%>_checkbox_options -%>
+<div class="facet_form_checkbox">
   <input type="checkbox" name="<%%=session_facets.<%=facet[:name]%>.param_name%>[]" value="<%%=option.<%=facet[:attributes]%>%>" <%%if session_facets.<%=facet[:name]%>.selections and  session_facets.<%=facet[:name]%>.selections.include?(option.<%=facet[:attributes]%>)%>CHECKED<%%end%>"> <%%=option.<%=facet[:attributes]%>%> <br>
+</div>
 <%%end -%>
 <%end -%>
 
