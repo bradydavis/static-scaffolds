@@ -1,9 +1,11 @@
 <form action=<%%=<%=gen_spec.index_path%>%> class="facet_form">
 
 <%for facet in gen_spec.search_facets -%>
+<a class="head"><h2><%=facet[:title]%></h2></a>
+<div class="body">
 <%%=render :partial=>"/faceted_search/<%=facet[:partial]%>",
           :locals=>{:facet=><%=gen_spec.singular_name%>_search.<%=facet[:name]%>}%>
-           
+</div>
 <%end -%>
 <input type="submit" id="facet_submit">
 </form>

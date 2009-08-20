@@ -38,5 +38,13 @@ $(function() {
    $.data($(".facet_form"), "timer", wait);
 	});
 	
+	// ACTIVE_FILTER ACCORDION FILTERS
+	jQuery(document).ready(function(){
+		$('.facet_form .head').click(function() {
+			$(this).next().toggle('slow');
+			return false;
+		});
+	});	
+	
 });
 
