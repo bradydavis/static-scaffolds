@@ -1,20 +1,23 @@
 class FacetedSearch::CheckboxFacet < FacetedSearch::Facet
 
-  # TODO deal with the fact that all items selected is actually is_active=false
+  # TODO deal with all items selected means facet is not an active filter
+
+  attr_reader :selection_options
     
   def initialize(attribute, title, table_name, session)
     @title = title
     @attribute = attribute
     @table_name = table_name
     @session = session
+    @selection_options = nil
   end
   
-  def selection_options(scope)
+  def load_selection_options(scope)
+    @selection_options=find_selection_options(scope)
     if not @session[initialize_session_param]
-      @session[param_name] = find_selection_options(scope)
+      @session[param_name] = @selection_options
       @session[initialize_session_param]=true
-    end
-    find_selection_options(scope) 
+    end    
   end
   
   def refined(scope)

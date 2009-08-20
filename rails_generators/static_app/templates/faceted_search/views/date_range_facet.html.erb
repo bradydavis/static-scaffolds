@@ -1,13 +1,13 @@
 
 	From:
-	<input type="text" id="<%=@facet.lower_limit_param_name%>" name="<%=@facet.lower_limit_param_name%>" value="<%=@facet.lower_limit%>" size="10"><br>
+	<input type="text" id="<%=facet.lower_limit_param_name%>" name="<%=facet.lower_limit_param_name%>" value="<%=facet.lower_limit%>" size="10"><br>
 	To:
-	<input type="text" id="<%=@facet.upper_limit_param_name%>" name="<%=@facet.upper_limit_param_name%>" value="<%=@facet.upper_limit%>" size="10"><br>
+	<input type="text" id="<%=facet.upper_limit_param_name%>" name="<%=facet.upper_limit_param_name%>" value="<%=facet.upper_limit%>" size="10"><br>
 	
   <script type="text/javascript">
 	$(function() {
-		$("#<%=@facet.lower_limit_param_name%>").datepicker();
-		$("#<%=@facet.upper_limit_param_name%>").datepicker();		
+		$("#<%=facet.lower_limit_param_name%>").datepicker();
+		$("#<%=facet.upper_limit_param_name%>").datepicker();		
 	});
 	</script>	
 	

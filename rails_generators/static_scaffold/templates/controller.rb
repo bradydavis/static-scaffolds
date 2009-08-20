@@ -17,7 +17,7 @@ class <%= controller_class_name %>Controller < ApplicationController
         @model_selector = <%=index_model_selector.inspect%>
         @filter = "/<%=gen_spec.plural_name%>/facet_form"
 <% for f in gen_spec.search_facets.select {|sf| sf[:type]=="checkbox_facet"} -%>
-        @<%=f[:attributes]%>_checkbox_options = <%=gen_spec.singular_name%>_search.<%=f[:name]%>.selection_options(nested_and_authorized_scope)
+        <%=gen_spec.singular_name%>_search.<%=f[:name]%>.load_selection_options(nested_and_authorized_scope)
 <% end -%>
       } # index.html.erb
       format.js   # index.js.erb

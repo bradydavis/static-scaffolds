@@ -1,0 +1,5 @@
+<% for option in facet.selection_options -%>
+<div class="facet_form_checkbox">
+  <input type="checkbox" name="<%=facet.param_name%>[]" value="<%=option%>" <%if facet.selections and  facet.selections.include?(option)%>CHECKED<%end%>"> <%=option%> <%="[blank]" if option==nil or option==""%> <br>
+</div>
+<%end -%>
