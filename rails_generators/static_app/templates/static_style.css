@@ -116,6 +116,24 @@ body, h1, h2, h3, h4, h5, h6, ol, ul, li {
   font-weight: bold; 
 }
 
+.collapsed {
+	color: black;
+	display: block; 
+	background: url(/images/icons/toggle-right-arrow.gif) left center no-repeat; 
+	padding-left: 15px;
+	padding-top: 5px; 
+}
+
+.expanded { 
+	color: black;
+	display: block; 
+	background: url(/images/icons/toggle-down-arrow.gif) left center no-repeat; 
+	padding-left: 15px; 
+	padding-top: 5px; 
+}
+
+
+
 .facet_form_checkbox {
 	border-bottom: 1px dotted grey;
 }

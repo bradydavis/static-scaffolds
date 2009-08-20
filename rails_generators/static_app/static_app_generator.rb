@@ -118,7 +118,7 @@ class StaticAppGenerator < Rails::Generator::Base
       for file in pngs
         m.file "icons/#{file}.png", "public/images/icons/#{file}.png"
       end
-      gifs = "blue_bg_ajax_loader loading close_window".split()
+      gifs = "toggle-down-arrow toggle-right-arrow blue_bg_ajax_loader loading close_window".split()
       for file in gifs
         m.file "icons/#{file}.gif", "public/images/icons/#{file}.gif"
       end

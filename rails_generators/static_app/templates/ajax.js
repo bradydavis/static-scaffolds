@@ -40,11 +40,22 @@ $(function() {
 	
 	// ACTIVE_FILTER ACCORDION FILTERS
 	jQuery(document).ready(function(){
-		$('.facet_form .head').click(function() {
-			$(this).next().toggle('slow');
+		$('.facet_form .expanded').live("click", function() {
+			$(this).removeClass("expanded").addClass("collapsed");
+			$(this).next().slideToggle();
 			return false;
 		});
 	});	
+
+	// ACTIVE_FILTER ACCORDION FILTERS
+	jQuery(document).ready(function(){
+		$('.facet_form .collapsed').live("click", function() {
+			$(this).removeClass("collapsed").addClass("expanded");
+			$(this).next().slideToggle();
+			return false;
+		});
+	});
+	
 	
 });
 
