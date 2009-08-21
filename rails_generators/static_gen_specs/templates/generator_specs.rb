@@ -21,17 +21,41 @@ end
 
 class GeneratorSpecs < GenSpecFactory
     
+    def additional_route_actions
+      if route_collection
+        ", :collection=>#{route_collection.inspect}"
+      else
+        ""
+      end
+    end
+    
+    def route_collection
+      collections={}
+      if mapping
+        collections=collections.merge({:map=>:get})
+      end
+      return collections
+    end
+        
     def nested_by_gen_spec
       GenSpecFactory.constantize(nested_by[:model])
     end
     
-    def index_path
+    def collection_route
       if nested_by and nested_by.length>0
         "#{nested_by_gen_spec.singular_name}_#{plural_name}_path(@#{nested_by_gen_spec.singular_name})"
       else
         "#{plural_name}_path"
       end
     end
+    
+    def resource_route
+      if nested_by and nested_by.length>0
+        "#{nested_by_gen_spec.singular_name}_#{singular_name}_path(@#{nested_by_gen_spec.singular_name})"
+      else
+        "#{singular_name}"
+      end
+    end    
     
     def nested_by_columns
       # Its only one, but a list is easy to work with

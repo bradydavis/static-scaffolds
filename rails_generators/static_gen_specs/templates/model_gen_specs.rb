@@ -51,6 +51,22 @@ class <%=class_name%>GenSpecs < GeneratorSpecs
 <%end -%>
     ]
   end
+
+  def mapping
+<% if guess_mapping -%>
+     {
+       :latitude_attr  => <%=guess_latitude_attr.to_sym.inspect%>,
+       :longitude_attr => <%=guess_longitude_attr.to_sym.inspect%>
+     }
+<%end -%>
+<% if not guess_mapping -%>
+#     {
+#       :latitude_attr  => :latitude, 
+#       :longitude_attr => :longitude
+#     }
+<%end -%>
+  end
+
   
   def search_facets
     [

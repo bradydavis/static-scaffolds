@@ -132,6 +132,27 @@ body, h1, h2, h3, h4, h5, h6, ol, ul, li {
 	padding-top: 5px; 
 }
 
+.map_icon {
+	color: black;
+	background: url(/images/icons/map_go.png) left center no-repeat; 
+	padding-left: 20px; 
+}
+
+.new_icon {
+	color: black;
+	background: url(/images/icons/add.png) left center no-repeat; 
+	padding-left: 20px; 
+}
+
+.main_actions {
+	float: right;
+}
+.main_actions a {
+	color: black;
+	background: url(/images/icons/toggle-right-arrow.gif) left center no-repeat; 
+	padding-left: 15px;
+}
+
 
 
 .facet_form_checkbox {
@@ -374,6 +395,7 @@ vertical-align: middle;
   float: right;
   font-size: 11px;
   margin: 6px 0px 0px 0px;
+	margin-top: 0px;
 }
 
 .pagination a, .pagination span {
@@ -381,6 +403,7 @@ vertical-align: middle;
     display: block;
     float: left;
     margin: 0px 2px 0px 0px; 
+		margin-top: 0px;
 }
 
 .pagination span.disabled {

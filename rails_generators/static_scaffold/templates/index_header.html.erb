@@ -1,15 +1,22 @@
-
 <%%= will_paginate @posts, :param_name=><%=gen_spec.singular_name%>_search.page_param, :inner_window=>1, :outer_window=>0, :prev_label=>'&larr;', :next_label=>'&rarr;' %>
 
-<h2><%%=@title if @title%><span class="spinner"><img src="/images/icons/loading.gif" style="display: none;"></span></h2>
-<hr>
-						
-<!-- facet remove bar -->
-<%%if <%=gen_spec.singular_name%>_search.active_facets.length != 0%>
-<div class="remove_facets_panel"> 
-	<%%@search=<%=gen_spec.singular_name%>_search%>
-	<%%=render :partial=>"faceted_search/active_facets"%>
-</div> 
-<%%end%>					
-<!-- end facet remove bar -->
 
+<h2><%%=@title if @title%><span class="spinner"><img src="/images/icons/loading.gif" style="display: none;"></span>
+  
+    <%%=link_to "New", new_<%=gen_spec.resource_route%>, :class=>"new_icon" %>
+  <%if gen_spec.mapping -%>
+    <%%=link_to "Map", map_<%=gen_spec.collection_route%>, :class=>"map_icon" %>
+  <%end -%>
+    
+</h2>
+
+<hr>
+
+<div>						
+  <!-- facet remove bar -->
+  <%%if <%=gen_spec.singular_name%>_search.active_facets.length != 0%>
+  	<%%@search=<%=gen_spec.singular_name%>_search%>
+  	<%%=render :partial=>"faceted_search/active_facets"%>
+  <%%end%>					
+  <!-- end facet remove bar -->
+</div>

@@ -342,7 +342,17 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         units_hash.keys.select {|k| cname.slice((0-k.length),k.length)==k }.first
     end
     
+    def guess_latitude_attr
+        find_column_names_matching("latitude lat".split).first    
+    end
     
+    def guess_longitude_attr
+      find_column_names_matching("longitude lon long".split).first    
+    end
+    
+    def guess_mapping
+      guess_latitude_attr and guess_longitude_attr
+    end
     
 end
 

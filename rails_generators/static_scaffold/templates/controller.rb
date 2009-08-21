@@ -4,7 +4,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   # GET /<%= table_name %>.xml
   def index
 <%  if gen_spec.nested_by -%>
-        load_parent_resources
+    load_parent_resources
 <% end -%>
     @<%=gen_spec.plural_name%> = <%=gen_spec.singular_name%>_search.paginate(nested_and_authorized_scope)
     
@@ -24,6 +24,30 @@ class <%= controller_class_name %>Controller < ApplicationController
       format.xml  { render :xml => @<%= table_name %> }
     end
   end
+  
+  
+  def map
+<%  if gen_spec.nested_by -%>
+    load_parent_resources
+<% end -%>
+    @<%=gen_spec.plural_name%> = <%=gen_spec.singular_name%>_search.paginate(nested_and_authorized_scope)
+
+    # Configure Partials and Layout Text
+    @navigation_title = <%=gen_spec.plural_title.inspect%>
+    @title = "<%=gen_spec.plural_title%>"
+
+    respond_to do |format|
+      format.html {
+        @google_api_key = GOOGLE_API_KEY
+        @model_selector = <%=index_model_selector.inspect%>
+        @filter = "/<%=gen_spec.plural_name%>/facet_form"
+<% for f in gen_spec.search_facets.select {|sf| sf[:type]=="checkbox_facet"} -%>
+        <%=gen_spec.singular_name%>_search.<%=f[:name]%>.load_selection_options(nested_and_authorized_scope)
+<% end -%>
+      } # map.html.erb
+      format.js   # map.js.erb
+    end
+  end  
   
   def next
 <%  if gen_spec.nested_by -%>

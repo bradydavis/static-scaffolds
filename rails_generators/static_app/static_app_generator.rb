@@ -17,6 +17,7 @@ class StaticAppGenerator < Rails::Generator::Base
       m.directory 'app/helpers'
       m.template "layout.html.erb", "app/views/layouts/application.html.erb"
       m.file "static_style.css", "public/stylesheets/static_style.css"
+      m.file "application_controller.rb", "app/controllers/application_controller.rb"        
       m.file "application_helper.rb", "app/helpers/application_helper.rb"      
       m.file "layout_helper.rb", "app/helpers/layout_helper.rb"
       
@@ -114,7 +115,7 @@ class StaticAppGenerator < Rails::Generator::Base
                   
       # icons
       m.directory 'public/images/icons'
-      pngs = "add pencil tick cross feed key doc external pdf email visited xls".split()
+      pngs = "add map_go pencil tick cross feed key doc external pdf email visited xls".split()
       for file in pngs
         m.file "icons/#{file}.png", "public/images/icons/#{file}.png"
       end

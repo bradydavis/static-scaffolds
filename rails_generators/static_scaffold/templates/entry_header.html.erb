@@ -4,7 +4,7 @@
 		<!-- <img src="/images/icons/close_window.gif"> -->
 		<%%=link_to "&uarr;", {:action=>"prev", :id=>@<%=gen_spec.singular_name%>.id}%>  
 		<%%=link_to "&darr;", {:action=>"next", :id=>@<%=gen_spec.singular_name%>.id}%>  
-	  <%%=link_to "&otimes;", <%=gen_spec.index_path%>, :method=>:get%>
+	  <%%=link_to "&otimes;", <%=gen_spec.collection_route%>, :method=>:get%>
 		</div>
 	</div>
 	<%%=@title if @title%>&nbsp;

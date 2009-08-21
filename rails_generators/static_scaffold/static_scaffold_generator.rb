@@ -1,3 +1,8 @@
+spec_files = Dir.glob(File.join(RAILS_ROOT,"static_scaffold","*.rb"))
+for f in spec_files
+    load f
+end
+
 class StaticScaffoldGenerator < Rails::Generator::NamedBase
   default_options :skip_timestamps => false, :skip_migration => false, :force_plural => false
   
@@ -14,11 +19,6 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
   alias_method  :controller_table_name, :controller_plural_name
   attr_accessor :count
 
-  # The Scaffold Generator is configured with a ruby class
-  spec_files = Dir.glob(File.join(RAILS_ROOT,"static_scaffold","*.rb"))
-  for f in spec_files
-      load f
-  end
 
   def initialize(runtime_args, runtime_options = {})
     super
@@ -126,10 +126,10 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
 
       # http://weblog.jamisbuck.org/2007/2/5/nesting-resources
       if gen_spec.nests_many and gen_spec.nests_many.length>0
-        m.route_nested_resources(controller_file_name, gen_spec.nests_many)
+          m.route_nested_resources(controller_file_name, gen_spec.nests_many)
       else
         if (gen_spec.nested_by == nil or gen_spec.nested_by.length==0)
-          m.route_resources controller_file_name
+          m.my_route_resources controller_file_name
         end
       end
 
@@ -182,8 +182,23 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
     # generator specs
     def gen_spec(mname=nil)
         mname = model_name if not mname
+        mname = mname.singularize.camelcase
         gen_specs_mname = "#{mname}GenSpecs"
         Object::const_get(gen_specs_mname).new()
+    end
+    
+    
+    # UnNested Routes
+    # http://stackoverflow.com/questions/956723/generating-nested-routes-in-a-custom-generator
+    # http://weblog.jamisbuck.org/2007/2/5/nesting-resources    
+    def my_route_resources(resource)
+      sentinel = 'ActionController::Routing::Routes.draw do |map|'
+      code = "\n  map.resources :#{resource} #{additional_route_actions(resource)}"
+      unless options[:pretend]
+        gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
+          "#{match}\n  #{code}\n"
+        end
+      end
     end
     
     # Nested Routes
@@ -191,16 +206,27 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
     # http://weblog.jamisbuck.org/2007/2/5/nesting-resources    
     def route_nested_resources(nesting_resource, nested_resources)
       nesting_resource = nesting_resource.underscore.downcase.pluralize
+      logger.route "Nesting resource #{nested_resources.inspect} in #{nesting_resource.inspect}"
       sentinel = 'ActionController::Routing::Routes.draw do |map|'
       nesting_code = "\n  map.resources :#{nesting_resource}, :shallow=>true do |#{nesting_resource}|%s\n  end"
-      nested_code = nested_resources.map {|r| "\n     #{nesting_resource}.resources #{r[:name].pluralize.to_sym.inspect}"}.join("")
+      nested_code = nested_resources.map {|r| "\n     #{nesting_resource}.resources #{r[:name].pluralize.to_sym.inspect} #{additional_route_actions(r[:model])}"}.join("")
       code = nesting_code%[nested_code]
-      logger.route "Nesting resource #{nested_resources.inspect} in #{nesting_resource.inspect}"
+
       unless options[:pretend]
         gsub_file 'config/routes.rb', /(#{Regexp.escape(sentinel)})/mi do |match|
           "#{match}\n  #{code}\n"
         end
       end
+    end
+    
+    def additional_route_actions(resource)
+      # expects resource to be a string of the model
+      begin
+        o=gen_spec(resource)
+      rescue Exception
+        print " ==> Unable to get gen_spec for #{resource.inspect}"
+      end
+      o.additional_route_actions
     end
     
     def gsub_file(relative_destination, regexp, *args, &block)
