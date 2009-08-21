@@ -111,6 +111,16 @@ class StaticScaffoldGenerator < Rails::Generator::NamedBase
         )
       end
       
+      
+      # Collection Presentations
+      if gen_spec.mapping
+        m.template(
+          "map.html.erb",
+          File.join('app/views', controller_class_path, controller_file_name, 'map.html.erb'))
+        m.template(
+          "map.js.erb",
+          File.join('app/views', controller_class_path, controller_file_name, 'map.js.erb'))
+      end
 
       # Layout and stylesheet.
       m.template('layout.html.erb', File.join('app/views/layouts', controller_class_path, "#{controller_file_name}.html.erb"))

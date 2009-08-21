@@ -1,0 +1,12 @@
+map.clearOverlays();
+<%%for <%=gen_spec.singular_name%> in @<%=gen_spec.plural_name%> -%>
+var point<%%=<%=gen_spec.singular_name%>.id%> = new GLatLng(<%%=<%=gen_spec.singular_name%>.<%=gen_spec.mapping[:latitude_attr]%>%>,<%%=<%=gen_spec.singular_name%>.<%=gen_spec.mapping[:longitude_attr]%>%>);
+bounds.extend(point<%%=<%=gen_spec.singular_name%>.id%>);
+marker<%%=<%=gen_spec.singular_name%>.id%> = new GMarker(point<%%=<%=gen_spec.singular_name%>.id%>);
+map.addOverlay(marker<%%=<%=gen_spec.singular_name%>.id%>);    
+<%%end%>
+
+map.setCenter(bounds.getCenter(),map.getBoundsZoomLevel(bounds));
+
+
+$("#index_header").html("<%%= escape_javascript(render("index_header")) %>");

@@ -1,0 +1,31 @@
+<div id="index_header">
+<%%=render :partial=>"index_header"%>
+</div>
+
+<style media="screen" type="text/css">
+   #map { height:500px; }
+</style>
+
+<script type="text/javascript">
+<!--
+var map;
+var bounds;
+$(document).ready(function(){
+    map = new GMap2(document.getElementById('map'));
+    bounds = new GLatLngBounds();
+<%%for <%=gen_spec.singular_name%> in @<%=gen_spec.plural_name%> -%>
+    var point<%%=<%=gen_spec.singular_name%>.id%> = new GLatLng(<%%=<%=gen_spec.singular_name%>.<%=gen_spec.mapping[:latitude_attr]%>%>,<%%=<%=gen_spec.singular_name%>.<%=gen_spec.mapping[:longitude_attr]%>%>);
+    bounds.extend(point<%%=<%=gen_spec.singular_name%>.id%>);
+<%%end%>
+
+    map.setCenter(bounds.getCenter(),map.getBoundsZoomLevel(bounds));
+
+<%%for <%=gen_spec.singular_name%> in @<%=gen_spec.plural_name%> -%>
+    marker<%%=<%=gen_spec.singular_name%>.id%> = new GMarker(point<%%=<%=gen_spec.singular_name%>.id%>);
+    map.addOverlay(marker<%%=<%=gen_spec.singular_name%>.id%>);    
+<%%end%>    
+});
+// -->
+</script>
+
+<div id="map"></div>

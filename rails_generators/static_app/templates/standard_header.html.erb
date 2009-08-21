@@ -6,6 +6,12 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%%= h @title || "my static app" %></title>
   <%%= stylesheet_link_tag 'static_style' %>
+  <%%if @google_api_key%>
+    <script type="text/javascript" src="http://www.google.com/jsapi?key=<%%=@google_api_key%>" ></script>
+    <script type="text/javascript" charset="utf-8">
+       google.load("maps", "2.x");
+    </script>
+  <%%end%>
 	<%%= javascript_include_tag 'jquery-1.3.2.min' %>
 	<%%= javascript_include_tag 'jquery-ui-1.7.2.custom.min'%>
   <%%= stylesheet_link_tag 'redmond/jquery-ui-1.7.2.custom' %>
