@@ -4,12 +4,12 @@ class FacetedSearch::CheckboxFacet < FacetedSearch::Facet
 
   attr_reader :selection_options
     
-  def initialize(attribute, title, table_name, session)
-    @title = title
+  def initialize(attribute, table_name, session, context)
     @attribute = attribute
     @table_name = table_name
     @session = session
     @selection_options = nil
+    @context = context
   end
   
   def load_selection_options(scope)
@@ -40,19 +40,19 @@ class FacetedSearch::CheckboxFacet < FacetedSearch::Facet
   end
 
   def turn_off_param
-    "#{@table_name}_checkbox_turn_off_#{@attribute}"
+    "#{@table_name}_#{@context}_cbox_off_#{@attribute}"
   end
 
   def param_name()
-    "#{@table_name}_cbox_#{@attribute}"
+    "#{@table_name}_#{@context}_cbox_#{@attribute}"
   end
   
   def hidden_param()
-    "#{@table_name}_cboxh_#{@attribute}"
+    "#{@table_name}_#{@context}_cboxh_#{@attribute}"
   end
   
   def initialize_session_param()
-    "#{@table_name}_cbox_init_#{@attribute}"
+    "#{@table_name}_#{@context}_cbox_init_#{@attribute}"
   end  
   
   def selections

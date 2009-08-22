@@ -39,20 +39,20 @@ class FacetedSearch::Base
     raise Exception.new("record after this page  .... #{records.map {|r| r.id}.inspect} #{id}")
   end
 
-  def create_keyword_facet(title, attributes)
-    register(FacetedSearch::KeywordFacet.new(attributes, title, @model.table_name, @session))
+  def create_keyword_facet(attributes)
+    register(FacetedSearch::KeywordFacet.new(attributes, @model.table_name, @session, @context))
   end
   
-  def create_numeric_range_facet(title, attribute)
-    register(FacetedSearch::NumericRangeFacet.new(attribute, title, @model.table_name, @session))
+  def create_numeric_range_facet(attribute)
+    register(FacetedSearch::NumericRangeFacet.new(attribute, @model.table_name, @session, @context))
   end
   
-  def create_date_range_facet(title, attribute)
-    register(FacetedSearch::DateRangeFacet.new(attribute, title, @model.table_name, @session))
+  def create_date_range_facet(attribute)
+    register(FacetedSearch::DateRangeFacet.new(attribute, @model.table_name, @session, @context))
   end
   
-  def create_checkbox_facet(title, attribute)
-    register(FacetedSearch::CheckboxFacet.new(attribute, title, @model.table_name, @session))
+  def create_checkbox_facet(attribute)
+    register(FacetedSearch::CheckboxFacet.new(attribute, @model.table_name, @session, @context))
   end
 
   def refined(scope)
@@ -124,19 +124,19 @@ class FacetedSearch::Base
   end
   
   def page_size_param
-    "#{@model.table_name}_page_size"
+    "#{@model.table_name}_#{@context}_page_size"
   end
   
   def order_param
-    "#{@model.table_name}_order"
+    "#{@model.table_name}_#{@context}_order"
   end
 
   def order_by_param
-    "#{@model.table_name}_order_by"
+    "#{@model.table_name}_#{@context}_order_by"
   end
 
   def page_param
-    "#{@model.table_name}_page"
+    "#{@model.table_name}_#{@context}_page"
   end
 
 

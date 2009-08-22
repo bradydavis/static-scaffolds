@@ -2,11 +2,11 @@ class FacetedSearch::DateRangeFacet < FacetedSearch::Facet
   
   # Set upper and lower limit values for an attribute
   
-  def initialize(attribute, title, table_name, session)
-    @title = title
+  def initialize(attribute, table_name, session, context)
     @attribute = attribute
     @table_name = table_name
     @session = session
+    @context = context
   end
 
   def refined(scope)
@@ -16,11 +16,11 @@ class FacetedSearch::DateRangeFacet < FacetedSearch::Facet
   end
 
   def upper_limit_param_name()
-    "#{@table_name}_date_ul_#{@attribute}"
+    "#{@table_name}_#{@context}_date_ul_#{@attribute}"
   end
   
   def lower_limit_param_name()
-    "#{@table_name}_date_ll_#{@attribute}"
+    "#{@table_name}_#{@context}_date_ll_#{@attribute}"
   end
   
   def is_active?
@@ -28,7 +28,7 @@ class FacetedSearch::DateRangeFacet < FacetedSearch::Facet
   end
   
   def turn_off_param
-    "#{@table_name}_turn_off_#{@attribute}"
+    "#{@table_name}_#{@context}_turn_off_#{@attribute}"
   end
   
   def turn_off

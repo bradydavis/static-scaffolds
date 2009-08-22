@@ -2,11 +2,11 @@ class FacetedSearch::KeywordFacet < FacetedSearch::Facet
   
   # Scope for like text on specified attributes
   
-  def initialize(attributes, title, table_name, session)
-    @title=title
+  def initialize(attributes, table_name, session, context)
     @attributes = attributes
     @table_name = table_name
     @session = session
+    @context = context
   end
   
   def refined(scope)
@@ -29,11 +29,11 @@ class FacetedSearch::KeywordFacet < FacetedSearch::Facet
   end
   
   def turn_off_param
-    "#{@table_name}_turn_off_keyword"
+    "#{@table_name}_#{@context}_turn_off_keyword"
   end
 
   def param_name()
-    "#{@table_name}_keyword"
+    "#{@table_name}_#{@context}_keyword"
   end
   
   def search_phrase

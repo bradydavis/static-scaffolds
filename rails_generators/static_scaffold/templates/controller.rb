@@ -1,11 +1,12 @@
 class <%= controller_class_name %>Controller < ApplicationController
-  before_filter :update_<%=gen_spec.singular_name%>_search
+
   # GET /<%= table_name %>
   # GET /<%= table_name %>.xml
   def index
 <%  if gen_spec.nested_by -%>
     load_parent_resources
 <% end -%>
+    update_<%=gen_spec.singular_name%>_search
     @<%=gen_spec.plural_name%> = <%=gen_spec.singular_name%>_search.paginate(nested_and_authorized_scope)
     
     # Configure Partials and Layout Text
@@ -30,6 +31,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 <%  if gen_spec.nested_by -%>
     load_parent_resources
 <% end -%>
+    update_<%=gen_spec.singular_name%>_search
     @<%=gen_spec.plural_name%> = <%=gen_spec.singular_name%>_search.paginate(nested_and_authorized_scope)
 
     # Configure Partials and Layout Text
@@ -54,6 +56,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     load_parent_resources
     @<%=gen_spec.nested_by[:name]%> = <%=gen_spec.nested_by[:model]%>.find(params[:<%=gen_spec.nested_by[:key]%>])
 <% end -%>
+    update_<%=gen_spec.singular_name%>_search    
     @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_next(params[:id], authorized_scope)
     redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id    
   end
@@ -63,6 +66,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     load_parent_resources
     @<%=gen_spec.nested_by[:name]%> = <%=gen_spec.nested_by[:model]%>.find(params[:<%=gen_spec.nested_by[:key]%>])
 <% end -%>
+    update_<%=gen_spec.singular_name%>_search    
     @<%=gen_spec.singular_name%> = <%=gen_spec.singular_name%>_search.get_previous(params[:id], authorized_scope)
     redirect_to :action=>:show, :id=>@<%=gen_spec.singular_name%>.id    
   end
@@ -241,7 +245,13 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
 
   def <%=gen_spec.singular_name%>_search
+<%if gen_spec.nested_by and gen_spec.nested_by.length>0%>    
+    context = @<%=gen_spec.nested_by[:name]%>.id
+    @<%=gen_spec.singular_name%>_search ||= <%=gen_spec.model_name%>Search.new(session, context)
+<%else%>
+    context = ""
     @<%=gen_spec.singular_name%>_search ||= <%=gen_spec.model_name%>Search.new(session)
+<%end%>    
   end
   
   def update_<%=gen_spec.singular_name%>_search
