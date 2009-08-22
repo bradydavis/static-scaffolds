@@ -241,6 +241,14 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
         end
     end
     
+    def find_column_names_equal(name_list)
+          results = []
+          for item in name_list
+              results = results+column_names.select {|cname| cname=item}
+          end
+          return results
+      end
+    
     def find_column_names_matching(name_list)
         results = []
         for item in name_list
@@ -343,11 +351,11 @@ class StaticGenSpecsGenerator < Rails::Generator::NamedBase
     end
     
     def guess_latitude_attr
-        find_column_names_matching("latitude lat".split).first    
+        find_column_names_equal("latitude lat latt".split).first    
     end
     
     def guess_longitude_attr
-      find_column_names_matching("longitude lon long".split).first    
+      find_column_names_equal("longitude lon long lng".split).first    
     end
     
     def guess_mapping
