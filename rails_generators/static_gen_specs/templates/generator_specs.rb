@@ -53,7 +53,7 @@ class GeneratorSpecs < GenSpecFactory
       if nested_by and nested_by.length>0
         "#{nested_by_gen_spec.singular_name}_#{singular_name}_path(@#{nested_by_gen_spec.singular_name})"
       else
-        "#{singular_name}"
+        "#{singular_name}_path"
       end
     end    
     
