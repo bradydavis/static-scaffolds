@@ -46,7 +46,7 @@
 <% when :photo -%>
     <td valign="top"><%%= f.file_field :<%= attribute %> %></td>
 <% when :datetime -%>
-    <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
+    <td valign="top"><%%= f.datetime_select :<%= attribute %>, :default=>DateTime.now %></td>
 <% end -%>
   </tr>
 <% end -%>
