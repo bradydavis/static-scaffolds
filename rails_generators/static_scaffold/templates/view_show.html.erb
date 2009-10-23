@@ -33,7 +33,7 @@
 <% when :photo -%>
     <td valign="top"><%%=@<%=gen_spec.singular_name%>.<%=attribute%>%></td>
 <% when :datetime -%>
-    <td valign="top"><%%=@<%=gen_spec.singular_name%>.<%=attribute%>%></td>
+    <td valign="top"><%%=standard_date@<%=gen_spec.singular_name%>.<%=attribute%>%></td>
 <% end -%>
   </tr>
 <% end -%>
