@@ -254,7 +254,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     @<%=gen_spec.singular_name%>_search ||= <%=gen_spec.model_name%>Search.new(session, context)
 <%else%>
     context = ""
-    @<%=gen_spec.singular_name%>_search ||= <%=gen_spec.model_name%>Search.new(session)
+    @<%=gen_spec.singular_name%>_search ||= <%=gen_spec.model_name%>Search.new(session, context)
 <%end%>    
   end
   
