@@ -1,4 +1,8 @@
+<%if gen_spec.nested_by -%>
+<%% form_for([@<%=gen_spec.nested_by[:name]%>, @<%= gen_spec.singular_name %>], :html=>{:class=>"static_form"}) do |f| %>
+<%else -%>
 <%% form_for(@<%= gen_spec.singular_name %>, :html=>{:class=>"static_form"}) do |f| %>
+<%end -%>
 <div class="entry_actions">
 	<table style="width: inherit;">
 		<tr><td>
@@ -18,18 +22,15 @@
 <div class="standard_padding">
 
   <%%= f.error_messages %>
-<% if gen_spec.nested_by -%>
-<%%=f.hidden(<%=gen_spec.singular_name%>, <%=gen_spec.nested_by[:key].inspect%>)%>
-<% end %>
 
 <% for group in gen_spec.safe_form_groups -%>
 
 <fieldset>
   <legend><%=group[:group_name]%></legend>
   <table>
-	
+
 <% for attribute in group[:attributes] -%>
- <tr>
+	 <tr>
 <%options=gen_spec.column_specs[attribute] -%>
    	<td valign="top"><%%= f.label <%= options[:label].inspect %> %></td>
 <% case options[:type] -%>
@@ -44,7 +45,9 @@
 <% when :decimal -%>
     <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
 <% when :foreign_key -%>
+<%if gen_spec.nested_by[:key]!=attribute%>
     <td valign="top"><%%= collection_select(:<%=gen_spec.singular_name%>, :<%= attribute %>, @<%=gen_spec.belongs_to_name(attribute).pluralize%>, :id, :short_name, options = {:prompt => "- Select a <%=gen_spec.belongs_to_name(attribute).titleize.downcase%>"}, html_options = {}) %></td>
+<%end%>
 <% when :photo -%>
     <td valign="top"><%%= f.file_field :<%= attribute %> %></td>
 <% when :datetime -%>
