@@ -3,7 +3,9 @@
   <tr>
     <td class="sidecolumn" id="sidecolumn" valign="top">
         <div class="facet_form ui-corner-all">
-    		  <%%=render :partial=>"facet_form"%>
+          <%%for partial in @side_panel_partials%>
+    		    <%%=render :partial=>partial%>
+    		  <%%end%>
         </div>
     </td>
     <td class="maincolumn" id="maincolumn" valign="top">

@@ -16,7 +16,7 @@ class <%= controller_class_name %>Controller < ApplicationController
     respond_to do |format|
       format.html {
         @model_selector = <%=index_model_selector.inspect%>
-        @filter = "/<%=gen_spec.plural_name%>/facet_form"
+        @side_panel_partials = ["/<%=gen_spec.plural_name%>/facet_form"]
 <% for f in gen_spec.search_facets.select {|sf| sf[:type]=="checkbox_facet"} -%>
         <%=gen_spec.singular_name%>_search.<%=f[:name]%>.load_selection_options(nested_and_authorized_scope)
 <% end -%>
@@ -42,7 +42,7 @@ class <%= controller_class_name %>Controller < ApplicationController
       format.html {
         @google_api_key = GOOGLE_API_KEY
         @model_selector = <%=index_model_selector.inspect%>
-        @filter = "/<%=gen_spec.plural_name%>/facet_form"
+        @side_panel_partials = ["/<%=gen_spec.plural_name%>/facet_form"]
 <% for f in gen_spec.search_facets.select {|sf| sf[:type]=="checkbox_facet"} -%>
         <%=gen_spec.singular_name%>_search.<%=f[:name]%>.load_selection_options(nested_and_authorized_scope)
 <% end -%>
@@ -106,10 +106,15 @@ class <%= controller_class_name %>Controller < ApplicationController
     @navigation_title = <%=gen_spec.plural_title.inspect%>
     @title = "New <%=gen_spec.singular_title%>"
     @model_selector = <%=index_model_selector.inspect%>
-    @filter = "/<%=gen_spec.plural_name%>/facet_form"    
 
     respond_to do |format|
-      format.html # new.html.erb
+
+      format.html {
+        @side_panel_partials = ["/<%=gen_spec.plural_name%>/facet_form"]
+<% for f in gen_spec.search_facets.select {|sf| sf[:type]=="checkbox_facet"} -%>
+        <%=gen_spec.singular_name%>_search.<%=f[:name]%>.load_selection_options(nested_and_authorized_scope)
+<% end -%>        
+      }
       format.xml  { render :xml => @<%= file_name %> }
     end
   end
@@ -150,7 +155,6 @@ class <%= controller_class_name %>Controller < ApplicationController
         @title = "New <%=gen_spec.singular_title%>"
         @navigation_title = <%=gen_spec.plural_title.inspect%>
         @model_selector = <%=index_model_selector.inspect%>
-        @filter = "/<%=gen_spec.plural_name%>/facet_form"
 
         format.html { render :action => "new" }
         format.xml  { render :xml => @<%= file_name %>.errors, :status => :unprocessable_entity }

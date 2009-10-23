@@ -1,57 +1,16 @@
-<%% form_for(@<%= gen_spec.singular_name %>, :html=>{:class=>"static_form"}) do |f| %>
-<div class="entry_actions">
-	<table style="width: inherit;">
-		<tr><td>
-	    <button type="submit" name="commit" value="Save" class="button positive">
-	        <img src="/images/icons/tick.png" alt=""/> 
-	        Create
-	    </button>
-		</td>
-    <td>
-	    <%%=link_to "<img src='/images/icons/cross.png' alt=''/> Cancel", @<%=gen_spec.singular_name%>, :class=>"button negative", :confirm => "Are you sure?"%>
-	    </a>
-		</td>
-	 </tr>
-	</table>
-</div>
-
-<div class="standard_padding">
-
-  <%%= f.error_messages %>
-<% if gen_spec.nested_by -%>
-<%%=f.hidden(<%=gen_spec.singular_name%>, <%=gen_spec.nested_by[:key].inspect%>)
-<% end %>
+<%% semantic_form_for <%=gen_spec.form_for_obj%> do |form| %>
 
 <% for group in gen_spec.safe_form_groups -%>
-<fieldset>
-  <legend><%=group[:group_name]%></legend>
-  <table>
-	 <tr>
-<% for attribute in group[:attributes] -%>
-<%options=gen_spec.column_specs[attribute] -%>
-   	<td valign="top"><%%= f.label <%= options[:label].inspect %> %></td>
-<% case options[:type] -%>
-<% when :file -%>
-   	<td valign="top"><%%= f.file_field :<%= attribute %> %></td>
-<% when :string -%>
-    <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
-<% when :int -%>
-    <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
-<% when :float -%>
-    <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
-<% when :decimal -%>
-    <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
-<% when :foreign_key -%>
-    <td valign="top"><%%= collection_select(:<%=gen_spec.singular_name%>, :<%= attribute %>, @<%=gen_spec.belongs_to_name(attribute).pluralize%>, :id, :short_name, options = {:prompt => "- Select a <%=gen_spec.belongs_to_name(attribute).titleize.downcase%>"}, html_options = {}) %></td>
-<% when :photo -%>
-    <td valign="top"><%%= f.file_field :<%= attribute %> %></td>
-<% when :datetime -%>
-    <td valign="top"><%%= f.text_field :<%= attribute %> %></td>
-<% end -%>
-  </tr>
-<% end -%>
- </table>
-</fieldset>
-<% end -%>
+  <%% form.inputs :name => <%=group[:group_name].inspect%> do %>
+<%for attribute in group[:attributes] -%>
+    <%options = gen_spec.column_specs[attribute.to_sym]%>
+    <%%= form.input <%=attribute.to_sym.inspect %>, :required=><%=options[:required].inspect%>, :label=><%=options[:label].inspect%>, :hint=><%=options[:units].inspect%> %>
+<%end -%>
+<%end -%>
+  <%% end %>
+  <%% form.buttons do %>
+    <%%= form.commit_button %>
+  <%% end %>
+
 <%% end %>
-</div>
+

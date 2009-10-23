@@ -41,6 +41,14 @@ class GeneratorSpecs < GenSpecFactory
       GenSpecFactory.constantize(nested_by[:model])
     end
     
+    def form_for_obj
+      if nested_by and nested_by.length>0
+        return "[@#{nested_by_gen_spec.singular_name},@#{singular_name}]"
+      else
+        return "@#{singular_name}"
+      end
+    end
+    
     def collection_route
       if nested_by and nested_by.length>0
         "#{nested_by_gen_spec.singular_name}_#{plural_name}_path(@#{nested_by_gen_spec.singular_name})"
