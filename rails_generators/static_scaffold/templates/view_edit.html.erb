@@ -26,8 +26,9 @@
 <fieldset>
   <legend><%=group[:group_name]%></legend>
   <table>
-	 <tr>
+
 <% for attribute in group[:attributes] -%>
+	 <tr>
 <%options=gen_spec.column_specs[attribute] -%>
    	<td valign="top"><%%= f.label <%= options[:label].inspect %> %></td>
 <% case options[:type] -%>
