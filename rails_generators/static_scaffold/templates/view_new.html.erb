@@ -1,4 +1,26 @@
-<%% semantic_form_for <%=gen_spec.form_for_obj%> do |form| %>
+<%% form_for(@<%= gen_spec.singular_name %>, :html=>{:class=>"static_form"}) do |f| %>
+<div class="entry_actions">
+	<table style="width: inherit;">
+		<tr><td>
+	    <button type="submit" name="commit" value="Save" class="button positive">
+	        <img src="/images/icons/tick.png" alt=""/> 
+	        Create
+	    </button>
+		</td>
+    <td>
+	    <%%=link_to "<img src='/images/icons/cross.png' alt=''/> Cancel", @<%=gen_spec.singular_name%>, :class=>"button negative", :confirm => "Are you sure?"%>
+	    </a>
+		</td>
+	 </tr>
+	</table>
+</div>
+
+<div class="standard_padding">
+
+  <%%= f.error_messages %>
+<% if gen_spec.nested_by -%>
+<%%=f.hidden(<%=gen_spec.singular_name%>, <%=gen_spec.nested_by[:key].inspect%>)%>
+<% end %>
 
 <% for group in gen_spec.safe_form_groups -%>
 
