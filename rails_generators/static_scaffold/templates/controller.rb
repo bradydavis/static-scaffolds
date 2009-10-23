@@ -138,9 +138,11 @@ class <%= controller_class_name %>Controller < ApplicationController
   # POST /<%= table_name %>
   # POST /<%= table_name %>.xml
   def create
-    @<%= file_name %> = <%= class_name %>.new(params[:<%= file_name %>])
+    @<%=gen_spec.single_nam%> = <%= class_name %>.new(params[:<%= file_name %>])
 <%  if gen_spec.nested_by -%>
     load_parent_resources
+    
+    @<%=gen_spec.single_nam%>.<%= gen_spec.nested_by[:key]%> = @<%= gen_spec.nested_by[:name]%>.id
 <% end -%>
 
     respond_to do |format|
