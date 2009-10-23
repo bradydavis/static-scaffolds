@@ -16,5 +16,4 @@ def standard_date(d)
   end
 end
 
-
 end
